@@ -37,6 +37,7 @@
     ]
   },
   "globals": {
-    "log": "readonly"
+    "log": "readonly",
+    "imports": "readonly"
   }
 }
