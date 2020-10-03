@@ -1,0 +1,42 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb-base",
+    "plugin:jsdoc/recommended"
+  ],
+  "plugins": [
+    "jsdoc",
+    "header"
+  ],
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          [
+            "~",
+            "./src"
+          ]
+        ],
+        "extensions": [
+          ".js",
+          ".mjs",
+          ".json"
+        ]
+      }
+    }
+  },
+  "rules": {
+    "jsdoc/require-hyphen-before-param-description": [
+      "error",
+      "never"
+    ],
+    "jsdoc/require-description-complete-sentence": "error",
+    "header/header": [
+      "error",
+      "data/license-header.js"
+    ]
+  },
+  "globals": {
+    "log": "readonly"
+  }
+}
