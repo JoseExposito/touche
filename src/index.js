@@ -3,17 +3,20 @@
  *
  * This file is part of Touchégg-GUI.
  *
- * This program is free software:  you can redistribute it  and/or  modify it under the terms of the
- * GNU General Public License as published by the Free Software Foundation,  either version 3 of the
- * License, or (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation,  either version 3 of the License,  or (at your option)  any later
+ * version.
  *
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
- * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * This program is distributed in the hope that it will be useful,  but  WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with this program.
- * If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the  GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 import { createStore } from 'redux';
 import sum5 from '~/test';
 
@@ -44,7 +47,13 @@ log(result);
 
 // -------------------------------------------------------------------------------------------------
 
-imports.gi.versions.Gtk = '3.0';
+pkg.initGettext();
+pkg.initFormat();
+pkg.require({
+  Gio: '2.0',
+  Gtk: '3.0',
+});
+
 const { Gio, Gtk } = imports.gi;
 
 class ImageViewerWindow {
@@ -62,6 +71,7 @@ class ImageViewerWindow {
       defaultHeight: 600,
       defaultWidth: 800,
     });
+
     this.box = new Gtk.Box({
       orientation: Gtk.Orientation.VERTICAL,
     });
@@ -80,6 +90,10 @@ class ImageViewerWindow {
     });
 
     this.box.add(this.fileChooserButton);
+
+    const label = new Gtk.Label({ label: _('hello') });
+    this.box.add(label);
+
     this.box.show_all();
 
     this.window.add(this.box);
@@ -91,20 +105,33 @@ class ImageViewerWindow {
   }
 }
 
-const application = new Gtk.Application({
-  application_id: 'org.gnome.Sandbox.ImageViewerExample',
-  flags: Gio.ApplicationFlags.FLAGS_NONE,
-});
+/**
+ * App entry point.
+ *
+ * @param argv
+ */
+function main(argv) {
+  log(argv);
 
-application.connect('activate', (app) => {
-  let { activeWindow } = app;
+  const application = new Gtk.Application({
+    application_id: 'touchegg-gui',
+    flags: Gio.ApplicationFlags.FLAGS_NONE,
+  });
 
-  if (!activeWindow) {
-    const imageViewerWindow = new ImageViewerWindow(app);
-    activeWindow = imageViewerWindow.getWidget();
-  }
+  application.connect('activate', (app) => {
+    let { activeWindow } = app;
 
-  activeWindow.present();
-});
+    if (!activeWindow) {
+      const imageViewerWindow = new ImageViewerWindow(app);
+      activeWindow = imageViewerWindow.getWidget();
+    }
 
-application.run(null);
+    activeWindow.present();
+  });
+
+  application.run(null);
+}
+
+// TODO: Can we export this with webpack?
+// Maybe? https://webpack.js.org/plugins/provide-plugin/
+imports['touchegg-gui'].main = main;

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  This file defines the "imports.touchegg-gui" GJS module that will be invoked by
+  /usr/bin/com.github.JoseExposito.touchegg-gui
+-->
+<gresources>
+  <gresource prefix="touchegg-gui/js">
+    <file>touchegg-gui.js</file>
+  </gresource>
+</gresources>

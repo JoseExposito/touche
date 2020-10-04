@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Touchégg GUI
+GenericName=Multi-touch Gestures
+Comment=Configure Touchégg multi-touch gestures
+Categories=Utility;
+Exec=com.github.JoseExposito.touchegg-gui
+Terminal=false
+Type=Application
+Keywords=Touchégg;Multi-touch;Gestures;Touchpad;Trackpad;Touchscreen;

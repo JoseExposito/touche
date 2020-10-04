@@ -1,0 +1,14 @@
+#!/usr/bin/gjs
+
+// Touchégg-GUI entry point, to be installed at /usr/bin/com.github.JoseExposito.touchegg-gui
+// Initializes 'pkg' and invokes the app
+
+imports.package.init({
+  name: '@PACKAGE_NAME@',
+  version: '@PACKAGE_VERSION@',
+  prefix: '@PREFIX@',
+  libdir: '@LIBDIR@',
+  datadir: '@DATADIR@',
+});
+
+imports.package.run(imports['@PACKAGE_NAME@']);

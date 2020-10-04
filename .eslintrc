@@ -38,6 +38,7 @@
   },
   "globals": {
     "log": "readonly",
-    "imports": "readonly"
+    "imports": "readonly",
+    "pkg": "readonly"
   }
 }
