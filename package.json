@@ -25,7 +25,7 @@
   "scripts": {
     "start": "node bundle/scripts/start.js",
     "build": "node bundle/scripts/build.js",
-    "clean": "rimraf build && rimraf bundle_analysis",
+    "clean": "rimraf build",
     "i18n-extract": "xgettext --join-existing --output-dir=po --output=es.po --from-code=UTF-8 src/*js",
     "lint": "eslint --ext .js,.mjs src",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -40,17 +40,16 @@
     "@babel/preset-env": "^7.11.5",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
-    "copy-webpack-plugin": "^6.2.0",
-    "eslint": "^7.2.0",
+    "copy-webpack-plugin": "^6.2.1",
+    "eslint": "^7.11.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-header": "^3.1.0",
     "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsdoc": "^30.6.3",
-    "file-loader": "^6.1.0",
+    "eslint-plugin-jsdoc": "^30.6.4",
+    "file-loader": "^6.1.1",
     "rimraf": "^3.0.2",
     "schema-utils": "^1.0.0",
-    "webpack": "^4.44.2",
-    "webpack-cli": "^3.3.12"
+    "webpack": "^5.1.0"
   }
 }
