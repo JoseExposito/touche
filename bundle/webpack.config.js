@@ -19,26 +19,31 @@
 const path = require('path');
 const { DefinePlugin } = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
-const HookShellScriptPlugin = require('hook-shell-script-webpack-plugin');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const packageInfo = require('./package.json');
+const EntryTemplateWebpackPlugin = require('./webpack-plugins/entry-template-webpack-plugin');
+const CompileGResourceWebpackPlugin = require('./webpack-plugins/compile-gresource-webpack-plugin');
+const buildTemplate = require('./build-template');
+const info = require('./info');
 
 const isEnvProduction = (process.env.NODE_ENV === 'production');
-const srcPath = path.resolve(__dirname, 'src');
-const outputPath = path.resolve(__dirname, 'build');
-const prefix = isEnvProduction ? '/usr' : outputPath;
-const packageName = packageInfo.name;
-const packageVersion = packageInfo.version;
+// TODO Allow to configure this prefix
+const prefix = isEnvProduction ? '/usr' : info.buildInstallPath;
+
+// CopyPlugin transform function
+const transform = (contentBuffer) => {
+  const content = buildTemplate(contentBuffer.toString());
+  return Buffer.from(content, 'utf-8');
+};
 
 module.exports = {
   mode: isEnvProduction ? 'production' : 'development',
   bail: isEnvProduction,
 
-  entry: path.resolve(srcPath, 'index.js'),
+  // Use the entry template as entry, see EntryTemplateWebpackPlugin
+  entry: path.resolve(info.buildBundlePath, info.entryTemplateName),
 
   output: {
-    path: `${outputPath}/share/${packageName}`,
-    filename: `${packageName}.js`,
+    path: info.buildBundlePath,
+    filename: `${info.package.name}.js`,
 
     // Add /* filename */ comments to generated require()s in the output
     pathinfo: !isEnvProduction,
@@ -46,7 +51,7 @@ module.exports = {
 
   resolve: {
     alias: {
-      '~': path.resolve(__dirname, 'src'),
+      '~': info.srcPath,
     },
     extensions: ['.js', '.mjs'],
   },
@@ -63,43 +68,58 @@ module.exports = {
 
     new CopyPlugin({
       patterns: [
-        { from: `data/${packageName}.appdata.xml`, to: `${outputPath}/share/applications` },
-        { from: `data/${packageName}.desktop`, to: `${outputPath}/share/appdata` },
-        { from: `data/${packageName}.src.gresource.xml`, to: `${outputPath}/share/${packageName}` },
-      ],
-    }),
+        // Copy the po files before compile them to mo
+        // {
+        //   from: 'po/*.po',
+        //   to: `${outputPath}/share/locale`,
+        //   transformPath(fromPath, foo) {
+        //     // return `${outputPath}/share/locale/`;
 
-    new CopyPlugin({
-      patterns: [
+        //     const locale = path.parse(fromPath).name;
+        //     const destPath = `${outputPath}/share/locale/${locale}/LC_MESSAGES/${packageName}.po`;
+        //     console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+        //     console.log(fromPath);
+        //     console.log(foo);
+        //     console.log(destPath);
+        //     console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+
+        //     return destPath;
+        //   },
+        // },
+
         {
-          from: `data/${packageName}`,
-          to: `${outputPath}/bin`,
-          transform(contentBuffer) {
-            const content = contentBuffer.toString()
-              .replace(/@PACKAGE_NAME@/g, packageName)
-              .replace(/@PACKAGE_VERSION@/g, packageVersion)
-              .replace(/@PREFIX@/g, prefix)
-              .replace(/@LIBDIR@/g, `${prefix}/lib/x86_64-linux-gnu`)
-              .replace(/@DATADIR@/g, `${prefix}/share`);
-            return Buffer.from(content, 'utf-8');
-          },
+          from: path.resolve(info.dataPath, `${info.package.name}.appdata.xml`),
+          to: path.resolve(info.buildInstallPath, 'share', 'appdata'),
+          transform,
+        },
+
+        {
+          from: path.resolve(info.dataPath, `${info.package.name}.desktop`),
+          to: path.resolve(info.buildInstallPath, 'share', 'applications'),
+          transform,
+        },
+
+        {
+          from: path.resolve(info.templatesPath, info.entryBinTemplateName),
+          to: path.resolve(info.buildInstallPath, 'bin', info.package.name),
+          transform,
         },
       ],
     }),
 
-    new HookShellScriptPlugin({
-      done: [
-        // Compile the src gresource
-        `glib-compile-resources --sourcedir=${outputPath}/share/${packageName} ${outputPath}/share/${packageName}/${packageName}.src.gresource.xml`,
-      ],
+    // Copy the entry template to use it as entry point
+    new EntryTemplateWebpackPlugin({
+      templatePath: path.resolve(info.templatesPath, info.entryTemplateName),
+      outputPath: info.buildBundlePath,
+      outputFilename: `${info.entryTemplateName}.js`,
     }),
 
-    // Generates an HTML report with the size of each dependency
-    isEnvProduction && new BundleAnalyzerPlugin({
-      analyzerMode: 'static',
-      reportFilename: path.resolve(__dirname, 'bundle_analysis', 'size-report-client.html'),
-      openAnalyzer: false,
-      generateStatsFile: false,
+    // Compile the output bundle to a gresource
+    new CompileGResourceWebpackPlugin({
+      templatePath: path.resolve(info.templatesPath, info.srcGResourceTemplateName),
+      buildDirectory: info.buildBundlePath,
+      outputPath: `${info.buildInstallPath}/share/${info.package.shortName}`,
+      outputFilename: `${info.package.name}.src.gresource`,
     }),
   ].filter(Boolean),
 

@@ -1,0 +1,17 @@
+#!/usr/bin/gjs
+
+imports.package.init({
+  name: '@PACKAGE_SHORTNAME@',
+  version: '@PACKAGE_VERSION@',
+
+  // TODO
+  // prefix: '@PREFIX@',
+  // libdir: '@LIBDIR@',
+  // datadir: '@DATADIR@',
+  // ???
+  prefix: "/home/jose/Devel/touchegg-gui/build/install",
+  libdir: "/home/jose/Devel/touchegg-gui/build/install/lib/x86_64-linux-gnu",
+  datadir: "/home/jose/Devel/touchegg-gui/build/install/share",
+});
+
+imports.package.run(imports['@PACKAGE_NAME@']);

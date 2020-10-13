@@ -3,14 +3,19 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "jsx": "react",
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"],
-      "@testing": ["./jest/testing.jsx"],
-      "*": ["./node_modules/*"]
+      "~/*": [
+        "./src/*"
+      ],
+      "*": [
+        "./node_modules/*"
+      ]
     }
   },
-  "exclude": ["node_modules", "build", "bundle_analysis"]
+  "exclude": [
+    "node_modules",
+    "build"
+  ]
 }
