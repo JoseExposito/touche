@@ -1,0 +1,21 @@
+# Copyright 2020 José Expósito <jose.exposito89@gmail.com>
+# This file is distributed under the same license as the com.github.joseexposito.touchegg-gui package.
+# José Expósito <jose.exposito89@gmail.com>, 2020.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/JoseExposito/touchegg-gui/issues\n"
+"POT-Creation-Date: 2020-10-14 19:00+0200\n"
+"PO-Revision-Date: 2020-10-14 19:00+0200\n"
+"Last-Translator: José Expósito <jose.exposito89@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: /home/jose/Devel/touchegg-gui/src/index.js:95
+msgid "hello"
+msgstr "hola"

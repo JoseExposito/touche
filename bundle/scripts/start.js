@@ -28,7 +28,15 @@ const info = require('../info');
 const compiler = webpack(webpackConfig);
 compiler.run((err) => {
   if (!err) {
-    exec(`gjs ${info.buildInstallPath}/bin/${info.package.name}`, { cwd: info.rootPath });
+    const process = exec(`gjs ${info.buildInstallPath}/bin/${info.package.name}`, { cwd: info.rootPath });
+
+    process.stdout.on('data', (data) => {
+      console.log(data.toString());
+    });
+
+    process.stderr.on('data', (data) => {
+      console.error(data.toString());
+    });
   } else {
     console.error(err);
   }

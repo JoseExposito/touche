@@ -22,6 +22,7 @@ const path = require('path');
 const rootPath = process.cwd();
 const srcPath = path.resolve(rootPath, 'src');
 const dataPath = path.resolve(rootPath, 'data');
+const i18nPath = path.resolve(rootPath, 'po');
 const buildPath = path.resolve(rootPath, 'build');
 const buildInstallPath = path.resolve(buildPath, 'install');
 const buildBundlePath = path.resolve(buildPath, 'bundle');
@@ -51,6 +52,7 @@ module.exports = {
   rootPath,
   srcPath,
   dataPath,
+  i18nPath,
   buildPath,
   buildInstallPath,
   buildBundlePath,
