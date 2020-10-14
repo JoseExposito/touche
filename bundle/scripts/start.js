@@ -28,13 +28,13 @@ const info = require('../info');
 const compiler = webpack(webpackConfig);
 compiler.run((err) => {
   if (!err) {
-    const process = exec(`gjs ${info.buildInstallPath}/bin/${info.package.name}`, { cwd: info.rootPath });
+    const childProcess = exec(`gjs ${info.buildInstallPath}/bin/${info.package.name} ${process.argv.slice(2)}`, { cwd: info.rootPath });
 
-    process.stdout.on('data', (data) => {
+    childProcess.stdout.on('data', (data) => {
       console.log(data.toString());
     });
 
-    process.stderr.on('data', (data) => {
+    childProcess.stderr.on('data', (data) => {
       console.error(data.toString());
     });
   } else {
