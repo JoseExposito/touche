@@ -21,6 +21,7 @@ const { DefinePlugin } = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 const EntryTemplateWebpackPlugin = require('./webpack-plugins/entry-template-webpack-plugin');
 const CompileGResourceWebpackPlugin = require('./webpack-plugins/compile-gresource-webpack-plugin');
+const CompileTranslationsWebpackPlugin = require('./webpack-plugins/compile-translations-webpack-plugin');
 const buildTemplate = require('./build-template');
 const info = require('./info');
 
@@ -68,25 +69,6 @@ module.exports = {
 
     new CopyPlugin({
       patterns: [
-        // Copy the po files before compile them to mo
-        // {
-        //   from: 'po/*.po',
-        //   to: `${outputPath}/share/locale`,
-        //   transformPath(fromPath, foo) {
-        //     // return `${outputPath}/share/locale/`;
-
-        //     const locale = path.parse(fromPath).name;
-        //     const destPath = `${outputPath}/share/locale/${locale}/LC_MESSAGES/${packageName}.po`;
-        //     console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
-        //     console.log(fromPath);
-        //     console.log(foo);
-        //     console.log(destPath);
-        //     console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
-
-        //     return destPath;
-        //   },
-        // },
-
         {
           from: path.resolve(info.dataPath, `${info.package.name}.appdata.xml`),
           to: path.resolve(info.buildInstallPath, 'share', 'appdata'),
@@ -119,12 +101,19 @@ module.exports = {
       outputFilename: `${info.entryTemplateName}.js`,
     }),
 
-    // Compile the output bundle to a gresource
+    // Compile the output bundle to a GResource
     new CompileGResourceWebpackPlugin({
       templatePath: path.resolve(info.templatesPath, info.srcGResourceTemplateName),
       buildDirectory: info.buildBundlePath,
       outputPath: `${info.buildInstallPath}/share/${info.package.shortName}`,
       outputFilename: `${info.package.name}.src.gresource`,
+    }),
+
+    // Compile po files to mo
+    new CompileTranslationsWebpackPlugin({
+      poPath: info.i18nPath,
+      outputPath: `${info.buildInstallPath}/share/locale`,
+      packageShortName: info.package.shortName,
     }),
   ].filter(Boolean),
 
