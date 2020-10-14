@@ -16,7 +16,6 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 import { createStore } from 'redux';
 import sum5 from '~/test';
 
@@ -108,13 +107,13 @@ class ImageViewerWindow {
 /**
  * App entry point.
  *
- * @param argv
+ * @param {Array<string>} argv Command line arguments.
  */
 function main(argv) {
   log(argv);
 
   const application = new Gtk.Application({
-    application_id: 'touchegg-gui',
+    application_id: 'com.github.joseexposito.touchegg-gui',
     flags: Gio.ApplicationFlags.FLAGS_NONE,
   });
 
@@ -132,6 +131,4 @@ function main(argv) {
   application.run(null);
 }
 
-// TODO: Can we export this with webpack?
-// Maybe? https://webpack.js.org/plugins/provide-plugin/
-imports['touchegg-gui'].main = main;
+export default main;

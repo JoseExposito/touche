@@ -102,7 +102,12 @@ module.exports = {
         {
           from: path.resolve(info.templatesPath, info.entryBinTemplateName),
           to: path.resolve(info.buildInstallPath, 'bin', info.package.name),
-          transform,
+          transform: (contentBuffer) => {
+            const content = buildTemplate(contentBuffer.toString())
+              .replace(/@PREFIX@/g, prefix);
+            return Buffer.from(content, 'utf-8');
+          },
+
         },
       ],
     }),
