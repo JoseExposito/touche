@@ -39,6 +39,7 @@
   "globals": {
     "log": "readonly",
     "imports": "readonly",
-    "pkg": "readonly"
+    "pkg": "readonly",
+    "_": "readonly"
   }
 }
