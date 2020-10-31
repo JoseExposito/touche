@@ -124,10 +124,26 @@ module.exports = {
           // Process application JS with Babel
           {
             test: /\.(js|mjs)$/,
-            include: path.resolve(__dirname, 'src'),
+            include: path.resolve(info.srcPath),
             loader: require.resolve('babel-loader'),
             options: {
-              // See Babel options in `babel.config.js`
+              presets: [
+                [
+                  '@babel/preset-env',
+                  {
+                    // Target Firefox with a SpiderMonkey version compatible with GJS
+                    // https://gjs.guide/guides/gjs/features-across-versions.html
+                    // https://en.wikipedia.org/wiki/SpiderMonkey#Versions
+                    // https://github.com/browserslist/browserslist
+                    targets: 'firefox >= 52',
+
+                    // "usage" imports core-js when needed so we don't need to import anything
+                    useBuiltIns: 'usage',
+                    corejs: '3',
+                  },
+                ],
+              ],
+              // plugins: ['@babel/plugin-proposal-object-rest-spread'],
 
               // This is a feature of `babel-loader` for webpack (not Babel itself).
               // It enables caching results in ./node_modules/.cache/babel-loader/
