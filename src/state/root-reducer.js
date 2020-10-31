@@ -17,7 +17,8 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 import { combineReducers } from 'redux';
+import gesturesReducer from './gestures';
 
 export default combineReducers({
-
+  gestures: gesturesReducer,
 });
