@@ -16,39 +16,12 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-import AppWindow from './app-window';
+const { Gtk } = imports.gi;
 
-pkg.initGettext();
-pkg.initFormat();
-
-pkg.require({
-  Gio: '2.0',
-  Gtk: '3.0',
-});
-
-const { Gio, Gtk } = imports.gi;
-
-/**
- * App entry point.
- */
-function main(/* argv */) {
-  const application = new Gtk.Application({
-    application_id: 'com.github.joseexposito.touchegg-gui',
-    flags: Gio.ApplicationFlags.FLAGS_NONE,
-  });
-
-  application.connect('activate', (app) => {
-    let { activeWindow } = app;
-
-    if (!activeWindow) {
-      const appWindow = new AppWindow(app);
-      activeWindow = appWindow.getWidget();
-    }
-
-    activeWindow.present();
-  });
-
-  application.run(null);
+class GestureList extends Gtk.ListBox {
+  constructor() {
+    super();
+  }
 }
 
-export default main;
+export default GestureList;

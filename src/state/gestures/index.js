@@ -79,7 +79,7 @@ const reducer = createReducer(initialState, {
       allIds: [...state.allIds.filter((otherId) => otherId !== id), id],
       byAppName: {
         ...state.byAppName,
-        [appName]: [...state.byAppName[appName].filter((otherId) => otherId !== id), id],
+        [appName]: [...(state.byAppName[appName] || []).filter((otherId) => otherId !== id), id],
       },
       allAppNames: [
         ...state.allAppNames.filter((otherAppName) => otherAppName !== appName),

@@ -16,39 +16,26 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-import AppWindow from './app-window';
+const { Gtk } = imports.gi;
 
-pkg.initGettext();
-pkg.initFormat();
+class GestureListRow extends Gtk.ListBoxRow {
+  constructor(gestureType, gestureDirection, numberOfFingers, actionType) {
+    super();
 
-pkg.require({
-  Gio: '2.0',
-  Gtk: '3.0',
-});
+    this.box = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL });
 
-const { Gio, Gtk } = imports.gi;
+    this.box.add(new Gtk.Label({ label: gestureType }));
+    this.box.add(new Gtk.Label({ label: gestureDirection }));
+    this.box.add(new Gtk.Label({ label: `${numberOfFingers}` }));
+    this.box.add(new Gtk.Label({ label: actionType }));
 
-/**
- * App entry point.
- */
-function main(/* argv */) {
-  const application = new Gtk.Application({
-    application_id: 'com.github.joseexposito.touchegg-gui',
-    flags: Gio.ApplicationFlags.FLAGS_NONE,
-  });
+    // TODO Testing
+    const image = Gtk.Image.new_from_icon_name('bluetooth', Gtk.IconSize.DND);
+    this.box.add(image);
 
-  application.connect('activate', (app) => {
-    let { activeWindow } = app;
-
-    if (!activeWindow) {
-      const appWindow = new AppWindow(app);
-      activeWindow = appWindow.getWidget();
-    }
-
-    activeWindow.present();
-  });
-
-  application.run(null);
+    this.box.show_all();
+    this.add(this.box);
+  }
 }
 
-export default main;
+export default GestureListRow;

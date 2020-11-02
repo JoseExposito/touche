@@ -16,15 +16,15 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import ReduxThunk from 'redux-thunk';
 import rootReducer from './root-reducer';
 
 class State {
   constructor() {
-    // TODO Add https://github.com/zalmoxisus/remote-redux-devtools
-
     this.store = createStore(
       rootReducer,
+      applyMiddleware(ReduxThunk),
     );
   }
 
