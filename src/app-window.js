@@ -18,11 +18,9 @@
  */
 import GestureList from '~/gesture-list';
 import GestureListRow from '~/gesture-list-row';
-import ActionType from '~/config/action-type';
-import GestureType from '~/config/gesture-type';
-import GestureDirection from '~/config/gesture-direction';
 import state from '~/state';
 import { loadConfig } from '~/state/config';
+import { getAppNames, getGesturesByAppName } from '~/state/gestures';
 
 const { Gtk } = imports.gi;
 
@@ -38,7 +36,7 @@ class AppWindow {
     this.fileChooserButton = null;
   }
 
-  buildUI() {
+  async buildUI() {
     this.window = new Gtk.ApplicationWindow({
       application: this.app,
       defaultHeight: 600,
@@ -49,53 +47,26 @@ class AppWindow {
       orientation: Gtk.Orientation.VERTICAL,
     });
 
-    // TODO Test
-    state.dispatch(loadConfig());
-
-    this.gestureList = new GestureList();
-    this.gestureList.add(new GestureListRow(GestureType.SWIPE, GestureDirection.DOWN, 3, ActionType.MINIMIZE_WINDOW));
-    this.gestureList.add(new GestureListRow(GestureType.PINCH, GestureDirection.DOWN, 3, ActionType.MINIMIZE_WINDOW));
-    this.gestureList.add(new GestureListRow(GestureType.PINCH, GestureDirection.DOWN, 3, ActionType.MINIMIZE_WINDOW));
-    this.gestureList.add(new GestureListRow(GestureType.PINCH, GestureDirection.DOWN, 3, ActionType.MINIMIZE_WINDOW));
-    this.gestureList.add(new GestureListRow(GestureType.PINCH, GestureDirection.DOWN, 3, ActionType.MINIMIZE_WINDOW));
-
     this.grid.add(new Gtk.Label({ label: _('hello') }));
     this.grid.add(new Gtk.Label({ label: _('world') }));
 
-    this.grid.add(this.gestureList);
+    // TODO Test
+    this.gestureList = new GestureList();
+    await state.dispatch(loadConfig());
 
+    const appNames = state.select(getAppNames());
+    const gestures = state.select(getGesturesByAppName(appNames[0]));
+    gestures.forEach((gesture) => {
+      this.gestureList.add(new GestureListRow(gesture));
+    });
+
+    this.grid.add(this.gestureList);
     this.grid.show_all();
     this.window.add(this.grid);
-
-    // this.box = new Gtk.Box({
-    //   orientation: Gtk.Orientation.VERTICAL,
-    // });
-
-    // this.image = new Gtk.Image({
-    //   vexpand: true,
-    // });
-    // this.box.add(this.image);
-
-    // this.fileChooserButton = Gtk.FileChooserButton.new('Pick An Image', Gtk.FileChooserAction.OPEN);
-
-    // this.fileChooserButton.connect('file-set', () => {
-    //   // const fileName = button.get_filename();
-    //   const fileName = this.fileChooserButton.get_filename();
-    //   this.image.set_from_file(fileName);
-    // });
-
-    // this.box.add(this.fileChooserButton);
-
-    // const label = new Gtk.Label({ label: _('hello') });
-    // this.box.add(label);
-
-    // this.box.show_all();
-
-    // this.window.add(this.box);
   }
 
-  getWidget() {
-    this.buildUI();
+  async getWidget() {
+    await this.buildUI();
     return this.window;
   }
 }

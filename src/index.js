@@ -38,14 +38,19 @@ function main(/* argv */) {
   });
 
   application.connect('activate', (app) => {
-    let { activeWindow } = app;
-
-    if (!activeWindow) {
+    if (app.activeWindow) {
+      app.activeWindow.present();
+    } else {
       const appWindow = new AppWindow(app);
-      activeWindow = appWindow.getWidget();
+      appWindow.getWidget()
+        .then((activeWindow) => {
+          activeWindow.present();
+        })
+        .catch((err) => {
+          // TODO Handle this error
+          log(`ERROR ${err}`);
+        });
     }
-
-    activeWindow.present();
   });
 
   application.run(null);

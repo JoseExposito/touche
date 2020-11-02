@@ -19,7 +19,9 @@
 const { Gtk } = imports.gi;
 
 class GestureListRow extends Gtk.ListBoxRow {
-  constructor(gestureType, gestureDirection, numberOfFingers, actionType) {
+  constructor({
+    gestureType, gestureDirection, numberOfFingers, actionType,
+  }) {
     super();
 
     this.box = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL });
