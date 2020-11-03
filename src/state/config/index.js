@@ -21,6 +21,12 @@ import XmlToJson from 'xml-js';
 import { getUserConfig } from '~/config/io';
 import { addGesture } from '~/state/gestures';
 
+const actionSettingsFromXmlObject = (actionXml) => (
+  Object.entries(actionXml)
+    .filter(([key]) => key !== '_attributes')
+    .reduce((res, [key, { _text }]) => ({ ...res, [key]: _text }), {})
+);
+
 export const loadConfig = () => async (dispatch, getState) => {
   log('Reading configuration file');
   const configXml = await getUserConfig();
@@ -36,11 +42,21 @@ export const loadConfig = () => async (dispatch, getState) => {
       const gestureType = gesture._attributes.type;
       const gestureDirection = gesture._attributes.direction;
       const numberOfFingers = gesture._attributes.fingers;
+
       const actionType = gesture.action._attributes.type;
+      const actionSettings = actionSettingsFromXmlObject(gesture.action);
+
       log(`Adding gesture: ${gestureType}, ${gestureDirection}, ${numberOfFingers}, ${actionType}, ${appName}`);
-      // TODO Action settings
-      // TODO Handle app names separated by commas
-      dispatch(addGesture(gestureType, gestureDirection, numberOfFingers, actionType, appName));
+
+      // TODO Handle app names separated by commas?
+      dispatch(addGesture(
+        gestureType,
+        gestureDirection,
+        numberOfFingers,
+        actionType,
+        actionSettings,
+        appName,
+      ));
     });
   });
 

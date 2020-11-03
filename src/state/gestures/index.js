@@ -49,8 +49,7 @@ const initialState = {
  */
 const getId = (gestureType, gestureDirection, numberOfFingers, appName) => `${gestureType}_${gestureDirection}_${numberOfFingers}_${appName}`;
 
-// TODO Action settings
-export const addGesture = createAction('gestures/addGesture', 'gestureType', 'gestureDirection', 'numberOfFingers', 'actionType', 'appName');
+export const addGesture = createAction('gestures/addGesture', 'gestureType', 'gestureDirection', 'numberOfFingers', 'actionType', 'actionSettings', 'appName');
 
 export const getGestureById = createSelector((id, state) => state.gestures.byId[id]);
 export const getGesturesByAppName = createSelector((appName, state) => {
@@ -61,7 +60,7 @@ export const getAppNames = createSelector((state) => state.gestures.allAppNames)
 
 const reducer = createReducer(initialState, {
   [addGesture]: (state, {
-    gestureType, gestureDirection, numberOfFingers, actionType, appName,
+    gestureType, gestureDirection, numberOfFingers, actionType, actionSettings, appName,
   }) => {
     const id = getId(gestureType, gestureDirection, numberOfFingers, appName);
     return {
@@ -73,6 +72,7 @@ const reducer = createReducer(initialState, {
           gestureDirection,
           numberOfFingers,
           actionType,
+          actionSettings,
           appName,
         },
       },
