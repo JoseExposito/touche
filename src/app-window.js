@@ -17,10 +17,9 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 import GestureList from '~/gesture-list';
-import GestureListRow from '~/gesture-list-row';
+
 import state from '~/state';
 import { loadConfig } from '~/state/config';
-import { getAppNames, getGesturesByAppName } from '~/state/gestures';
 
 const { Gtk } = imports.gi;
 
@@ -43,6 +42,8 @@ class AppWindow {
       defaultWidth: 800,
     });
 
+    await state.dispatch(loadConfig());
+
     this.grid = new Gtk.Grid({
       orientation: Gtk.Orientation.VERTICAL,
     });
@@ -50,17 +51,16 @@ class AppWindow {
     this.grid.add(new Gtk.Label({ label: _('hello') }));
     this.grid.add(new Gtk.Label({ label: _('world') }));
 
-    // TODO Test
     this.gestureList = new GestureList();
-    await state.dispatch(loadConfig());
-
-    const appNames = state.select(getAppNames());
-    const gestures = state.select(getGesturesByAppName(appNames[0]));
-    gestures.forEach((gesture) => {
-      this.gestureList.add(new GestureListRow(gesture));
-    });
-
+    this.gestureList.loadFromState();
     this.grid.add(this.gestureList);
+
+    // TEST
+    this.button = new Gtk.Button ({ label: "FOO" });
+    this.button.connect ('clicked', () => this.gestureList.loadFromState());
+    this.grid.add(this.button);
+
+
     this.grid.show_all();
     this.window.add(this.grid);
   }

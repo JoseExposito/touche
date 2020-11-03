@@ -29,6 +29,7 @@ const initialState = {
    *      gestureDirection: As defined in GestureDirection,
    *      numberOfFingers: Number of fingers,
    *      actionType: As defined in ActionType,
+   *      actionSettings: Object with the action settings,
    *      appName: "All" or the name of the application,
    *    },
    *    [...]

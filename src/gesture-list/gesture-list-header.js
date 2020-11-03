@@ -18,10 +18,12 @@
  */
 const { Gtk } = imports.gi;
 
-class GestureList extends Gtk.ListBox {
-  constructor() {
-    super();
+class GestureListHeader extends Gtk.Label {
+  constructor(label) {
+    super({ label });
+    this.xalign = 0;
+    this.margin = 3;
   }
 }
 
-export default GestureList;
+export default GestureListHeader;
