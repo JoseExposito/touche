@@ -17,6 +17,8 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 import { createAction, createSelector, createReducer } from '../utils';
+import GestureType from '~/config/gesture-type';
+import GestureDirection from '~/config/gesture-direction';
 
 const initialState = {
   /*
@@ -51,12 +53,47 @@ const getId = (gestureType, gestureDirection, numberOfFingers, appName) => `${ge
 
 export const addGesture = createAction('gestures/addGesture', 'gestureType', 'gestureDirection', 'numberOfFingers', 'actionType', 'actionSettings', 'appName');
 
+/**
+ * @param {string} id Gesture ID to filter by.
+ * @returns {object} A single gesture.
+ */
 export const getGestureById = createSelector((id, state) => state.gestures.byId[id]);
+
+/**
+ * @param {string} appName Application name.
+ * @returns {Array} Array of gestures sorted by number of fingers, gesture type, gesture direction.
+ */
 export const getGesturesByAppName = createSelector((appName, state) => {
   const ids = state.gestures.byAppName[appName] || [];
-  return ids.map((id) => state.gestures.byId[id]);
+  return ids
+    .map((id) => state.gestures.byId[id])
+    .sort((a, b) => {
+      if (parseInt(a.numberOfFingers, 10) > parseInt(b.numberOfFingers, 10)) { return 1; }
+      if (parseInt(a.numberOfFingers, 10) < parseInt(b.numberOfFingers, 10)) { return -1; }
+
+      const typeIndices = Object.keys(GestureType);
+      const aTypeIndex = typeIndices.indexOf(a.gestureType);
+      const bTypeIndex = typeIndices.indexOf(b.gestureType);
+      if (aTypeIndex > bTypeIndex) { return 1; }
+      if (bTypeIndex > aTypeIndex) { return -1; }
+
+      const directionIndices = Object.keys(GestureDirection);
+      const aDirectionIndex = directionIndices.indexOf(a.gestureDirection);
+      const bDirectionIndex = directionIndices.indexOf(b.gestureDirection);
+      return (aDirectionIndex - bDirectionIndex);
+    });
 });
-export const getAppNames = createSelector((state) => state.gestures.allAppNames);
+
+/**
+ * @returns Array of application names sort alphabetically. "All" is always the first one.
+ */
+export const getAppNames = createSelector((state) => (
+  state.gestures.allAppNames.sort((a, b) => {
+    if (a.toLowerCase() === 'all') { return -1; }
+    if (b.toLowerCase() === 'all') { return 1; }
+    return a.localeCompare(b);
+  })
+));
 
 const reducer = createReducer(initialState, {
   [addGesture]: (state, {
