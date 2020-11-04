@@ -16,6 +16,8 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
+import RowItem from './row-item';
+
 const { Gtk } = imports.gi;
 
 class GestureListRow extends Gtk.ListBoxRow {
@@ -37,17 +39,14 @@ class GestureListRow extends Gtk.ListBoxRow {
     this.actionSettings = actionSettings;
     this.appName = appName;
 
-    this.box = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL });
-
-    this.box.add(new Gtk.Label({ label: gestureType }));
-    this.box.add(new Gtk.Label({ label: gestureDirection }));
-    this.box.add(new Gtk.Label({ label: `${numberOfFingers}` }));
-    this.box.add(new Gtk.Label({ label: actionType }));
-
-    // TODO Testing
-    const image = Gtk.Image.new_from_icon_name('bluetooth', Gtk.IconSize.DND);
-    this.box.add(image);
-
+    this.box = new Gtk.HBox();
+    this.box.add(new RowItem(RowItem.TYPE.GESTURE_TYPE, this.gestureType));
+    this.box.add(new RowItem(RowItem.TYPE.PLUS));
+    this.box.add(new RowItem(RowItem.TYPE.NUMBER_OF_FINGERS, this.numberOfFingers));
+    this.box.add(new RowItem(RowItem.TYPE.PLUS));
+    this.box.add(new RowItem(RowItem.TYPE.GESTURE_DIRECTION, this.gestureDirection));
+    this.box.add(new RowItem(RowItem.TYPE.EQUAL));
+    this.box.add(new RowItem(RowItem.TYPE.ACTION_TYPE, this.actionType));
     this.box.show_all();
     this.add(this.box);
   }

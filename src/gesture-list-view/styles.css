@@ -1,0 +1,33 @@
+.glv  {
+  padding: 20px;
+}
+
+.glv row {
+  padding: 10px;
+}
+
+
+/* Row items */
+.row-item{
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.row-item-gesture-type {
+  color: #FFFFFF;
+  background-color: #75507B;
+}
+.row-item-gesture-direction {
+  color: #FFFFFF;
+  background-color: #C17D11;
+}
+
+.row-item-number-of-fingers {
+  color: #FFFFFF;
+  background-color: #C4A000;
+}
+
+.row-item-action-type {
+  color: #FFFFFF;
+  background-color: #4E9A06;
+}

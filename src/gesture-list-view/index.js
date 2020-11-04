@@ -16,9 +16,10 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-import GestureList from '~/gesture-list';
+import GestureList from '~/gesture-list-view/gesture-list';
+import styles from './styles.css';
 
-const { Gtk } = imports.gi;
+const { Gtk, Gdk } = imports.gi;
 
 /**
  * Main view with the gesture list.
@@ -42,6 +43,13 @@ class GestureListView extends Gtk.Grid {
     this.scrollArea.add(this.gestureList);
     this.add(this.scrollArea);
     this.add(this.addGestureBtn);
+
+    // CSS styles
+    this.get_style_context().add_class('glv');
+    const provider = new Gtk.CssProvider();
+    provider.load_from_data(styles);
+    Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
+      Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
   }
 }
 
