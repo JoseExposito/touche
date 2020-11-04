@@ -54,6 +54,7 @@
     "file-loader": "^6.1.1",
     "rimraf": "^3.0.2",
     "schema-utils": "^1.0.0",
+    "uint8array-loader": "^1.0.2",
     "webpack": "^5.1.0"
   }
 }

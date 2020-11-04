@@ -171,6 +171,12 @@ module.exports = {
             },
           },
 
+          // Load CSS as GJS ByteArray (Uint8Array)
+          {
+            test: /\.css$/,
+            loader: require.resolve('uint8array-loader'),
+          },
+
           // Load everything else with file-loader
           {
             loader: require.resolve('file-loader'),
