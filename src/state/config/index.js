@@ -27,9 +27,9 @@ const actionSettingsFromXmlObject = (actionXml) => (
     .reduce((res, [key, { _text }]) => ({ ...res, [key]: _text }), {})
 );
 
-export const loadConfig = () => async (dispatch, getState) => {
+export const loadConfig = () => (dispatch, getState) => {
   log('Reading configuration file');
-  const configXml = await getUserConfig();
+  const configXml = getUserConfig();
   const config = XmlToJson.xml2js(configXml, { compact: true });
   log(JSON.stringify(config, null, 2));
 
@@ -63,6 +63,6 @@ export const loadConfig = () => async (dispatch, getState) => {
   log(JSON.stringify(getState(), null, 2));
 };
 
-export const saveConfig = () => async () => {
+export const saveConfig = () => {
   log('TODO');
 };

@@ -20,6 +20,7 @@ const { Gtk } = imports.gi;
 
 class GestureListRow extends Gtk.ListBoxRow {
   constructor({
+    id,
     gestureType,
     gestureDirection,
     numberOfFingers,
@@ -28,6 +29,7 @@ class GestureListRow extends Gtk.ListBoxRow {
     appName,
   }) {
     super();
+    this.id = id;
     this.gestureType = gestureType;
     this.gestureDirection = gestureDirection;
     this.numberOfFingers = numberOfFingers;

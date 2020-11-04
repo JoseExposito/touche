@@ -25,6 +25,7 @@ const initialState = {
    * Object with shape:
    *  {
    *    [gestureId]: {
+   *      id: The same ID used as key,
    *      gestureType: As defined in GestureType,
    *      gestureDirection: As defined in GestureDirection,
    *      numberOfFingers: Number of fingers,

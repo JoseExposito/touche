@@ -16,39 +16,33 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-import AppWindow from './app-window';
+import GestureList from '~/gesture-list';
 
-pkg.initGettext();
-pkg.initFormat();
-
-pkg.require({
-  Gio: '2.0',
-  Gtk: '3.0',
-});
-
-const { Gio, Gtk } = imports.gi;
+const { Gtk } = imports.gi;
 
 /**
- * App entry point.
+ * Main view with the gesture list.
  */
-function main(/* argv */) {
-  const application = new Gtk.Application({
-    application_id: 'com.github.joseexposito.touchegg-gui',
-    flags: Gio.ApplicationFlags.FLAGS_NONE,
-  });
+class GestureListView extends Gtk.Grid {
+  static VIEW_NAME = 'GestureListView';
 
-  application.connect('activate', (app) => {
-    let { activeWindow } = app;
+  constructor() {
+    super({ orientation: Gtk.Orientation.VERTICAL });
 
-    if (!activeWindow) {
-      const appWindow = new AppWindow(app);
-      activeWindow = appWindow.getWidget();
-    }
+    this.scrollArea = new Gtk.ScrolledWindow();
+    this.scrollArea.expand = true;
 
-    activeWindow.present();
-  });
+    this.gestureList = new GestureList();
+    this.gestureList.loadFromState();
 
-  application.run(null);
+    // TODO
+    this.addGestureBtn = new Gtk.Button({ label: 'FOO' });
+    this.addGestureBtn.connect('clicked', () => this.gestureList.loadFromState());
+
+    this.scrollArea.add(this.gestureList);
+    this.add(this.scrollArea);
+    this.add(this.addGestureBtn);
+  }
 }
 
-export default main;
+export default GestureListView;

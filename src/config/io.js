@@ -28,11 +28,15 @@ export const getUserConfigPath = () => (
 /**
  * @returns {string} The user's configuration file content.
  */
-export const getUserConfig = () => new Promise((resolve) => {
+export const getUserConfig = () => {
   const path = getUserConfigPath();
   const file = Gio.File.new_for_path(path);
-  file.load_contents_async(null, (fileCallback, result) => {
-    const contents = file.load_contents_finish(result)[1].toString();
-    resolve(contents);
-  });
-});
+  const [success, contents] = file.load_contents(null);
+
+  if (!success) {
+    // TODO Handle this error
+    throw new Error('Error loading config file');
+  }
+
+  return contents;
+};
