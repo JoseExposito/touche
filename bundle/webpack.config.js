@@ -171,22 +171,18 @@ module.exports = {
             },
           },
 
-          // Load CSS as GJS ByteArray (Uint8Array)
-          {
-            test: /\.css$/,
-            loader: require.resolve('uint8array-loader'),
-          },
-
           // Load everything else with file-loader
           {
             loader: require.resolve('file-loader'),
-            // Exclude `js` files to keep "css" loader working as it injects
-            // its runtime that would otherwise be processed through "file" loader.
-            // Also exclude `html` and `json` extensions so they get processed
-            // by webpacks internal loaders.
-            exclude: [/\.(js|mjs)$/, /\.html$/, /\.json$/],
+            // Exclude `json` extension so it gets processed by Webpack's internal loader.
+            exclude: /\.json$/,
             options: {
-              name: 'static/media/[name].[hash:8].[ext]',
+              name: '[name].[hash:8].[ext]',
+              publicPath: path.resolve(info.buildInstallPath, 'share', info.package.shortName),
+              outputPath: path.relative(
+                info.buildBundlePath,
+                path.resolve(info.buildInstallPath, 'share', info.package.shortName),
+              ),
             },
           },
           // ** STOP ** Are you adding a new loader?

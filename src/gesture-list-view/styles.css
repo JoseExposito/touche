@@ -8,14 +8,14 @@
 
 
 /* Row items */
-.row-item{
+.row-item {
   padding: 10px;
   border-radius: 5px;
 }
 
 .row-item-gesture-type {
   color: #FFFFFF;
-  background-color: #75507B;
+  background-color: #634484;
 }
 .row-item-gesture-direction {
   color: #FFFFFF;
@@ -24,10 +24,10 @@
 
 .row-item-number-of-fingers {
   color: #FFFFFF;
-  background-color: #C4A000;
+  background-color: #315781;
 }
 
 .row-item-action-type {
   color: #FFFFFF;
-  background-color: #4E9A06;
+  background-color: #28BCA3;
 }

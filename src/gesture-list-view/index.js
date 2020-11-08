@@ -47,7 +47,7 @@ class GestureListView extends Gtk.Grid {
     // CSS styles
     this.get_style_context().add_class('glv');
     const provider = new Gtk.CssProvider();
-    provider.load_from_data(styles);
+    provider.load_from_path(styles);
     Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
       Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
   }
