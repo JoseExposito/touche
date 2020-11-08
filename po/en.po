@@ -17,68 +17,68 @@ msgstr ""
 
 #: /home/jose/Devel/touchegg-gui/src/app-window.js:50
 msgid "hello"
-msgstr "hola"
+msgstr ""
 
 #: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:84
 msgid "gesture-list-gesture-type-swipe"
-msgstr "Arrastrar"
+msgstr "Swipe"
 
 #: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:86
 msgid "gesture-list-gesture-type-pinch"
-msgstr "Pellizcar"
+msgstr "Pinch"
 
 #: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:89
 msgid "gesture-list-direction-up"
-msgstr "Arriba"
+msgstr "Up"
 
 #: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:91
 msgid "gesture-list-direction-down"
-msgstr "Abajo"
+msgstr "Down"
 
 #: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:93
 msgid "gesture-list-direction-left"
-msgstr "Izquierda"
+msgstr "Left"
 
 #: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:95
 msgid "gesture-list-direction-right"
-msgstr "Derecha"
+msgstr "Right"
 
 #: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:97
 msgid "gesture-list-direction-in"
-msgstr "Dentro"
+msgstr "In"
 
 #: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:99
 msgid "gesture-list-direction-out"
-msgstr "Fuera"
+msgstr "Out"
 
 #: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:102
 msgid "gesture-list-action-maximize-restore-window"
-msgstr "Maximizar o restablecer una ventana"
+msgstr "Maximize or restore a window"
 
 #: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:104
 msgid "gesture-list-action-minimize-window"
-msgstr "Minimizar una ventana"
+msgstr "Minimize a window"
 
 #: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:106
 msgid "gesture-list-action-tile-window"
-msgstr "Ajustar ventana a la mitad de la pantalla"
+msgstr "Tile a widow"
 
 #: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:108
 msgid "gesture-list-action-close-window"
-msgstr "Cerrar una ventana"
+msgstr "Close a window"
 
 #: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:110
 msgid "gesture-list-action-change-desktop"
-msgstr "Cambiar de escritorio"
+msgstr "Switch desktop"
 
 #: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:112
 msgid "gesture-list-action-show-desktop"
-msgstr "Mostrar escritorio"
+msgstr "Show desktop"
 
 #: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:114
 msgid "gesture-list-action-send-keys"
-msgstr "Atajo de teclado"
+msgstr "Keyboard shortcut"
 
 #: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:116
 msgid "gesture-list-action-run-command"
-msgstr "Ejecutar comando"
+msgstr "Execute a command"

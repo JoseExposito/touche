@@ -27,7 +27,6 @@
     "build": "node bundle/scripts/build.js",
     "clean": "rimraf build",
     "translate": "node bundle/scripts/translate.js",
-    "i18n-extract": "xgettext --join-existing --output-dir=po --output=es.po --from-code=UTF-8 src/*js",
     "lint": "eslint --ext .js,.mjs src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
