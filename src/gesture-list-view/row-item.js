@@ -19,6 +19,14 @@
 import GestureType from '~/config/gesture-type';
 import GestureDirection from '~/config/gesture-direction';
 import ActionType from '~/config/action-type';
+import swipeIcon from './icons/swipe.svg';
+import pinchIcon from './icons/pinch.svg';
+import upIcon from './icons/up.svg';
+import downIcon from './icons/down.svg';
+import leftIcon from './icons/left.svg';
+import rightIcon from './icons/right.svg';
+import inIcon from './icons/in.svg';
+import outIcon from './icons/out.svg';
 
 const { Gtk } = imports.gi;
 
@@ -37,16 +45,39 @@ class RowItem extends Gtk.HBox {
     this.get_style_context().add_class('row-item');
     this.get_style_context().add_class(`row-item-${type}`);
 
-    // const image = Gtk.Image.new_from_icon_name('bluetooth', Gtk.IconSize.DND);
+    const icon = RowItem.getIcon(value);
+    if (icon) {
+      this.add(icon);
+    }
+
     const label = new Gtk.Label({ label: RowItem.getText(type, value) });
-    // this.add(image);
     this.add(label);
+
     this.show_all();
   }
 
-  // getIcon() {
-
-  // }
+  static getIcon(value) {
+    switch (value) {
+      case GestureType.SWIPE:
+        return Gtk.Image.new_from_file(swipeIcon);
+      case GestureType.PINCH:
+        return Gtk.Image.new_from_file(pinchIcon);
+      case GestureDirection.UP:
+        return Gtk.Image.new_from_file(upIcon);
+      case GestureDirection.DOWN:
+        return Gtk.Image.new_from_file(downIcon);
+      case GestureDirection.LEFT:
+        return Gtk.Image.new_from_file(leftIcon);
+      case GestureDirection.RIGHT:
+        return Gtk.Image.new_from_file(rightIcon);
+      case GestureDirection.IN:
+        return Gtk.Image.new_from_file(inIcon);
+      case GestureDirection.OUT:
+        return Gtk.Image.new_from_file(outIcon);
+      default:
+        return null;
+    }
+  }
 
   static getText(type, value) {
     if (type === RowItem.TYPE.PLUS) {
