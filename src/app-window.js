@@ -16,7 +16,7 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-import GestureListView from '~/gesture-list-view';
+import MainView from '~/main-view';
 import state from '~/state';
 import { loadConfig } from '~/state/config';
 
@@ -33,32 +33,37 @@ class AppWindow {
   buildUI() {
     this.window = new Gtk.ApplicationWindow({
       application: this.app,
-      defaultHeight: 600,
       defaultWidth: 800,
+      defaultHeight: 520,
     });
 
     state.dispatch(loadConfig());
 
-    this.grid = new Gtk.Grid({ orientation: Gtk.Orientation.VERTICAL });
+    this.window.set_size_request(600, 400);
 
-    this.stack = new Gtk.Stack();
-    this.stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
+    this.mainView = new MainView();
+    this.window.add(this.mainView);
 
-    this.gestureListView = new GestureListView();
-    this.stack.add_named(this.gestureListView, GestureListView.VIEW_NAME);
+    // this.grid = new Gtk.Grid({ orientation: Gtk.Orientation.VERTICAL });
 
-    this.stack.add_named(new Gtk.Label({ label: _('hello') }), 'TEST');
-    // this.grid.add(new Gtk.Label({ label: _('hello') }));
-    // this.grid.add(new Gtk.Label({ label: _('world') }));
+    // this.stack = new Gtk.Stack();
+    // this.stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
 
-    this.grid.add(this.stack);
-    // TEST
-    this.button = new Gtk.Button({ label: 'FOO' });
-    this.button.connect('clicked', () => { this.stack.visible_child_name = 'TEST'; });
-    this.grid.add(this.button);
+    // this.gestureListView = new GestureListView();
+    // this.stack.add_named(this.gestureListView, GestureListView.VIEW_NAME);
 
-    this.grid.show_all();
-    this.window.add(this.grid);
+    // this.stack.add_named(new Gtk.Label({ label: _('hello') }), 'TEST');
+    // // this.grid.add(new Gtk.Label({ label: _('hello') }));
+    // // this.grid.add(new Gtk.Label({ label: _('world') }));
+
+    // this.grid.add(this.stack);
+    // // TEST
+    // this.button = new Gtk.Button({ label: 'FOO' });
+    // this.button.connect('clicked', () => { this.stack.visible_child_name = 'TEST'; });
+    // this.grid.add(this.button);
+
+    // this.grid.show_all();
+    // this.window.add(this.grid);
   }
 
   getWidget() {
