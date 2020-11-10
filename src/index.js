@@ -28,6 +28,15 @@ pkg.require({
 
 const { Gio, Gtk } = imports.gi;
 
+// Import Granite if it is available
+try {
+  const { Granite } = imports.gi;
+  window.Granite = Granite;
+} catch (error) {
+  log('Granite is not available');
+  window.Granite = null;
+}
+
 /**
  * App entry point.
  */

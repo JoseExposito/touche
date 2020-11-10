@@ -40,6 +40,8 @@
     "log": "readonly",
     "imports": "readonly",
     "pkg": "readonly",
-    "_": "readonly"
+    "_": "readonly",
+    "window": "readonly",
+    "Granite": "readonly"
   }
 }
