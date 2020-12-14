@@ -20,11 +20,14 @@ import Sidebar from './sidebar';
 import Content from './content';
 import Views from './views';
 
-const { Gtk } = imports.gi;
+const { GObject, Gtk } = imports.gi;
+
+
+
 
 class MainView extends Gtk.Paned {
-  constructor() {
-    super({ orientation: Gtk.Orientation.HORIZONTAL });
+  _init() {
+    super._init({ orientation: Gtk.Orientation.HORIZONTAL });
 
     this.sidebar = new Sidebar(Views.SWIPE_VIEW);
     this.content = new Content(Views.SWIPE_VIEW);
@@ -35,4 +38,4 @@ class MainView extends Gtk.Paned {
   }
 }
 
-export default MainView;
+export default GObject.registerClass(MainView);

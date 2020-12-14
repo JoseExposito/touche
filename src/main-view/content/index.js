@@ -19,11 +19,11 @@
 import Views from '../views';
 import SwipeView from './swipe-view';
 
-const { Gtk } = imports.gi;
+const { GObject, Gtk } = imports.gi;
 
 class Content extends Gtk.Stack {
-  constructor(initialView) {
-    super();
+  _init(initialView) {
+    super._init();
 
     this.add_named(new SwipeView(), Views.SWIPE_VIEW);
 
@@ -32,4 +32,4 @@ class Content extends Gtk.Stack {
   }
 }
 
-export default Content;
+export default GObject.registerClass(Content);

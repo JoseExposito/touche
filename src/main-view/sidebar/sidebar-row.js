@@ -16,11 +16,12 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-const { Gtk } = imports.gi;
+const { GObject, Gtk } = imports.gi;
+
 
 class SidebarRow extends Gtk.ListBoxRow {
-  constructor(text, icon) {
-    super();
+  _init(text, icon) {
+    super._init();
 
     this.box = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL });
     this.box.margin = 12;
@@ -32,4 +33,4 @@ class SidebarRow extends Gtk.ListBoxRow {
   }
 }
 
-export default SidebarRow;
+export default GObject.registerClass(SidebarRow);

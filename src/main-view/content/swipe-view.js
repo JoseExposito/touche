@@ -17,11 +17,11 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { Gtk } = imports.gi;
+const { GObject, Gtk } = imports.gi;
 
 class SwipeView extends Gtk.ScrolledWindow {
-  constructor() {
-    super();
+  _init() {
+    super._init();
 
     this.box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL });
     this.box.add(new Gtk.Label({ label: 'SWIPE VIEW' }));
@@ -31,4 +31,4 @@ class SwipeView extends Gtk.ScrolledWindow {
   }
 }
 
-export default SwipeView;
+export default GObject.registerClass(SwipeView);

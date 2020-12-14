@@ -44,26 +44,7 @@ class AppWindow {
     this.mainView = new MainView();
     this.window.add(this.mainView);
 
-    // this.grid = new Gtk.Grid({ orientation: Gtk.Orientation.VERTICAL });
-
-    // this.stack = new Gtk.Stack();
-    // this.stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
-
-    // this.gestureListView = new GestureListView();
-    // this.stack.add_named(this.gestureListView, GestureListView.VIEW_NAME);
-
-    // this.stack.add_named(new Gtk.Label({ label: _('hello') }), 'TEST');
-    // // this.grid.add(new Gtk.Label({ label: _('hello') }));
-    // // this.grid.add(new Gtk.Label({ label: _('world') }));
-
-    // this.grid.add(this.stack);
-    // // TEST
-    // this.button = new Gtk.Button({ label: 'FOO' });
-    // this.button.connect('clicked', () => { this.stack.visible_child_name = 'TEST'; });
-    // this.grid.add(this.button);
-
-    // this.grid.show_all();
-    // this.window.add(this.grid);
+    this.window.show_all();
   }
 
   getWidget() {

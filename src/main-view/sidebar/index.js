@@ -21,11 +21,12 @@ import SidebarHeader from './sidebar-header';
 import swipeIcon from './icons/swipe.svg';
 import pinchIcon from './icons/pinch.svg';
 
-const { Gtk } = imports.gi;
+const { GObject, Gtk } = imports.gi;
+
 
 class Sidebar extends Gtk.Box {
-  constructor(initialView) {
-    super({ orientation: Gtk.Orientation.VERTICAL });
+  _init(initialView) {
+    super._init({ orientation: Gtk.Orientation.VERTICAL });
 
     // Add the application list inside a scroll window
     const scrolled = new Gtk.ScrolledWindow();
@@ -66,4 +67,4 @@ class Sidebar extends Gtk.Box {
   }
 }
 
-export default Sidebar;
+export default GObject.registerClass(Sidebar);

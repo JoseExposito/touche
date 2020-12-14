@@ -16,17 +16,19 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-const { Gtk } = imports.gi;
+const { GObject, Gtk } = imports.gi;
 
-class SidebarHeader extends Gtk.Label {
-  constructor(label) {
-    super({ label });
-    this.xalign = 0;
+export default GObject.registerClass({ GTypeName: 'SidebarHeader' },
+  class SidebarHeader extends Gtk.Label {
+    constructor(label) {
+      super({ label });
+      this.xalign = 0;
 
-    if (Granite) {
-      this.get_style_context().add_class(Granite.STYLE_CLASS_H4_LABEL);
+      if (Granite) {
+        this.get_style_context().add_class(Granite.STYLE_CLASS_H4_LABEL);
+      }
     }
   }
-}
-
-export default SidebarHeader;
+);
+// export default SidebarHeader;
+// export default GObject.registerClass({ GTypeName: 'SidebarHeader' }, SidebarHeader);
