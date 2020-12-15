@@ -23,9 +23,8 @@ import pinchIcon from './icons/pinch.svg';
 
 const { GObject, Gtk } = imports.gi;
 
-
 class Sidebar extends Gtk.Box {
-  _init(initialView) {
+  _init(/* initialView */) {
     super._init({ orientation: Gtk.Orientation.VERTICAL });
 
     // Add the application list inside a scroll window

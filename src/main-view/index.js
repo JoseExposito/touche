@@ -22,9 +22,6 @@ import Views from './views';
 
 const { GObject, Gtk } = imports.gi;
 
-
-
-
 class MainView extends Gtk.Paned {
   _init() {
     super._init({ orientation: Gtk.Orientation.HORIZONTAL });

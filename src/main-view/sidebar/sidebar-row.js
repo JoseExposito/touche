@@ -18,7 +18,6 @@
  */
 const { GObject, Gtk } = imports.gi;
 
-
 class SidebarRow extends Gtk.ListBoxRow {
   _init(text, icon) {
     super._init();

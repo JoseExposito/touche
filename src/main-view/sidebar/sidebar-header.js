@@ -18,17 +18,15 @@
  */
 const { GObject, Gtk } = imports.gi;
 
-export default GObject.registerClass({ GTypeName: 'SidebarHeader' },
-  class SidebarHeader extends Gtk.Label {
-    constructor(label) {
-      super({ label });
-      this.xalign = 0;
+class SidebarHeader extends Gtk.Label {
+  constructor(label) {
+    super({ label });
+    this.xalign = 0;
 
-      if (Granite) {
-        this.get_style_context().add_class(Granite.STYLE_CLASS_H4_LABEL);
-      }
+    if (Granite) {
+      this.get_style_context().add_class(Granite.STYLE_CLASS_H4_LABEL);
     }
   }
-);
-// export default SidebarHeader;
-// export default GObject.registerClass({ GTypeName: 'SidebarHeader' }, SidebarHeader);
+}
+
+export default GObject.registerClass(SidebarHeader);

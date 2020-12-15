@@ -26,6 +26,14 @@
     }
   },
   "rules": {
+    "no-underscore-dangle": [
+      "error",
+      {
+        "allow": [
+          "_init"
+        ]
+      }
+    ],
     "jsdoc/require-hyphen-before-param-description": [
       "error",
       "never"
