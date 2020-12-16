@@ -36,6 +36,7 @@ msgid "gesture-list-direction-down"
 msgstr "Abajo"
 
 #: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:93
+#: /home/jose/Devel/touchegg-gui-meson/src/index.js:48
 msgid "gesture-list-direction-left"
 msgstr "Izquierda"
 

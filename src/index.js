@@ -16,7 +16,7 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-import AppWindow from './app-window';
+import AppWindow from '~/app-window';
 
 pkg.initGettext();
 pkg.initFormat();
@@ -38,11 +38,16 @@ try {
 }
 
 /**
- * App entry point.
+ * Application  entry point.
+ *
+ * @param {Array<string>}argv Command line params.
+ * @returns {number} Status code.
  */
-function main(/* argv */) {
+function main(argv) {
+  log(argv);
+
   const application = new Gtk.Application({
-    application_id: 'com.github.joseexposito.touchegg-gui',
+    application_id: process.env.PROJECT_NAME,
     flags: Gio.ApplicationFlags.FLAGS_NONE,
   });
 
@@ -50,14 +55,13 @@ function main(/* argv */) {
     let { activeWindow } = app;
 
     if (!activeWindow) {
-      const appWindow = new AppWindow(app);
-      activeWindow = appWindow.getWidget();
+      activeWindow = new AppWindow(app);
     }
 
     activeWindow.present();
   });
 
-  application.run(null);
+  return application.run(argv);
 }
 
-export default main;
+imports[process.env.PROJECT_NAME].main = main;

@@ -2,8 +2,9 @@
 Name=Touchégg GUI
 GenericName=Multi-touch Gestures
 Comment=Configure Touchégg multi-touch gestures
-Categories=Utility;
-Exec=@PACKAGE_NAME@
+Categories=Utility;GTK;
+Exec=@PROJECT_NAME@
 Terminal=false
 Type=Application
+StartupNotify=true
 Keywords=Touchégg;Multi-touch;Gestures;Touchpad;Trackpad;Touchscreen;

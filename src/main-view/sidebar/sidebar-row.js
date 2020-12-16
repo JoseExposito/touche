@@ -23,9 +23,14 @@ class SidebarRow extends Gtk.ListBoxRow {
     super._init();
 
     this.box = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL });
-    this.box.margin = 12;
-    this.box.pack_start(icon, false, false, 12);
-    this.box.pack_start(new Gtk.Label({ label: text }), false, false, 0);
+    this.box.margin = 8;
+    this.box.pack_start(icon, false, false, 8);
+
+    const label = new Gtk.Label({ label: text });
+    const labelClass = Granite ? Granite.STYLE_CLASS_H3_LABEL : 'text-h3';
+    label.get_style_context().add_class(labelClass);
+
+    this.box.pack_start(label, false, false, 0);
     this.box.show_all();
 
     this.add(this.box);

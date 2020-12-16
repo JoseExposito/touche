@@ -20,37 +20,34 @@ import MainView from '~/main-view';
 import state from '~/state';
 import { loadConfig } from '~/state/config';
 
-const { Gtk } = imports.gi;
+const { GObject, Gtk, Gdk } = imports.gi;
 
 /**
  * Application main window.
  */
-class AppWindow {
-  constructor(app) {
-    this.app = app;
-  }
-
-  buildUI() {
-    this.window = new Gtk.ApplicationWindow({
-      application: this.app,
+class AppWindow extends Gtk.ApplicationWindow {
+  _init(application) {
+    super._init({
+      application,
       defaultWidth: 800,
       defaultHeight: 520,
     });
 
+    // Load global CSS
+    const provider = new Gtk.CssProvider();
+    provider.load_from_resource(`${process.env.PROJECT_NAME.split('.').join('/')}/assets/global.css`);
+    Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
+      Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+
     state.dispatch(loadConfig());
 
-    this.window.set_size_request(600, 400);
+    this.set_size_request(600, 400);
 
     this.mainView = new MainView();
-    this.window.add(this.mainView);
+    this.add(this.mainView);
 
-    this.window.show_all();
-  }
-
-  getWidget() {
-    this.buildUI();
-    return this.window;
+    this.show_all();
   }
 }
 
-export default AppWindow;
+export default GObject.registerClass(AppWindow);

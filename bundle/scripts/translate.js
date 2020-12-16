@@ -20,7 +20,10 @@ const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
 const { exec } = require('child_process');
-const info = require('../info');
+
+const rootPath = process.cwd();
+const srcPath = path.resolve(rootPath, 'src');
+const i18nPath = path.resolve(rootPath, 'po');
 
 const askForLocale = async () => new Promise((resolve, reject) => {
   console.log('This tool will help you to generate or update [locale].po files.');
@@ -52,7 +55,7 @@ const askForLocale = async () => new Promise((resolve, reject) => {
 });
 
 const getLinguasLocales = () => {
-  const linguasPath = path.resolve(info.i18nPath, 'LINGUAS');
+  const linguasPath = path.resolve(i18nPath, 'LINGUAS');
 
   if (!fs.existsSync(linguasPath)) {
     return [];
@@ -77,19 +80,19 @@ const addLocaleToLinguas = (locale) => {
   locales.push(locale);
   const linguasLocales = Array.from(new Set(locales)).join(' ');
   const linguasContent = `${linguasHeader}${linguasLocales}\n`;
-  fs.writeFileSync(path.resolve(info.i18nPath, 'LINGUAS'), linguasContent, 'utf-8');
+  fs.writeFileSync(path.resolve(i18nPath, 'LINGUAS'), linguasContent, 'utf-8');
 
   console.log('File po/LINGUAS updated');
 };
 
 const generatePoFile = async (locale) => new Promise((resolve, reject) => {
-  const poPath = path.resolve(info.i18nPath, `${locale}.po`);
+  const poPath = path.resolve(i18nPath, `${locale}.po`);
   const exists = fs.existsSync(poPath);
 
   console.log(`${exists ? 'Updating' : 'Creating'} po/${locale}.po`);
 
-  const command = `xgettext ${exists ? '--join-existing --omit-header' : ''} --output-dir=${info.i18nPath} --output=${poPath} --from-code=UTF-8 \`find ${info.srcPath} -name "*js"\``;
-  exec(command, { cwd: info.rootPath },
+  const command = `xgettext ${exists ? '--join-existing --omit-header' : ''} --output-dir=${i18nPath} --output=${poPath} --from-code=UTF-8 \`find ${srcPath} -name "*js"\``;
+  exec(command, { cwd: rootPath },
     (error) => {
       if (error) {
         console.error(`Error generating po/${locale}.po: ${error}`);

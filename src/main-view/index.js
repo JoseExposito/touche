@@ -26,7 +26,7 @@ class MainView extends Gtk.Paned {
   _init() {
     super._init({ orientation: Gtk.Orientation.HORIZONTAL });
 
-    this.sidebar = new Sidebar(Views.SWIPE_VIEW);
+    this.sidebar = new Sidebar();
     this.content = new Content(Views.SWIPE_VIEW);
 
     this.pack1(this.sidebar, false, false);

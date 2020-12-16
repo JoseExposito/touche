@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2020 José Expósito <jose.exposito89@gmail.com> -->
 <component type="desktop">
-  <id>@PACKAGE_NAME@</id>
+  <id>@PROJECT_NAME@</id>
   <metadata_license>CC-BY-SA-3.0</metadata_license>
-  <project_license>@PACKAGE_LICENSE@</project_license>
-  <content_rating type="oars-1.0" />
-  <developer_name>@PACKAGE_AUTHOR@</developer_name>
+  <project_license>@PROJECT_LICENSE@</project_license>
+  <content_rating type="oars-1.0"/>
+  <developer_name>José Expósito</developer_name>
   <name>Touchégg GUI</name>
   <summary>Multi-touch Gestures</summary>
   <description>

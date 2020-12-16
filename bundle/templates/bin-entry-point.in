@@ -1,0 +1,11 @@
+#!@GJS@
+
+imports.package.init({
+  name: "@PROJECT_NAME@",
+  version: "@PACKAGE_VERSION@",
+  prefix: "@prefix@",
+  libdir: "@libdir@",
+  datadir: "@datadir@",
+});
+
+imports.package.run(imports['@PROJECT_NAME@']);

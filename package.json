@@ -1,5 +1,5 @@
 {
-  "name": "com.github.joseexposito.touchegg-gui",
+  "name": "io.github.joseexposito.touchegg-gui",
   "version": "1.0.0",
   "description": "Easily manage your Linux touchpad multi-touch configuration using Touchégg",
   "author": "José Expósito",
@@ -23,9 +23,14 @@
   ],
   "main": "src/index.js",
   "scripts": {
-    "start": "node bundle/scripts/start.js",
-    "build": "node bundle/scripts/build.js",
+    "start": "npm run meson:debug && npm run ninja:build && npm run ninja:install && npm run gjs:run",
+    "build": "npm run clean && npm run meson:release && npm run ninja:build && npm run ninja:install",
     "clean": "rimraf build",
+    "meson:debug": "meson build --prefix=$(pwd)/build/install --buildtype=debug",
+    "meson:release": "meson build --prefix=/usr --buildtype=release",
+    "ninja:build": "ninja -C build",
+    "ninja:install": "ninja -C build install",
+    "gjs:run": "gjs ./build/install/bin/io.github.joseexposito.touchegg-gui",
     "translate": "node bundle/scripts/translate.js",
     "lint": "eslint --ext .js,.mjs src",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -43,7 +48,6 @@
     "@babel/preset-env": "^7.11.5",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
-    "copy-webpack-plugin": "^6.2.1",
     "eslint": "^7.11.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-import-resolver-alias": "^1.1.2",

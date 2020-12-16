@@ -16,179 +16,109 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
+const fs = require('fs');
 const path = require('path');
 const { DefinePlugin } = require('webpack');
-const CopyPlugin = require('copy-webpack-plugin');
-const EntryTemplateWebpackPlugin = require('./webpack-plugins/entry-template-webpack-plugin');
-const CompileGResourceWebpackPlugin = require('./webpack-plugins/compile-gresource-webpack-plugin');
-const CompileTranslationsWebpackPlugin = require('./webpack-plugins/compile-translations-webpack-plugin');
-const buildTemplate = require('./build-template');
-const info = require('./info');
 
-const isEnvProduction = (process.env.NODE_ENV === 'production');
-// TODO Allow to configure this prefix
-const prefix = isEnvProduction ? '/usr' : info.buildInstallPath;
+const getWebpackConfig = (rootPath, outputPath, projectName) => {
+  const isEnvProduction = (process.env.NODE_ENV === 'production');
+  const srcPath = path.resolve(rootPath, 'src');
+  const packageJsonPath = path.resolve(rootPath, 'package.json');
+  const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
 
-// CopyPlugin transform function
-const transform = (contentBuffer) => {
-  const content = buildTemplate(contentBuffer.toString());
-  return Buffer.from(content, 'utf-8');
-};
+  return {
+    mode: isEnvProduction ? 'production' : 'development',
+    bail: isEnvProduction,
 
-module.exports = {
-  mode: isEnvProduction ? 'production' : 'development',
-  bail: isEnvProduction,
+    entry: path.resolve(rootPath, packageJson.main),
 
-  // Use the entry template as entry, see EntryTemplateWebpackPlugin
-  entry: path.resolve(info.buildBundlePath, info.entryTemplateName),
+    output: {
+      path: outputPath,
+      filename: `${projectName}.js`,
 
-  output: {
-    path: info.buildBundlePath,
-    filename: `${info.package.name}.js`,
-
-    // Add /* filename */ comments to generated require()s in the output
-    pathinfo: !isEnvProduction,
-  },
-
-  resolve: {
-    alias: {
-      '~': info.srcPath,
+      // Add /* filename */ comments to generated require()s in the output
+      pathinfo: !isEnvProduction,
     },
-    extensions: ['.js', '.mjs'],
-  },
 
-  optimization: {
-    minimize: isEnvProduction,
-  },
+    resolve: {
+      alias: {
+        '~': srcPath,
+      },
+      extensions: ['.js', '.mjs'],
+    },
 
-  plugins: [
-    // Environment variables
-    new DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(isEnvProduction ? 'production' : 'development'),
-    }),
+    optimization: {
+      minimize: isEnvProduction,
+    },
 
-    new CopyPlugin({
-      patterns: [
+    plugins: [
+      // Environment variables
+      new DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify(isEnvProduction ? 'production' : 'development'),
+        'process.env.PROJECT_NAME': JSON.stringify(projectName),
+      }),
+    ].filter(Boolean),
+
+    module: {
+      rules: [
         {
-          from: path.resolve(info.dataPath, `${info.package.name}.appdata.xml`),
-          to: path.resolve(info.buildInstallPath, 'share', 'appdata'),
-          transform,
-        },
-
-        {
-          from: path.resolve(info.dataPath, `${info.package.name}.desktop`),
-          to: path.resolve(info.buildInstallPath, 'share', 'applications'),
-          transform,
-        },
-
-        {
-          from: path.resolve(info.templatesPath, info.entryBinTemplateName),
-          to: path.resolve(info.buildInstallPath, 'bin', info.package.name),
-          transform: (contentBuffer) => {
-            const content = buildTemplate(contentBuffer.toString())
-              .replace(/@PREFIX@/g, prefix);
-            return Buffer.from(content, 'utf-8');
-          },
-
-        },
-      ],
-    }),
-
-    // Copy the entry template to use it as entry point
-    new EntryTemplateWebpackPlugin({
-      templatePath: path.resolve(info.templatesPath, info.entryTemplateName),
-      outputPath: info.buildBundlePath,
-      outputFilename: `${info.entryTemplateName}.js`,
-    }),
-
-    // Compile the output bundle to a GResource
-    new CompileGResourceWebpackPlugin({
-      templatePath: path.resolve(info.templatesPath, info.srcGResourceTemplateName),
-      buildDirectory: info.buildBundlePath,
-      outputPath: `${info.buildInstallPath}/share/${info.package.shortName}`,
-      outputFilename: `${info.package.name}.src.gresource`,
-    }),
-
-    // Compile po files to mo
-    new CompileTranslationsWebpackPlugin({
-      poPath: info.i18nPath,
-      outputPath: `${info.buildInstallPath}/share/locale`,
-      packageShortName: info.package.shortName,
-    }),
-  ].filter(Boolean),
-
-  module: {
-    rules: [
-      {
-        oneOf: [
-          // Process application JS with Babel
-          {
-            test: /\.(js|mjs)$/,
-            include: path.resolve(info.srcPath),
-            loader: require.resolve('babel-loader'),
-            options: {
-              presets: [
-                [
-                  '@babel/preset-env',
-                  {
+          oneOf: [
+            // Process application JS with Babel
+            {
+              test: /\.(js|mjs)$/,
+              include: srcPath,
+              loader: require.resolve('babel-loader'),
+              options: {
+                presets: [
+                  [
+                    '@babel/preset-env',
+                    {
                     // Target Firefox with a SpiderMonkey version compatible with GJS
                     // https://gjs.guide/guides/gjs/features-across-versions.html
                     // https://en.wikipedia.org/wiki/SpiderMonkey#Versions
                     // https://github.com/browserslist/browserslist
-                    targets: 'firefox >= 52',
+                      targets: 'firefox >= 52',
 
-                    // "usage" imports core-js when needed so we don't need to import anything
-                    useBuiltIns: 'usage',
-                    corejs: '3',
-                  },
+                      // "usage" imports core-js when needed so we don't need to import anything
+                      useBuiltIns: 'usage',
+                      corejs: '3',
+                    },
+                  ],
                 ],
-              ],
-              plugins: [
-                '@babel/plugin-proposal-class-properties',
-              ],
+                plugins: [
+                  '@babel/plugin-proposal-class-properties',
+                ],
 
-              // This is a feature of `babel-loader` for webpack (not Babel itself).
-              // It enables caching results in ./node_modules/.cache/babel-loader/
-              // directory for faster rebuilds.
-              cacheDirectory: true,
-              cacheCompression: isEnvProduction,
-              compact: isEnvProduction,
+                // This is a feature of `babel-loader` for webpack (not Babel itself).
+                // It enables caching results in ./node_modules/.cache/babel-loader/
+                // directory for faster rebuilds.
+                cacheDirectory: true,
+                cacheCompression: isEnvProduction,
+                compact: isEnvProduction,
+              },
             },
-          },
 
-          // Process any JS outside of the app with Babel
-          {
-            test: /\.(js|mjs)$/,
-            exclude: /@babel(?:\/|\\{1,2})runtime/,
-            loader: require.resolve('babel-loader'),
-            options: {
-              babelrc: false,
-              configFile: false,
-              compact: false,
-              cacheDirectory: true,
-              cacheCompression: isEnvProduction,
-              sourceMaps: false,
+            // Process any JS outside of the app with Babel
+            {
+              test: /\.(js|mjs)$/,
+              exclude: /@babel(?:\/|\\{1,2})runtime/,
+              loader: require.resolve('babel-loader'),
+              options: {
+                babelrc: false,
+                configFile: false,
+                compact: false,
+                cacheDirectory: true,
+                cacheCompression: isEnvProduction,
+                sourceMaps: false,
+              },
             },
-          },
-
-          // Load everything else with file-loader
-          {
-            loader: require.resolve('file-loader'),
-            // Exclude `json` extension so it gets processed by Webpack's internal loader.
-            exclude: /\.json$/,
-            options: {
-              name: '[name].[hash:8].[ext]',
-              publicPath: path.resolve(info.buildInstallPath, 'share', info.package.shortName),
-              outputPath: path.relative(
-                info.buildBundlePath,
-                path.resolve(info.buildInstallPath, 'share', info.package.shortName),
-              ),
-            },
-          },
-          // ** STOP ** Are you adding a new loader?
-          // Make sure to add the new loader(s) before the "file" loader.
-        ],
-      },
-    ],
-  },
+            // ** STOP ** Are you adding a new loader?
+            // Make sure to add the new loader(s) before the "file" loader.
+          ],
+        },
+      ],
+    },
+  };
 };
+
+module.exports = getWebpackConfig;

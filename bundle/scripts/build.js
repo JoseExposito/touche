@@ -17,11 +17,18 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 /* eslint-disable import/no-extraneous-dependencies */
-process.env.BABEL_ENV = 'production';
-process.env.NODE_ENV = 'production';
-
 const webpack = require('webpack');
-const webpackConfig = require('../webpack.config');
+const getWebpackConfig = require('../webpack.config');
 
+const rootPath = process.argv[2];
+const outputPath = process.argv[3];
+const buildType = process.argv[4];
+const projectName = process.argv[5];
+const env = (buildType === 'release') ? 'production' : 'development';
+
+process.env.BABEL_ENV = env;
+process.env.NODE_ENV = env;
+
+const webpackConfig = getWebpackConfig(rootPath, outputPath, projectName);
 const compiler = webpack(webpackConfig);
 compiler.run();

@@ -16,25 +16,29 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
+import state from '~/state';
+import { getAppNames } from '~/state/gestures';
 import SidebarRow from './sidebar-row';
-import SidebarHeader from './sidebar-header';
-import swipeIcon from './icons/swipe.svg';
-import pinchIcon from './icons/pinch.svg';
 
 const { GObject, Gtk } = imports.gi;
 
 class Sidebar extends Gtk.Box {
-  _init(/* initialView */) {
+  _init() {
     super._init({ orientation: Gtk.Orientation.VERTICAL });
 
     // Add the application list inside a scroll window
     const scrolled = new Gtk.ScrolledWindow();
     const list = new Gtk.ListBox();
     list.expand = true;
-    list.set_header_func(Sidebar.setHeaders);
-    list.add(new SidebarRow(_('main-view-sidebar-swipe'), Gtk.Image.new_from_file(swipeIcon)));
-    list.add(new SidebarRow(_('main-view-sidebar-pinch'), Gtk.Image.new_from_file(pinchIcon)));
     scrolled.add(list);
+
+    const appNames = state.select(getAppNames());
+    appNames.forEach((appName) => {
+      const icon = Gtk.Image.new_from_icon_name('input-touchpad', Gtk.IconSize.DND);
+      // icon.icon_size = Gtk.IconSize.NORMAL; // GTK4 + remove the icon size ^ from the constructor
+      const row = new SidebarRow(appName, icon);
+      list.add(row);
+    });
 
     // Add the footer to allow to add more apps
     const footer = new Gtk.ActionBar();
@@ -57,12 +61,6 @@ class Sidebar extends Gtk.Box {
     this.pack_end(footer, false, false, 0);
     this.set_size_request(200, -1);
     this.show_all();
-  }
-
-  static setHeaders(row1, row2) {
-    if (!row2) {
-      row1.set_header(new SidebarHeader(_('main-view-sidebar-gestures-header')));
-    }
   }
 }
 
