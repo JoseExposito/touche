@@ -26,7 +26,7 @@ pkg.require({
   Gtk: '3.0',
 });
 
-const { Gio, Gtk } = imports.gi;
+const { Gio, Gtk, Gdk } = imports.gi;
 
 // Import Granite if it is available
 try {
@@ -52,6 +52,13 @@ function main(argv) {
   });
 
   application.connect('activate', (app) => {
+    // Load global CSS
+    const provider = new Gtk.CssProvider();
+    provider.load_from_resource(`${process.env.PROJECT_NAME.split('.').join('/')}/assets/global.css`);
+    Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
+      Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+    // Show the app window
     let { activeWindow } = app;
 
     if (!activeWindow) {

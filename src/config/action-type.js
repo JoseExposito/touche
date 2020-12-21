@@ -25,6 +25,7 @@ const ActionType = {
   SHOW_DESKTOP: 'SHOW_DESKTOP',
   SEND_KEYS: 'SEND_KEYS',
   RUN_COMMAND: 'RUN_COMMAND',
+  MOUSE_CLICK: 'MOUSE_CLICK',
 };
 
 export default ActionType;

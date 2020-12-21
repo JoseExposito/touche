@@ -37,8 +37,6 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0",
     "xml-js": "^1.6.11"
   },
   "devDependencies": {

@@ -19,6 +19,7 @@
 const GestureType = {
   SWIPE: 'SWIPE',
   PINCH: 'PINCH',
+  TAP: 'TAP',
 };
 
 export default GestureType;

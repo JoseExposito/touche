@@ -16,9 +16,25 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-import { combineReducers } from 'redux';
-import gesturesReducer from './gestures';
+const { GLib } = imports.gi;
 
-export default combineReducers({
-  gestures: gesturesReducer,
-});
+/**
+ * @returns {string} User's home directory path (~/.config/touchegg).
+ */
+export const getUserConfigDirPath = () => (
+  GLib.build_filenamev([GLib.get_home_dir(), '.config', 'touchegg'])
+);
+
+/**
+ * @returns {string} User's config file path (~/.config/touchegg/touchegg.conf).
+ */
+export const getUserConfigFilePath = () => (
+  GLib.build_filenamev([getUserConfigDirPath(), 'touchegg.conf'])
+);
+
+/**
+ * @returns {string} System config file path (/usr/share/touchegg/touchegg.conf).
+ */
+export const getSystemConfigFilePath = () => (
+  GLib.build_filenamev(['usr', 'share', 'touchegg', 'touchegg.conf'])
+);

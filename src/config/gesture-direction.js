@@ -17,6 +17,8 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 const GestureDirection = {
+  UNKNOWN: 'UNKNOWN',
+
   // GestureType.SWIPE
   UP: 'UP',
   DOWN: 'DOWN',

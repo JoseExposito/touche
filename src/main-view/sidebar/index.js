@@ -16,8 +16,7 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-import state from '~/state';
-import { getAppNames } from '~/state/gestures';
+import model from '~/config/model';
 import SidebarRow from './sidebar-row';
 
 const { GObject, Gtk } = imports.gi;
@@ -32,7 +31,7 @@ class Sidebar extends Gtk.Box {
     list.expand = true;
     scrolled.add(list);
 
-    const appNames = state.select(getAppNames());
+    const appNames = model.getAppNames();
     appNames.forEach((appName) => {
       const icon = Gtk.Image.new_from_icon_name('input-touchpad', Gtk.IconSize.DND);
       // icon.icon_size = Gtk.IconSize.NORMAL; // GTK4 + remove the icon size ^ from the constructor
