@@ -18,22 +18,26 @@
  */
 /* eslint-disable no-underscore-dangle */
 import XmlToJson from 'xml-js';
-import { getUserConfigFilePath } from './paths';
+import { getUserConfigFilePath, getSystemConfigFilePath, fileExists } from './paths';
 import model from './model';
 
-const { GLib, Gio } = imports.gi;
+const { Gio } = imports.gi;
 
 /**
  * Load and save the `Model` from/to file.
  */
 class XmlConfig {
+  /**
+   * Parse the configuration file and load it in the `Model`.
+   */
   static loadConfig() {
-    // TODO Use the system config if the user config is not present
+    const configFilePath = fileExists(getUserConfigFilePath())
+      ? getUserConfigFilePath()
+      : getSystemConfigFilePath();
 
-    log('Reading configuration file');
-    const configXml = XmlConfig.readFile(getUserConfigFilePath());
+    log(`Reading configuration file "${configFilePath}"`);
+    const configXml = XmlConfig.readFile(configFilePath);
     const config = XmlToJson.xml2js(configXml, { compact: true });
-    log(JSON.stringify(config, null, 2));
 
     const actionSettingsFromXmlObject = (actionXml) => (
       Object.entries(actionXml)
@@ -43,7 +47,7 @@ class XmlConfig {
 
     const apps = config['touchégg'].application;
     apps.forEach((app) => {
-      const appName = app._attributes.name;
+      const appNames = app._attributes.name;
       const gestures = app.gesture;
 
       gestures.forEach((gesture) => {
@@ -54,23 +58,28 @@ class XmlConfig {
         const actionType = gesture.action._attributes.type;
         const actionSettings = actionSettingsFromXmlObject(gesture.action);
 
-        log(`Adding gesture: ${gestureType}, ${gestureDirection}, ${numberOfFingers}, ${actionType}, ${appName}`);
-
-        // TODO Handle app names separated by commas?
-        model.addGesture(
-          gestureType,
-          gestureDirection,
-          numberOfFingers,
-          actionType,
-          actionSettings,
-          appName,
-        );
+        appNames.split(',').forEach((appName) => {
+          const safeAppName = appName.trim();
+          log(`Adding gesture: ${gestureType}, ${gestureDirection}, ${numberOfFingers}, ${actionType}, ${safeAppName}`);
+          model.addGesture(
+            gestureType,
+            gestureDirection,
+            numberOfFingers,
+            actionType,
+            actionSettings,
+            safeAppName,
+          );
+        });
       });
     });
 
     model.logModel();
   }
 
+  /**
+   * @param {string} path File path.
+   * @returns {string} The file contents.
+   */
   static readFile(path) {
     const file = Gio.File.new_for_path(path);
     const [success, contents] = file.load_contents(null);

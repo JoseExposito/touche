@@ -16,7 +16,7 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-const { GLib } = imports.gi;
+const { GLib, Gio } = imports.gi;
 
 /**
  * @returns {string} User's home directory path (~/.config/touchegg).
@@ -38,3 +38,12 @@ export const getUserConfigFilePath = () => (
 export const getSystemConfigFilePath = () => (
   GLib.build_filenamev(['usr', 'share', 'touchegg', 'touchegg.conf'])
 );
+
+/**
+ * @param {string} path File path.
+ * @returns {boolean} If the file exists.
+ */
+export const fileExists = (path) => {
+  const file = Gio.File.new_for_path(path);
+  return file.query_exists(null);
+};
