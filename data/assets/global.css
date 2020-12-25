@@ -13,3 +13,8 @@
 .text-h4 {
   font-size: 1.05em;
 }
+
+/* Touchégg not installed view */
+.download-button {
+  padding: 10px 20px;
+}

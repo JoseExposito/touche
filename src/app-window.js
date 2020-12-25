@@ -17,7 +17,9 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 import MainView from '~/main-view';
+import NotInstalledView from '~/not-installed-view';
 import XmlConfig from '~/config/xml-config';
+import { fileExists, getSystemConfigFilePath } from '~/config/paths';
 
 const { GObject, Gtk } = imports.gi;
 
@@ -28,18 +30,44 @@ class AppWindow extends Gtk.ApplicationWindow {
   _init(application) {
     super._init({
       application,
-      defaultWidth: 800,
-      defaultHeight: 520,
     });
 
+    // If Touchégg is not installed, show a screen to allow to download it
+    // Otherwise, start the app showing the main view
+    if (AppWindow.isToucheggInstalled()) {
+      this.showMainView();
+    } else {
+      this.showNonInstalledView();
+    }
+
+    this.show_all();
+  }
+
+  static isToucheggInstalled() {
+    return fileExists(getSystemConfigFilePath());
+  }
+
+  showNonInstalledView() {
+    this.set_size_request(300, 180);
+
+    this.notInstalledView = new NotInstalledView();
+    this.add(this.notInstalledView);
+
+    this.notInstalledView.connect('installed', () => {
+      if (AppWindow.isToucheggInstalled()) {
+        this.remove(this.notInstalledView);
+        this.showMainView();
+      }
+    });
+  }
+
+  showMainView() {
     XmlConfig.loadConfig();
 
-    this.set_size_request(600, 400);
+    this.set_size_request(1000, 750);
 
     this.mainView = new MainView();
     this.add(this.mainView);
-
-    this.show_all();
   }
 }
 
