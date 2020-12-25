@@ -18,17 +18,37 @@
  */
 import Views from '../views';
 import SwipeView from './swipe-view';
+import PinchView from './pinch-view';
+import TapView from './tap-view';
 
 const { GObject, Gtk } = imports.gi;
 
-class Content extends Gtk.Stack {
+class Content extends Gtk.Box {
   _init(initialView) {
-    super._init();
+    super._init({ orientation: Gtk.Orientation.VERTICAL });
 
-    this.add_named(new SwipeView(), Views.SWIPE_VIEW);
+    // Stack
+    this.stack = new Gtk.Stack();
+    this.stack.add_titled(new SwipeView(), Views.SWIPE_VIEW, _('Swipe'));
+    this.stack.add_titled(new PinchView(), Views.SWIPE_VIEW, _('Pinch'));
+    this.stack.add_titled(new TapView(), Views.SWIPE_VIEW, _('Tap'));
 
-    this.transition_type = Gtk.StackTransitionType.CROSSFADE;
-    this.visible_child_name = initialView;
+    this.stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
+    this.stack.visible_child_name = initialView;
+    this.stack.margin_start = 12;
+    this.stack.margin_end = 12;
+
+    // Stack Switcher
+    this.stackSwitcher = new Gtk.StackSwitcher();
+    this.stackSwitcher.stack = this.stack;
+    this.stackSwitcher.halign = Gtk.Align.CENTER;
+    this.stackSwitcher.homogeneous = true;
+
+    // Layout
+    this.pack_start(this.stackSwitcher, false, false, 12);
+    this.pack_end(this.stack, true, true, 0);
+    this.set_size_request(200, -1);
+    this.show_all();
   }
 }
 

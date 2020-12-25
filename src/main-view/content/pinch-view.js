@@ -17,13 +17,18 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * Available views.
- */
-const Views = {
-  SWIPE_VIEW: 'SWIPE_VIEW',
-  PINCH_VIEW: 'PINCH_VIEW',
-  TAP_VIEW: 'TAP_VIEW',
-};
+const { GObject, Gtk } = imports.gi;
 
-export default Views;
+class PinchView extends Gtk.ScrolledWindow {
+  _init() {
+    super._init();
+
+    this.box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL });
+    this.box.add(new Gtk.Label({ label: 'PINCH VIEW' }));
+    this.box.show_all();
+
+    this.add(this.box);
+  }
+}
+
+export default GObject.registerClass(PinchView);

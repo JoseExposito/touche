@@ -16,14 +16,24 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
+const { GObject, Gtk } = imports.gi;
 
-/**
- * Available views.
- */
-const Views = {
-  SWIPE_VIEW: 'SWIPE_VIEW',
-  PINCH_VIEW: 'PINCH_VIEW',
-  TAP_VIEW: 'TAP_VIEW',
-};
+class GestureListRow extends Gtk.ListBoxRow {
+  _init(text) {
+    super._init();
 
-export default Views;
+    this.box = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL });
+    this.box.margin = 8;
+
+    const label = new Gtk.Label({ label: text });
+    const labelClass = Granite ? Granite.STYLE_CLASS_H3_LABEL : 'text-h3';
+    label.get_style_context().add_class(labelClass);
+
+    this.box.pack_start(label, false, false, 0);
+    this.box.show_all();
+
+    this.add(this.box);
+  }
+}
+
+export default GObject.registerClass(GestureListRow);

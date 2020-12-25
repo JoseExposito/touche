@@ -16,6 +16,7 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
+import GestureList from './gesture-list';
 
 const { GObject, Gtk } = imports.gi;
 
@@ -24,7 +25,8 @@ class SwipeView extends Gtk.ScrolledWindow {
     super._init();
 
     this.box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL });
-    this.box.add(new Gtk.Label({ label: 'SWIPE VIEW' }));
+    this.box.add(new GestureList(_('Swipe with 3 fingers')));
+    this.box.add(new GestureList(_('Swipe with 4 fingers')));
     this.box.show_all();
 
     this.add(this.box);

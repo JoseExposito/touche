@@ -41,20 +41,16 @@ class Sidebar extends Gtk.Box {
 
     // Add the footer to allow to add more apps
     const footer = new Gtk.ActionBar();
-    const footerLabel = new Gtk.Label({ label: _('main-view-sidebar-footer-text') });
 
     const addAppButton = Gtk.Button.new_from_icon_name('list-add-symbolic', Gtk.IconSize.BUTTON);
-    addAppButton.tooltip_text = _('main-view-sidebar-footer-add-app-tooltip');
+    addAppButton.tooltip_text = _('Add new application');
 
     const removeAppButton = Gtk.Button.new_from_icon_name('list-remove-symbolic', Gtk.IconSize.BUTTON);
-    removeAppButton.tooltip_text = _('main-view-sidebar-footer-remove-app-tooltip');
+    removeAppButton.tooltip_text = _('Remove the selected application');
 
     footer.get_style_context().add_class(Gtk.STYLE_CLASS_INLINE_TOOLBAR);
-    footerLabel.get_style_context().add_class(Gtk.STYLE_CLASS_HEADER);
-
-    footer.pack_start(footerLabel);
-    footer.pack_end(addAppButton);
-    footer.pack_end(removeAppButton);
+    footer.pack_start(addAppButton);
+    footer.pack_start(removeAppButton);
 
     this.pack_start(scrolled, true, true, 0);
     this.pack_end(footer, false, false, 0);
