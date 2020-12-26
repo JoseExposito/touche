@@ -54,7 +54,7 @@ class Sidebar extends Gtk.Box {
 
     this.pack_start(scrolled, true, true, 0);
     this.pack_end(footer, false, false, 0);
-    this.set_size_request(200, -1);
+    this.set_size_request(250, -1);
     this.show_all();
   }
 }

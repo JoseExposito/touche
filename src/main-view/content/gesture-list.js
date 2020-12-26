@@ -28,7 +28,7 @@ class GestureList extends Gtk.Box {
       this.titleLabel = new Granite.HeaderLabel({ label: title });
     } else {
       this.titleLabel = new Gtk.Label({ label: title });
-      this.titleLabel.get_style_context().add_class('h3-text');
+      this.titleLabel.get_style_context().add_class('text-h4');
       this.titleLabel.xalign = 0;
     }
 

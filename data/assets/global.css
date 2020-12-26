@@ -1,17 +1,19 @@
 .text-h1 {
-  font-size: 1.20em;
+  font-size: 2.25em;
+  font-weight: 700;
 }
 
 .text-h2 {
-  font-size: 1.15em;
+  font-size: 1.8em;
+  font-weight: 300;
 }
 
 .text-h3 {
-  font-size: 1.10em;
+  font-size: 1.25em;
 }
 
 .text-h4 {
-  font-size: 1.05em;
+  font-weight: 700;
 }
 
 /* Touchégg not installed view */
