@@ -18,7 +18,6 @@
  */
 import Sidebar from './sidebar';
 import Content from './content';
-import Views from './views';
 
 const { GObject, Gtk } = imports.gi;
 
@@ -27,11 +26,13 @@ class MainView extends Gtk.Paned {
     super._init({ orientation: Gtk.Orientation.HORIZONTAL });
 
     this.sidebar = new Sidebar();
-    this.content = new Content(Views.SWIPE_VIEW);
+    this.content = new Content();
 
     this.pack1(this.sidebar, false, false);
     this.add2(this.content);
     this.show_all();
+
+    this.sidebar.connect('appSelected', this.content.appSelected);
   }
 }
 

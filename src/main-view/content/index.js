@@ -24,17 +24,21 @@ import TapView from './tap-view';
 const { GObject, Gtk } = imports.gi;
 
 class Content extends Gtk.Box {
-  _init(initialView) {
+  _init() {
     super._init({ orientation: Gtk.Orientation.VERTICAL });
+    this.appSelected = this.appSelected.bind(this);
 
     // Stack
+    this.swipeView = new SwipeView();
+    this.pinchView = new PinchView();
+    this.tapView = new TapView();
+
     this.stack = new Gtk.Stack();
-    this.stack.add_titled(new SwipeView(), Views.SWIPE_VIEW, _('Swipe'));
-    this.stack.add_titled(new PinchView(), Views.PINCH_VIEW, _('Pinch'));
-    this.stack.add_titled(new TapView(), Views.TAP_VIEW, _('Tap'));
+    this.stack.add_titled(this.swipeView, Views.SWIPE_VIEW, _('Swipe'));
+    this.stack.add_titled(this.pinchView, Views.PINCH_VIEW, _('Pinch'));
+    this.stack.add_titled(this.tapView, Views.TAP_VIEW, _('Tap'));
 
     this.stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
-    this.stack.visible_child_name = initialView;
     this.stack.margin_start = 12;
     this.stack.margin_end = 12;
 
@@ -49,6 +53,11 @@ class Content extends Gtk.Box {
     this.pack_end(this.stack, true, true, 0);
     this.set_size_request(200, -1);
     this.show_all();
+  }
+
+  appSelected(self, appName) {
+    log(`MainView Content: Loading gestures for app with name: "${appName}"`);
+    this.swipeView.showGestures(appName);
   }
 }
 

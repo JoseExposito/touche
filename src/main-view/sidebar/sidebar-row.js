@@ -19,14 +19,15 @@
 const { GObject, Gtk } = imports.gi;
 
 class SidebarRow extends Gtk.ListBoxRow {
-  _init(text, icon) {
+  _init(appName, icon) {
     super._init();
+    this.appName = appName;
 
     this.box = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL });
     this.box.margin = 8;
     this.box.pack_start(icon, false, false, 8);
 
-    const label = new Gtk.Label({ label: text });
+    const label = new Gtk.Label({ label: appName });
     const labelClass = Granite ? Granite.STYLE_CLASS_H3_LABEL : 'text-h3';
     label.get_style_context().add_class(labelClass);
 

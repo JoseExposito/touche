@@ -23,6 +23,7 @@ const { GObject, Gtk } = imports.gi;
 class GestureList extends Gtk.Box {
   _init(title) {
     super._init({ orientation: Gtk.Orientation.VERTICAL });
+    this.showGestures = this.showGestures.bind(this);
 
     if (Granite) {
       this.titleLabel = new Granite.HeaderLabel({ label: title });
@@ -33,16 +34,22 @@ class GestureList extends Gtk.Box {
     }
 
     this.list = new Gtk.ListBox();
-    // TODO Add the real gestures
-    ['foo', 'bar', 'baz', 'test'].forEach((foo) => {
-      this.list.add(new GestureListRow(foo));
-    });
-
     this.listFrame = new Gtk.Frame();
     this.listFrame.add(this.list);
 
     this.pack_start(this.titleLabel, false, false, 0);
     this.pack_start(this.listFrame, false, false, 12);
+
+    this.show_all();
+  }
+
+  showGestures(gestures) {
+    this.list.forall((row) => this.list.remove(row));
+
+    gestures.forEach((gesture) => {
+      log(JSON.stringify(gesture));
+      this.list.add(new GestureListRow(gesture));
+    });
 
     this.show_all();
   }

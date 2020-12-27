@@ -17,19 +17,48 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 import GestureList from './gesture-list';
+import model from '~/config/model';
+import GestureDirection from '~/config/gesture-direction';
+import GestureType from '~/config/gesture-type';
 
 const { GObject, Gtk } = imports.gi;
 
 class SwipeView extends Gtk.ScrolledWindow {
   _init() {
     super._init();
+    this.showGestures = this.showGestures.bind(this);
+
+    this.list3 = new GestureList(_('Swipe with 3 fingers'));
+    this.list4 = new GestureList(_('Swipe with 4 fingers'));
 
     this.box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL });
-    this.box.add(new GestureList(_('Swipe with 3 fingers')));
-    this.box.add(new GestureList(_('Swipe with 4 fingers')));
+    this.box.add(this.list3);
+    this.box.add(this.list4);
     this.box.show_all();
 
     this.add(this.box);
+  }
+
+  showGestures(appName) {
+    const gestures3 = [
+      model.getGesture(GestureType.SWIPE, GestureDirection.UP, 3, appName),
+      model.getGesture(GestureType.SWIPE, GestureDirection.DOWN, 3, appName),
+      model.getGesture(GestureType.SWIPE, GestureDirection.LEFT, 3, appName),
+      model.getGesture(GestureType.SWIPE, GestureDirection.RIGHT, 3, appName),
+    ];
+
+    const gestures4 = [
+      model.getGesture(GestureType.SWIPE, GestureDirection.UP, 4, appName),
+      model.getGesture(GestureType.SWIPE, GestureDirection.DOWN, 4, appName),
+      model.getGesture(GestureType.SWIPE, GestureDirection.LEFT, 4, appName),
+      model.getGesture(GestureType.SWIPE, GestureDirection.RIGHT, 4, appName),
+    ];
+
+    log('SwipeView: Loading 3 fingers swipes');
+    this.list3.showGestures(gestures3);
+
+    log('SwipeView: Loading 4 fingers swipes');
+    this.list4.showGestures(gestures4);
   }
 }
 

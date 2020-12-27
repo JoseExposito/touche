@@ -28,15 +28,20 @@ class Sidebar extends Gtk.Box {
     // Add the application list inside a scroll window
     const scrolled = new Gtk.ScrolledWindow();
     const list = new Gtk.ListBox();
+    list.selection_mode = Gtk.SelectionMode.SINGLE;
     list.expand = true;
     scrolled.add(list);
 
     const appNames = model.getAppNames();
-    appNames.forEach((appName) => {
+    appNames.forEach((appName, index) => {
       const icon = Gtk.Image.new_from_icon_name('input-touchpad', Gtk.IconSize.DND);
       // icon.icon_size = Gtk.IconSize.NORMAL; // GTK4 + remove the icon size ^ from the constructor
       const row = new SidebarRow(appName, icon);
       list.add(row);
+
+      if (index === 0) {
+        list.select_row(row);
+      }
     });
 
     // Add the footer to allow to add more apps
@@ -56,7 +61,22 @@ class Sidebar extends Gtk.Box {
     this.pack_end(footer, false, false, 0);
     this.set_size_request(250, -1);
     this.show_all();
+
+    list.connect('row_selected', (self, row) => {
+      const { appName } = row;
+      log(`Sidebar: App with name "${appName}" selected`);
+      this.emit('appSelected', appName);
+    });
   }
 }
 
-export default GObject.registerClass(Sidebar);
+export default GObject.registerClass(
+  {
+    Signals: {
+      appSelected: {
+        param_types: [GObject.TYPE_STRING],
+      },
+    },
+  },
+  Sidebar,
+);

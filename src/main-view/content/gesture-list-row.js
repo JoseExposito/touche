@@ -19,13 +19,13 @@
 const { GObject, Gtk } = imports.gi;
 
 class GestureListRow extends Gtk.ListBoxRow {
-  _init(text) {
+  _init(gesture) {
     super._init();
 
     this.box = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL });
     this.box.margin = 8;
 
-    const label = new Gtk.Label({ label: text });
+    const label = new Gtk.Label({ label: gesture.gestureDirection });
     const labelClass = Granite ? Granite.STYLE_CLASS_H3_LABEL : 'text-h3';
     label.get_style_context().add_class(labelClass);
 
