@@ -16,8 +16,7 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-import GestureType from '~/config/gesture-type';
-import GestureDirection from '~/config/gesture-direction';
+import Gesture from '~/config/gesture';
 
 /**
  * Singleton to store the user config in a friendly way.
@@ -26,21 +25,17 @@ class Model {
   constructor() {
     this.model = {
       /*
-      * Object with shape:
-      *  {
-      *    [gestureId]: {
-      *      id: The same ID used as key,
-      *      gestureType: As defined in GestureType,
-      *      gestureDirection: As defined in GestureDirection,
-      *      numberOfFingers: Number of fingers,
-      *      actionType: As defined in ActionType,
-      *      actionSettings: Object with the action settings,
-      *      appName: "All" or the name of the application,
-      *    },
-      *    [...]
-      *  }
-      */
+       * Object with shape:
+       *  {
+       *    [gestureId]: {
+       *      <Gesture Object>
+       *    },
+       *    [...]
+       *  }
+       */
       byId: {},
+
+      // Array of all available gesture IDs
       allIds: [],
 
       // Key: appName. Value: Array of gestureIds configured for the application.
@@ -49,41 +44,31 @@ class Model {
     };
   }
 
-  /**
-   * @param {string} gestureType As defined in GestureType.
-   * @param {string} gestureDirection As defined in GestureDirection.
-   * @param {string} numberOfFingers Number of fingers.
-   * @param {string} appName "All" or the name of the application.
-   * @returns {string} Unique ID for the gesture.
-   */
-  static getGestureId(gestureType, gestureDirection, numberOfFingers, appName) {
-    return `${gestureType}_${gestureDirection}_${numberOfFingers}_${appName}`;
-  }
-
   addGesture(gestureType, gestureDirection, numberOfFingers, actionType, actionSettings, appName) {
-    const id = Model.getGestureId(gestureType, gestureDirection, numberOfFingers, appName);
+    const gesture = new Gesture({
+      gestureType,
+      gestureDirection,
+      numberOfFingers,
+      actionType,
+      actionSettings,
+      appName,
+    });
+
     this.model = {
       ...this.model,
       byId: {
         ...this.model.byId,
-        [id]: {
-          gestureType,
-          gestureDirection,
-          numberOfFingers,
-          actionType,
-          actionSettings,
-          appName,
-        },
+        [gesture.id]: gesture,
       },
       allIds: [
-        ...this.model.allIds.filter((otherId) => otherId !== id),
-        id,
+        ...this.model.allIds.filter((otherId) => otherId !== gesture.id),
+        gesture.id,
       ],
       byAppName: {
         ...this.model.byAppName,
         [appName]: [
-          ...(this.model.byAppName[appName] || []).filter((otherId) => otherId !== id),
-          id,
+          ...(this.model.byAppName[appName] || []).filter((otherId) => otherId !== gesture.id),
+          gesture.id,
         ],
       },
       allAppNames: [
@@ -93,33 +78,23 @@ class Model {
     };
   }
 
-  getGesturesByAppName(appName) {
-    const ids = this.model.byAppName[appName] || [];
-    return ids
-      .map((id) => this.model.byId[id])
-      .sort((a, b) => {
-        if (parseInt(a.numberOfFingers, 10) > parseInt(b.numberOfFingers, 10)) { return 1; }
-        if (parseInt(a.numberOfFingers, 10) < parseInt(b.numberOfFingers, 10)) { return -1; }
-
-        const typeIndices = Object.keys(GestureType);
-        const aTypeIndex = typeIndices.indexOf(a.gestureType);
-        const bTypeIndex = typeIndices.indexOf(b.gestureType);
-        if (aTypeIndex > bTypeIndex) { return 1; }
-        if (bTypeIndex > aTypeIndex) { return -1; }
-
-        const directionIndices = Object.keys(GestureDirection);
-        const aDirectionIndex = directionIndices.indexOf(a.gestureDirection);
-        const bDirectionIndex = directionIndices.indexOf(b.gestureDirection);
-        return (aDirectionIndex - bDirectionIndex);
-      });
-  }
-
   getAppNames() {
     return this.model.allAppNames.sort((a, b) => {
       if (a.toLowerCase() === 'all') { return -1; }
       if (b.toLowerCase() === 'all') { return 1; }
       return a.localeCompare(b);
     });
+  }
+
+  getGesture(gestureType, gestureDirection, numberOfFingers, appName) {
+    const id = Gesture.getId(gestureType, gestureDirection, numberOfFingers, appName);
+    return this.model.byId[id]
+      || new Gesture({
+        gestureType,
+        gestureDirection,
+        numberOfFingers,
+        appName,
+      });
   }
 
   /**
