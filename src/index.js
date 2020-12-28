@@ -58,6 +58,21 @@ function main(argv) {
     Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
       Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
+    // Allow to use dark style on elementary OS
+    if (Granite) {
+      log('Granite is available, setting up dark style');
+      const graniteSettings = Granite.Settings.get_default();
+      const gtkSettings = Gtk.Settings.get_default();
+
+      const setColorSchema = () => {
+        const useDark = (graniteSettings.prefers_color_scheme === Granite.SettingsColorScheme.DARK);
+        gtkSettings.gtk_application_prefer_dark_theme = useDark;
+      };
+
+      graniteSettings.connect('notify::prefers-color-scheme', setColorSchema);
+      setColorSchema();
+    }
+
     // Show the app window
     let { activeWindow } = app;
 

@@ -73,7 +73,7 @@ class XmlConfig {
       });
     });
 
-    model.logModel();
+    // model.logModel();
   }
 
   /**
