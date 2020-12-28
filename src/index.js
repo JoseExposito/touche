@@ -44,8 +44,6 @@ try {
  * @returns {number} Status code.
  */
 function main(argv) {
-  log(argv);
-
   const application = new Gtk.Application({
     application_id: process.env.PROJECT_NAME,
     flags: Gio.ApplicationFlags.FLAGS_NONE,

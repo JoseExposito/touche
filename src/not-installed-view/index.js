@@ -29,19 +29,19 @@ class NotInstalledView extends Gtk.Box {
       margin: 24,
     });
 
-    const title = new Gtk.Label({ label: _('Touchégg is not installed'), hexpand: true });
+    const title = new Gtk.Label({ label: _('not-installed-title'), hexpand: true });
     const titleClass = Granite ? Granite.STYLE_CLASS_H2_LABEL : 'text-h2';
     title.get_style_context().add_class(titleClass);
 
-    const explanation = new Gtk.Label({
-      label: _('It looks like Touchégg is not installed, let\'s start by downloading it'),
+    const description = new Gtk.Label({
+      label: _('not-installed-description'),
       hexpand: true,
     });
-    const explanationClass = Granite ? Granite.STYLE_CLASS_H3_LABEL : 'text-h3';
-    explanation.get_style_context().add_class(explanationClass);
+    const descriptionClass = Granite ? Granite.STYLE_CLASS_H3_LABEL : 'text-h3';
+    description.get_style_context().add_class(descriptionClass);
 
     const download = new Gtk.Button({
-      label: _('Download Touchégg'),
+      label: _('not-installed-download'),
       hexpand: false,
       halign: Gtk.Align.CENTER,
       valign: Gtk.Align.CENTER,
@@ -56,7 +56,7 @@ class NotInstalledView extends Gtk.Box {
     ));
 
     const installed = new Gtk.LinkButton({
-      label: _('I just installed it'),
+      label: _('not-installed-downloaded'),
       halign: Gtk.Align.CENTER,
       valign: Gtk.Align.CENTER,
     });
@@ -66,7 +66,7 @@ class NotInstalledView extends Gtk.Box {
     });
 
     this.pack_start(title, false, false, 0);
-    this.pack_start(explanation, false, false, 0);
+    this.pack_start(description, false, false, 0);
     this.pack_start(download, true, true, 0);
     this.pack_end(installed, false, false, 0);
     this.show_all();

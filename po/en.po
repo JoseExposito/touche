@@ -15,70 +15,86 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /home/jose/Devel/touchegg-gui/src/app-window.js:50
-msgid "hello"
-msgstr ""
 
-#: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:84
-msgid "gesture-list-gesture-type-swipe"
+msgid "gesture-type-SWIPE"
 msgstr "Swipe"
 
-#: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:86
-msgid "gesture-list-gesture-type-pinch"
+msgid "gesture-type-PINCH"
 msgstr "Pinch"
 
-#: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:89
-msgid "gesture-list-direction-up"
+msgid "gesture-type-TAP"
+msgstr "Tap"
+
+
+msgid "gesture-direction-UP"
 msgstr "Up"
 
-#: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:91
-msgid "gesture-list-direction-down"
+msgid "gesture-direction-DOWN"
 msgstr "Down"
 
-#: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:93
-msgid "gesture-list-direction-left"
+msgid "gesture-direction-LEFT"
 msgstr "Left"
 
-#: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:95
-msgid "gesture-list-direction-right"
+msgid "gesture-direction-RIGHT"
 msgstr "Right"
 
-#: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:97
-msgid "gesture-list-direction-in"
+msgid "gesture-direction-IN"
 msgstr "In"
 
-#: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:99
-msgid "gesture-list-direction-out"
+msgid "gesture-list-direction-OUT"
 msgstr "Out"
 
-#: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:102
-msgid "gesture-list-action-maximize-restore-window"
+
+msgid "action-type-MAXIMIZE_RESTORE_WINDOW"
 msgstr "Maximize or restore a window"
 
-#: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:104
-msgid "gesture-list-action-minimize-window"
+msgid "action-type-MINIMIZE_WINDOW"
 msgstr "Minimize a window"
 
-#: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:106
-msgid "gesture-list-action-tile-window"
+msgid "action-type-TILE_WINDOW"
 msgstr "Tile a widow"
 
-#: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:108
-msgid "gesture-list-action-close-window"
+msgid "action-type-CLOSE_WINDOW"
 msgstr "Close a window"
 
-#: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:110
-msgid "gesture-list-action-change-desktop"
+msgid "action-type-CHANGE_DESKTOP"
 msgstr "Switch desktop"
 
-#: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:112
-msgid "gesture-list-action-show-desktop"
+msgid "action-type-SHOW_DESKTOP"
 msgstr "Show desktop"
 
-#: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:114
-msgid "gesture-list-action-send-keys"
+msgid "action-type-SEND_KEYS"
 msgstr "Keyboard shortcut"
 
-#: /home/jose/Devel/touchegg-gui/src/gesture-list-view/row-item.js:116
-msgid "gesture-list-action-run-command"
+msgid "action-type-RUN_COMMAND"
 msgstr "Execute a command"
+
+msgid "action-type-MOUSE_CLICK"
+msgstr "Mouse click"
+
+
+msgid "not-installed-title"
+msgstr "Touchégg is not installed"
+
+msgid "not-installed-description"
+msgstr "It looks like Touchégg is not installed, let's start by downloading it"
+
+msgid "not-installed-download"
+msgstr "Download Touchégg"
+
+msgid "not-installed-downloaded"
+msgstr "I just installed it"
+
+
+msgid "sidebar-add-app"
+msgstr "Add new application"
+
+msgid "sidebar-remove-app"
+msgstr "Remove the selected application"
+
+
+msgid "swipe-list-title-3-fingers"
+msgstr "Swipe with 3 fingers"
+
+msgid "swipe-list-title-4-fingers"
+msgstr "Swipe with 4 fingers"
