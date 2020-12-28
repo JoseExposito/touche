@@ -23,17 +23,22 @@ import GestureType from '~/config/gesture-type';
 
 const { GObject, Gtk } = imports.gi;
 
-class SwipeView extends Gtk.Box {
+class SwipeView extends Gtk.ScrolledWindow {
   _init() {
-    super._init({ orientation: Gtk.Orientation.VERTICAL });
+    super._init();
     this.showGestures = this.showGestures.bind(this);
 
     this.list3 = new GestureList(_('Swipe with 3 fingers'));
     this.list4 = new GestureList(_('Swipe with 4 fingers'));
 
-    this.add(this.list3);
-    this.add(this.list4);
-    this.show_all();
+    this.box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL });
+    this.box.add(this.list3);
+    this.box.add(this.list4);
+    this.box.margin_start = 12;
+    this.box.margin_end = 12;
+    this.box.show_all();
+
+    this.add(this.box);
   }
 
   showGestures(appName) {

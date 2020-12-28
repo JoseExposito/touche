@@ -19,12 +19,15 @@
 
 const { GObject, Gtk } = imports.gi;
 
-class TapView extends Gtk.Box {
+class TapView extends Gtk.ScrolledWindow {
   _init() {
-    super._init({ orientation: Gtk.Orientation.VERTICAL });
+    super._init();
 
-    this.add(new Gtk.Label({ label: 'TAP VIEW' }));
-    this.show_all();
+    this.box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL });
+    this.box.add(new Gtk.Label({ label: 'TAP VIEW' }));
+    this.box.show_all();
+
+    this.add(this.box);
   }
 }
 
