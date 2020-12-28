@@ -44,7 +44,9 @@ class Model {
     };
   }
 
-  addGesture(gestureType, gestureDirection, numberOfFingers, actionType, actionSettings, appName) {
+  addGesture(
+    gestureType, gestureDirection, numberOfFingers, actionType, actionSettings, appName, enabled,
+  ) {
     const gesture = new Gesture({
       gestureType,
       gestureDirection,
@@ -52,6 +54,7 @@ class Model {
       actionType,
       actionSettings,
       appName,
+      enabled,
     });
 
     this.model = {
@@ -94,6 +97,7 @@ class Model {
         gestureDirection,
         numberOfFingers,
         appName,
+        enabled: false,
       });
   }
 

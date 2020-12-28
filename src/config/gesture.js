@@ -29,6 +29,7 @@ class Gesture {
    * @param {string} config.actionType As defined in ActionType.
    * @param {object} config.actionSettings Object with the action settings.
    * @param {string} config.appName "All" or the name of the application.
+   * @param {string} config.enabled In the gesture is enabled or not.
    */
   constructor({
     gestureType,
@@ -37,6 +38,7 @@ class Gesture {
     actionType,
     actionSettings,
     appName,
+    enabled,
   }) {
     this.id = Gesture.getId(gestureType, gestureDirection, numberOfFingers, appName);
     this.gestureType = gestureType;
@@ -45,6 +47,7 @@ class Gesture {
     this.actionType = actionType;
     this.actionSettings = actionSettings;
     this.appName = appName;
+    this.enabled = enabled;
   }
 
   /**

@@ -33,7 +33,9 @@ class GestureList extends Gtk.Box {
       this.titleLabel.xalign = 0;
     }
 
-    this.list = new Gtk.ListBox();
+    this.list = new Gtk.ListBox({
+      selection_mode: Gtk.SelectionMode.NONE,
+    });
     this.listFrame = new Gtk.Frame();
     this.listFrame.add(this.list);
 

@@ -60,7 +60,11 @@ class XmlConfig {
 
         appNames.split(',').forEach((appName) => {
           const safeAppName = appName.trim();
-          log(`Adding gesture: ${gestureType}, ${gestureDirection}, ${numberOfFingers}, ${actionType}, ${safeAppName}`);
+
+          // TODO Allow to enable/disable gestures in the config file
+          const enabled = true;
+
+          log(`Adding gesture: ${gestureType}, ${gestureDirection}, ${numberOfFingers}, ${actionType}, ${safeAppName}, enabled: ${enabled}`);
           model.addGesture(
             gestureType,
             gestureDirection,
@@ -68,12 +72,13 @@ class XmlConfig {
             actionType,
             actionSettings,
             safeAppName,
+            enabled,
           );
         });
       });
     });
 
-    // model.logModel();
+    model.logModel();
   }
 
   /**

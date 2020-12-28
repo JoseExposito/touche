@@ -28,7 +28,7 @@ class Sidebar extends Gtk.Box {
     // Add the application list inside a scroll window
     const scrolled = new Gtk.ScrolledWindow();
     const list = new Gtk.ListBox();
-    list.selection_mode = Gtk.SelectionMode.SINGLE;
+    list.selection_mode = Gtk.SelectionMode.BROWSE;
     list.expand = true;
     scrolled.add(list);
 

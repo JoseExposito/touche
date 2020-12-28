@@ -30,6 +30,7 @@ class AppWindow extends Gtk.ApplicationWindow {
   _init(application) {
     super._init({
       application,
+      title: 'Touchégg',
     });
 
     // If Touchégg is not installed, show a screen to allow to download it

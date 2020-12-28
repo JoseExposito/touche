@@ -16,23 +16,59 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
+import ActionType from '~/config/action-type';
+
 const { GObject, Gtk } = imports.gi;
 
 class GestureListRow extends Gtk.ListBoxRow {
   _init(gesture) {
     super._init();
 
-    this.box = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL });
-    this.box.margin = 8;
+    this.grid = new Gtk.Grid({
+      margin: 8,
+      margin_bottom: 16,
+      row_spacing: 8,
+    });
 
-    const label = new Gtk.Label({ label: gesture.gestureDirection });
-    const labelClass = Granite ? Granite.STYLE_CLASS_H3_LABEL : 'text-h3';
-    label.get_style_context().add_class(labelClass);
+    // Direction label
+    const directionLabel = new Gtk.Label({
+      label: _(`gesture-direction-${gesture.gestureDirection}`),
+      halign: Gtk.Align.START,
+      valign: Gtk.Align.CENTER,
+    });
+    const directionClass = Granite ? Granite.STYLE_CLASS_H3_LABEL : 'text-h3';
+    directionLabel.get_style_context().add_class(directionClass);
 
-    this.box.pack_start(label, false, false, 0);
-    this.box.show_all();
+    // Enabled switch
+    this.enabledSwitch = new Gtk.Switch({
+      halign: Gtk.Align.END,
+      valign: Gtk.Align.CENTER,
+    });
+    this.enabledSwitch.active = gesture.enabled;
 
-    this.add(this.box);
+    // Actions combo box
+    this.actionsCombo = new Gtk.ComboBoxText({
+      hexpand: true,
+      valign: Gtk.Align.CENTER,
+    });
+    Object.values(ActionType).forEach((action) => {
+      this.actionsCombo.append(action, _(`action-type-${action}`));
+    });
+
+    if (gesture.enabled) {
+      this.actionsCombo.active_id = gesture.actionType;
+    }
+
+    // Signals & Properties
+    this.enabledSwitch.bind_property('active', this.actionsCombo, 'sensitive', GObject.BindingFlags.SYNC_CREATE);
+
+    // Layout
+    this.grid.attach(directionLabel, 0, 0, 1, 1);
+    this.grid.attach(this.enabledSwitch, 1, 0, 1, 1);
+    this.grid.attach(this.actionsCombo, 0, 1, 2, 1);
+    this.grid.show_all();
+
+    this.add(this.grid);
   }
 }
 
