@@ -91,7 +91,7 @@ const generatePoFile = async (locale) => new Promise((resolve, reject) => {
 
   console.log(`${exists ? 'Updating' : 'Creating'} po/${locale}.po`);
 
-  const command = `xgettext ${exists ? '--join-existing --omit-header' : ''} --output-dir=${i18nPath} --output=${poPath} --from-code=UTF-8 \`find ${srcPath} -name "*js"\``;
+  const command = `xgettext ${exists ? '--join-existing --omit-header --no-location' : '--no-location'} --output-dir=${i18nPath} --output=${poPath} --from-code=UTF-8 \`find ${srcPath} -name "*js"\``;
   exec(command, { cwd: rootPath },
     (error) => {
       if (error) {
