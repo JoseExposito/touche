@@ -17,6 +17,7 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 import ActionType from '~/config/action-type';
+import rowSettings from './row-settings';
 
 const { GObject, Gtk } = imports.gi;
 
@@ -59,6 +60,11 @@ class GestureListRow extends Gtk.ListBoxRow {
       this.actionsCombo.active_id = gesture.actionType;
     }
 
+    // Row settings
+    this.rowSettings = rowSettings[gesture.actionType]
+      ? new rowSettings[gesture.actionType](gesture)
+      : null;
+
     // Signals & Properties
     this.enabledSwitch.bind_property('active', this.actionsCombo, 'sensitive', GObject.BindingFlags.SYNC_CREATE);
 
@@ -66,6 +72,18 @@ class GestureListRow extends Gtk.ListBoxRow {
     this.grid.attach(directionLabel, 0, 0, 1, 1);
     this.grid.attach(this.enabledSwitch, 1, 0, 1, 1);
     this.grid.attach(this.actionsCombo, 0, 1, 2, 1);
+
+    if (this.rowSettings) {
+      const separator = new Gtk.Separator({
+        orientation: Gtk.Orientation.HORIZONTAL,
+        margin_bottom: 8,
+        margin_top: 8,
+      });
+
+      this.grid.attach(separator, 0, 2, 2, 1);
+      this.grid.attach(this.rowSettings, 0, 3, 2, 1);
+    }
+
     this.grid.show_all();
 
     this.add(this.grid);

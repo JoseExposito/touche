@@ -24,7 +24,6 @@ msgstr "Pellizcar"
 msgid "gesture-type-TAP"
 msgstr "Golpear"
 
-
 msgid "gesture-direction-UP"
 msgstr "Arriba"
 
@@ -42,7 +41,6 @@ msgstr "Dentro"
 
 msgid "gesture-list-direction-OUT"
 msgstr "Fuera"
-
 
 msgid "action-type-MAXIMIZE_RESTORE_WINDOW"
 msgstr "Maximizar o restablecer una ventana"
@@ -71,7 +69,6 @@ msgstr "Ejecutar comando"
 msgid "action-type-MOUSE_CLICK"
 msgstr "Click de ratón"
 
-
 msgid "not-installed-title"
 msgstr "Touchégg no está instalado"
 
@@ -84,16 +81,29 @@ msgstr "Descargar Touchégg"
 msgid "not-installed-downloaded"
 msgstr "Lo acabo de instalar"
 
-
 msgid "sidebar-add-app"
 msgstr "Añadir aplicación"
 
 msgid "sidebar-remove-app"
 msgstr "Eliminar aplicación seleccionada"
 
-
 msgid "swipe-list-title-3-fingers"
 msgstr "Arrastrar con 3 dedos"
 
 msgid "swipe-list-title-4-fingers"
 msgstr "Arrastrar con 4 dedos"
+
+msgid "settings-run-command-command"
+msgstr "Comando:"
+
+msgid "settings-run-command-repeat"
+msgstr "Repetir comando:"
+
+msgid "settings-run-command-on-begin-end-text"
+msgstr "Ejecutar cuando:"
+
+msgid "settings-run-command-on-begin-option"
+msgstr "El gesto empiece"
+
+msgid "settings-run-command-on-end-option"
+msgstr "El gesto finalice"

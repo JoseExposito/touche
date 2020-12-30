@@ -15,7 +15,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-
 msgid "gesture-type-SWIPE"
 msgstr "Swipe"
 
@@ -24,7 +23,6 @@ msgstr "Pinch"
 
 msgid "gesture-type-TAP"
 msgstr "Tap"
-
 
 msgid "gesture-direction-UP"
 msgstr "Up"
@@ -43,7 +41,6 @@ msgstr "In"
 
 msgid "gesture-list-direction-OUT"
 msgstr "Out"
-
 
 msgid "action-type-MAXIMIZE_RESTORE_WINDOW"
 msgstr "Maximize or restore a window"
@@ -72,7 +69,6 @@ msgstr "Execute a command"
 msgid "action-type-MOUSE_CLICK"
 msgstr "Mouse click"
 
-
 msgid "not-installed-title"
 msgstr "Touchégg is not installed"
 
@@ -85,16 +81,29 @@ msgstr "Download Touchégg"
 msgid "not-installed-downloaded"
 msgstr "I just installed it"
 
-
 msgid "sidebar-add-app"
 msgstr "Add new application"
 
 msgid "sidebar-remove-app"
 msgstr "Remove the selected application"
 
-
 msgid "swipe-list-title-3-fingers"
 msgstr "Swipe with 3 fingers"
 
 msgid "swipe-list-title-4-fingers"
 msgstr "Swipe with 4 fingers"
+
+msgid "settings-run-command-command"
+msgstr "Command:"
+
+msgid "settings-run-command-repeat"
+msgstr "Repeat command:"
+
+msgid "settings-run-command-on-begin-end-text"
+msgstr "Execute on:"
+
+msgid "settings-run-command-on-begin-option"
+msgstr "Gesture begin"
+
+msgid "settings-run-command-on-end-option"
+msgstr "Gesture end"
