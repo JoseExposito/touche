@@ -107,3 +107,9 @@ msgstr "Gesture begin"
 
 msgid "settings-run-command-on-end-option"
 msgstr "Gesture end"
+
+msgid "settings-run-command-oposite-direction-text"
+msgstr "Oposite command:"
+
+msgid "settings-run-command-oposite-direction-placeholder"
+msgstr "Run this command when the gesture goes in the oposite direction"

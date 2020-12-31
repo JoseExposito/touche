@@ -82,6 +82,8 @@ class GestureListRow extends Gtk.ListBoxRow {
 
       this.grid.attach(separator, 0, 2, 2, 1);
       this.grid.attach(this.rowSettings, 0, 3, 2, 1);
+
+      this.enabledSwitch.bind_property('active', this.rowSettings, 'sensitive', GObject.BindingFlags.SYNC_CREATE);
     }
 
     this.grid.show_all();

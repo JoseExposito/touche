@@ -22,20 +22,24 @@ class RunCommandRowSettings extends Gtk.Grid {
   _init(gesture) {
     super._init({
       row_spacing: 8,
-      column_spacing: 8,
+      column_spacing: 16,
     });
-    this.gesture = gesture;
 
+    this.gesture = gesture;
+    this.repeatChanged = this.repeatChanged.bind(this);
+
+    // Command label and entry
     const commandLabel = new Gtk.Label({
       label: _('settings-run-command-command'),
       halign: Gtk.Align.END,
     });
 
-    this.commandText = new Gtk.Entry({
+    this.commandEntry = new Gtk.Entry({
       hexpand: true,
       valign: Gtk.Align.CENTER,
     });
 
+    // Repeat label and switch
     const repeatLabel = new Gtk.Label({
       label: _('settings-run-command-repeat'),
       halign: Gtk.Align.END,
@@ -45,9 +49,10 @@ class RunCommandRowSettings extends Gtk.Grid {
       halign: Gtk.Align.START,
       valign: Gtk.Align.CENTER,
     });
-    this.repeatSwitch.active = (gesture?.actionSettings?.repeat === 'true');
+    const isRepeatActive = (gesture?.actionSettings?.repeat === 'true');
+    this.repeatSwitch.active = isRepeatActive;
 
-    // When repeat is false
+    // When repeat is false, display the on begin/end combo
     this.onBeginEndLabel = new Gtk.Label({
       label: _('settings-run-command-on-begin-end-text'),
       halign: Gtk.Align.END,
@@ -61,20 +66,41 @@ class RunCommandRowSettings extends Gtk.Grid {
     this.onBeginEndCombo.append('end', _('settings-run-command-on-end-option'));
     this.onBeginEndCombo.active_id = gesture?.actionSettings?.on ?? 'begin';
 
+    // When repeat is true, display the oposite direction command entry
+    this.opositeCommandLabel = new Gtk.Label({
+      label: _('settings-run-command-oposite-direction-text'),
+      halign: Gtk.Align.END,
+    });
+
+    this.opositeCommandEntry = new Gtk.Entry({
+      hexpand: true,
+      valign: Gtk.Align.CENTER,
+      placeholder_text: _('settings-run-command-oposite-direction-placeholder'),
+    });
+
+    // Signals & Properties
+    this.repeatSwitch.connect('state_set', (self, state) => this.repeatChanged(state));
+
     this.attach(commandLabel, 0, 0, 1, 1);
-    this.attach(this.commandText, 1, 0, 1, 1);
+    this.attach(this.commandEntry, 1, 0, 1, 1);
     this.attach(repeatLabel, 0, 1, 1, 1);
     this.attach(this.repeatSwitch, 1, 1, 1, 1);
-    this.repeatChanged();
+    this.repeatChanged(isRepeatActive);
     this.show_all();
   }
 
-  repeatChanged() {
-    // const active = (this.gesture?.actionSettings?.repeat === 'true');
+  repeatChanged(isRepeatActive) {
+    this.remove_row(2);
 
-    // TODO Switch this bit of the UI
-    this.attach(this.onBeginEndLabel, 0, 2, 1, 1);
-    this.attach(this.onBeginEndCombo, 1, 2, 1, 1);
+    if (isRepeatActive) {
+      this.attach(this.opositeCommandLabel, 0, 2, 1, 1);
+      this.attach(this.opositeCommandEntry, 1, 2, 1, 1);
+    } else {
+      this.attach(this.onBeginEndLabel, 0, 2, 1, 1);
+      this.attach(this.onBeginEndCombo, 1, 2, 1, 1);
+    }
+
+    this.show_all();
   }
 }
 

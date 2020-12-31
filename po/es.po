@@ -107,3 +107,9 @@ msgstr "El gesto empiece"
 
 msgid "settings-run-command-on-end-option"
 msgstr "El gesto finalice"
+
+msgid "settings-run-command-oposite-direction-text"
+msgstr "Comando opuesto:"
+
+msgid "settings-run-command-oposite-direction-placeholder"
+msgstr "Ejecutar este comando cuando el gesto vaya en la dirección opuesta"
