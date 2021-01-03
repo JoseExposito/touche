@@ -28,8 +28,8 @@ class SwipeView extends Gtk.ScrolledWindow {
     super._init();
     this.showGestures = this.showGestures.bind(this);
 
-    this.list3 = new GestureList(_('swipe-list-title-3-fingers'));
-    this.list4 = new GestureList(_('swipe-list-title-4-fingers'));
+    this.list3 = new GestureList(_('Swipe with 3 fingers'));
+    this.list4 = new GestureList(_('Swipe with 4 fingers'));
 
     this.box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL });
     this.box.add(this.list3);

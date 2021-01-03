@@ -29,19 +29,19 @@ class NotInstalledView extends Gtk.Box {
       margin: 24,
     });
 
-    const title = new Gtk.Label({ label: _('not-installed-title'), hexpand: true });
+    const title = new Gtk.Label({ label: _('Touchégg is not installed'), hexpand: true });
     const titleClass = Granite ? Granite.STYLE_CLASS_H2_LABEL : 'text-h2';
     title.get_style_context().add_class(titleClass);
 
     const description = new Gtk.Label({
-      label: _('not-installed-description'),
+      label: _('It looks like Touchégg is not installed, let\'s start by downloading it'),
       hexpand: true,
     });
     const descriptionClass = Granite ? Granite.STYLE_CLASS_H3_LABEL : 'text-h3';
     description.get_style_context().add_class(descriptionClass);
 
     const download = new Gtk.Button({
-      label: _('not-installed-download'),
+      label: _('Download Touchégg'),
       hexpand: false,
       halign: Gtk.Align.CENTER,
       valign: Gtk.Align.CENTER,
@@ -56,7 +56,7 @@ class NotInstalledView extends Gtk.Box {
     ));
 
     const installed = new Gtk.LinkButton({
-      label: _('not-installed-downloaded'),
+      label: _('I just installed it'),
       halign: Gtk.Align.CENTER,
       valign: Gtk.Align.CENTER,
     });

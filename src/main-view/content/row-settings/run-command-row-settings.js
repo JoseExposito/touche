@@ -30,7 +30,7 @@ class RunCommandRowSettings extends Gtk.Grid {
 
     // Command label and entry
     const commandLabel = new Gtk.Label({
-      label: _('settings-run-command-command'),
+      label: _('Command:'),
       halign: Gtk.Align.END,
     });
 
@@ -41,7 +41,7 @@ class RunCommandRowSettings extends Gtk.Grid {
 
     // Repeat label and switch
     const repeatLabel = new Gtk.Label({
-      label: _('settings-run-command-repeat'),
+      label: _('Repeat command:'),
       halign: Gtk.Align.END,
     });
 
@@ -54,7 +54,7 @@ class RunCommandRowSettings extends Gtk.Grid {
 
     // When repeat is false, display the on begin/end combo
     this.onBeginEndLabel = new Gtk.Label({
-      label: _('settings-run-command-on-begin-end-text'),
+      label: _('Execute on:'),
       halign: Gtk.Align.END,
     });
 
@@ -62,20 +62,20 @@ class RunCommandRowSettings extends Gtk.Grid {
       hexpand: true,
       valign: Gtk.Align.CENTER,
     });
-    this.onBeginEndCombo.append('begin', _('settings-run-command-on-begin-option'));
-    this.onBeginEndCombo.append('end', _('settings-run-command-on-end-option'));
+    this.onBeginEndCombo.append('begin', _('Gesture begin'));
+    this.onBeginEndCombo.append('end', _('Gesture end'));
     this.onBeginEndCombo.active_id = gesture?.actionSettings?.on ?? 'begin';
 
     // When repeat is true, display the oposite direction command entry
     this.opositeCommandLabel = new Gtk.Label({
-      label: _('settings-run-command-oposite-direction-text'),
+      label: _('Oposite command:'),
       halign: Gtk.Align.END,
     });
 
     this.opositeCommandEntry = new Gtk.Entry({
       hexpand: true,
       valign: Gtk.Align.CENTER,
-      placeholder_text: _('settings-run-command-oposite-direction-placeholder'),
+      placeholder_text: _('Run this command when the gesture goes in the oposite direction'),
     });
 
     // Signals & Properties

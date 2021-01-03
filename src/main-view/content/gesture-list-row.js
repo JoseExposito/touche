@@ -16,7 +16,8 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-import ActionType from '~/config/action-type';
+import ActionType, { actionTypeText } from '~/config/action-type';
+import { gestureDirectionText } from '~/config/gesture-direction';
 import rowSettings from './row-settings';
 
 const { GObject, Gtk } = imports.gi;
@@ -33,7 +34,7 @@ class GestureListRow extends Gtk.ListBoxRow {
 
     // Direction label
     const directionLabel = new Gtk.Label({
-      label: _(`gesture-direction-${gesture.gestureDirection}`),
+      label: gestureDirectionText(gesture.gestureDirection),
       halign: Gtk.Align.START,
       valign: Gtk.Align.CENTER,
     });
@@ -53,7 +54,7 @@ class GestureListRow extends Gtk.ListBoxRow {
       valign: Gtk.Align.CENTER,
     });
     Object.values(ActionType).forEach((action) => {
-      this.actionsCombo.append(action, _(`action-type-${action}`));
+      this.actionsCombo.append(action, actionTypeText(action));
     });
 
     if (gesture.enabled) {

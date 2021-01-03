@@ -30,4 +30,24 @@ const GestureDirection = {
   OUT: 'OUT',
 };
 
+export const gestureDirectionText = (gestureDirection) => {
+  switch (gestureDirection) {
+    case GestureDirection.UP:
+      return _('Up');
+    case GestureDirection.DOWN:
+      return _('Down');
+    case GestureDirection.LEFT:
+      return _('Left');
+    case GestureDirection.RIGHT:
+      return _('Right');
+    case GestureDirection.IN:
+      return _('In');
+    case GestureDirection.OUT:
+      return _('Out');
+    case GestureDirection.UNKNOWN:
+    default:
+      return _('Unknown');
+  }
+};
+
 export default GestureDirection;

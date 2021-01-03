@@ -15,101 +15,107 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "gesture-type-SWIPE"
+msgid "Swipe"
 msgstr "Arrastrar"
 
-msgid "gesture-type-PINCH"
+msgid "Pinch"
 msgstr "Pellizcar"
 
-msgid "gesture-type-TAP"
+msgid "Tap"
 msgstr "Golpear"
 
-msgid "gesture-direction-UP"
+msgid "Up"
 msgstr "Arriba"
 
-msgid "gesture-direction-DOWN"
+msgid "Down"
 msgstr "Abajo"
 
-msgid "gesture-direction-LEFT"
+msgid "Left"
 msgstr "Izquierda"
 
-msgid "gesture-direction-RIGHT"
+msgid "Right"
 msgstr "Derecha"
 
-msgid "gesture-direction-IN"
+msgid "In"
 msgstr "Dentro"
 
-msgid "gesture-list-direction-OUT"
+msgid "Out"
 msgstr "Fuera"
 
-msgid "action-type-MAXIMIZE_RESTORE_WINDOW"
+msgid "Unknown"
+msgstr "Desconocido"
+
+msgid "Maximize or restore a window"
 msgstr "Maximizar o restablecer una ventana"
 
-msgid "action-type-MINIMIZE_WINDOW"
+msgid "Minimize a window"
 msgstr "Minimizar una ventana"
 
-msgid "action-type-TILE_WINDOW"
+msgid "Tile a widow"
 msgstr "Ajustar ventana a la mitad de la pantalla"
 
-msgid "action-type-CLOSE_WINDOW"
+msgid "Close a window"
 msgstr "Cerrar una ventana"
 
-msgid "action-type-CHANGE_DESKTOP"
+msgid "Switch desktop"
 msgstr "Cambiar de escritorio"
 
-msgid "action-type-SHOW_DESKTOP"
+msgid "Show desktop"
 msgstr "Mostrar escritorio"
 
-msgid "action-type-SEND_KEYS"
+msgid "Keyboard shortcut"
 msgstr "Atajo de teclado"
 
-msgid "action-type-RUN_COMMAND"
+msgid "Execute a command"
 msgstr "Ejecutar comando"
 
-msgid "action-type-MOUSE_CLICK"
+msgid "Mouse click"
 msgstr "Click de ratón"
 
-msgid "not-installed-title"
+msgid "Unknown action"
+msgstr "Acción desconocida"
+
+msgid "Touchégg is not installed"
 msgstr "Touchégg no está instalado"
 
-msgid "not-installed-description"
+msgid "It looks like Touchégg is not installed, let's start by downloading it"
 msgstr "Parece que Touchégg no está instalado, vamos a descargarlo"
 
-msgid "not-installed-download"
+msgid "Download Touchégg"
 msgstr "Descargar Touchégg"
 
-msgid "not-installed-downloaded"
+msgid "I just installed it"
 msgstr "Lo acabo de instalar"
 
-msgid "sidebar-add-app"
+msgid "Add new application"
 msgstr "Añadir aplicación"
 
-msgid "sidebar-remove-app"
+msgid "Remove the selected application"
 msgstr "Eliminar aplicación seleccionada"
 
-msgid "swipe-list-title-3-fingers"
+msgid "Swipe with 3 fingers"
 msgstr "Arrastrar con 3 dedos"
 
-msgid "swipe-list-title-4-fingers"
+msgid "Swipe with 4 fingers"
 msgstr "Arrastrar con 4 dedos"
 
-msgid "settings-run-command-command"
+msgid "Command:"
 msgstr "Comando:"
 
-msgid "settings-run-command-repeat"
+msgid "Repeat command:"
 msgstr "Repetir comando:"
 
-msgid "settings-run-command-on-begin-end-text"
+msgid "Execute on:"
 msgstr "Ejecutar cuando:"
 
-msgid "settings-run-command-on-begin-option"
+msgid "Gesture begin"
 msgstr "El gesto empiece"
 
-msgid "settings-run-command-on-end-option"
+msgid "Gesture end"
 msgstr "El gesto finalice"
 
-msgid "settings-run-command-oposite-direction-text"
+msgid "Oposite command:"
 msgstr "Comando opuesto:"
 
-msgid "settings-run-command-oposite-direction-placeholder"
+msgid "Run this command when the gesture goes in the oposite direction"
 msgstr "Ejecutar este comando cuando el gesto vaya en la dirección opuesta"

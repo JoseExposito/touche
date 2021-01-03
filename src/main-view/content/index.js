@@ -34,9 +34,9 @@ class Content extends Gtk.Box {
     this.tapView = new TapView();
 
     this.stack = new Gtk.Stack();
-    this.stack.add_titled(this.swipeView, Views.SWIPE_VIEW, _('gesture-type-SWIPE'));
-    this.stack.add_titled(this.pinchView, Views.PINCH_VIEW, _('gesture-type-PINCH'));
-    this.stack.add_titled(this.tapView, Views.TAP_VIEW, _('gesture-type-TAP'));
+    this.stack.add_titled(this.swipeView, Views.SWIPE_VIEW, _('Swipe'));
+    this.stack.add_titled(this.pinchView, Views.PINCH_VIEW, _('Pinch'));
+    this.stack.add_titled(this.tapView, Views.TAP_VIEW, _('Tap'));
     this.stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
 
     // Stack Switcher

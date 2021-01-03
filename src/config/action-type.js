@@ -28,4 +28,28 @@ const ActionType = {
   MOUSE_CLICK: 'MOUSE_CLICK',
 };
 
+export const actionTypeText = (actionType) => {
+  switch (actionType) {
+    case ActionType.MAXIMIZE_RESTORE_WINDOW:
+      return _('Maximize or restore a window');
+    case ActionType.MINIMIZE_WINDOW:
+      return _('Minimize a window');
+    case ActionType.TILE_WINDOW:
+      return _('Tile a widow');
+    case ActionType.CLOSE_WINDOW:
+      return _('Close a window');
+    case ActionType.CHANGE_DESKTOP:
+      return _('Switch desktop');
+    case ActionType.SHOW_DESKTOP:
+      return _('Show desktop');
+    case ActionType.SEND_KEYS:
+      return _('Keyboard shortcut');
+    case ActionType.RUN_COMMAND:
+      return _('Execute a command');
+    case ActionType.MOUSE_CLICK:
+      return _('Mouse click');
+    default:
+      return _('Unknown action');
+  }
+};
 export default ActionType;
