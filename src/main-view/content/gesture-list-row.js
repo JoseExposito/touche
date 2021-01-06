@@ -61,6 +61,10 @@ class GestureListRow extends Gtk.ListBoxRow {
       this.actionsCombo.active_id = gesture.actionType;
     }
 
+    this.actionsCombo.connect('scroll_event', () => {
+      GObject.signal_stop_emission_by_name(this.actionsCombo, 'scroll-event');
+    });
+
     // Row settings
     this.rowSettings = rowSettings[gesture.actionType]
       ? new rowSettings[gesture.actionType](gesture)
