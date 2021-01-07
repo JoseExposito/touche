@@ -16,18 +16,57 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
+import GestureList from './gesture-list';
+import model from '~/config/model';
+import GestureDirection from '~/config/gesture-direction';
+import GestureType from '~/config/gesture-type';
 
 const { GObject, Gtk } = imports.gi;
 
 class PinchView extends Gtk.ScrolledWindow {
   _init() {
     super._init();
+    this.showGestures = this.showGestures.bind(this);
+
+    this.list2 = new GestureList(_('Pinch with 2 fingers'));
+    this.list3 = new GestureList(_('Pinch with 3 fingers'));
+    this.list4 = new GestureList(_('Pinch with 4 fingers'));
 
     this.box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL });
-    this.box.add(new Gtk.Label({ label: 'PINCH VIEW' }));
+    this.box.add(this.list2);
+    this.box.add(this.list3);
+    this.box.add(this.list4);
+    this.box.margin_start = 12;
+    this.box.margin_end = 12;
     this.box.show_all();
 
     this.add(this.box);
+  }
+
+  showGestures(appName) {
+    const gestures2 = [
+      model.getGesture(GestureType.PINCH, GestureDirection.IN, 2, appName),
+      model.getGesture(GestureType.PINCH, GestureDirection.OUT, 2, appName),
+    ];
+
+    const gestures3 = [
+      model.getGesture(GestureType.PINCH, GestureDirection.IN, 3, appName),
+      model.getGesture(GestureType.PINCH, GestureDirection.OUT, 3, appName),
+    ];
+
+    const gestures4 = [
+      model.getGesture(GestureType.PINCH, GestureDirection.IN, 4, appName),
+      model.getGesture(GestureType.PINCH, GestureDirection.OUT, 4, appName),
+    ];
+
+    log('PinchView: Loading 3 fingers pinch');
+    this.list2.showGestures(gestures2);
+
+    log('PinchView: Loading 3 fingers pinch');
+    this.list3.showGestures(gestures3);
+
+    log('PinchView: Loading 4 fingers pinch');
+    this.list4.showGestures(gestures4);
   }
 }
 

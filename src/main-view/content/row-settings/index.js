@@ -17,8 +17,12 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 import ActionType from '~/config/action-type';
+import SendKeysRowSettings from './send-keys-row-settings';
 import RunCommandRowSettings from './run-command-row-settings';
+import MouseClickRowSettings from './mouse-click-row-settings';
 
 export default {
+  [ActionType.SEND_KEYS]: SendKeysRowSettings,
   [ActionType.RUN_COMMAND]: RunCommandRowSettings,
+  [ActionType.MOUSE_CLICK]: MouseClickRowSettings,
 };

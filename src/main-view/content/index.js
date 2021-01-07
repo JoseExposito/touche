@@ -56,6 +56,8 @@ class Content extends Gtk.Box {
   appSelected(self, appName) {
     log(`MainView Content: Loading gestures for app with name: "${appName}"`);
     this.swipeView.showGestures(appName);
+    this.pinchView.showGestures(appName);
+    this.tapView.showGestures(appName);
   }
 }
 

@@ -114,8 +114,8 @@ msgstr "El gesto empiece"
 msgid "Gesture end"
 msgstr "El gesto finalice"
 
-msgid "Oposite command:"
+msgid "Opposite command:"
 msgstr "Comando opuesto:"
 
-msgid "Run this command when the gesture goes in the oposite direction"
+msgid "Run this command when the gesture goes in the opposite direction"
 msgstr "Ejecutar este comando cuando el gesto vaya en la dirección opuesta"
