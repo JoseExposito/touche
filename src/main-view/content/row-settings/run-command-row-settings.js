@@ -48,6 +48,7 @@ class RunCommandRowSettings extends Gtk.Grid {
     this.repeatSwitch = new Gtk.Switch({
       halign: Gtk.Align.START,
       valign: Gtk.Align.CENTER,
+      text: gesture?.actionSettings?.command ?? '',
     });
     const isRepeatActive = (gesture?.actionSettings?.repeat === 'true');
     this.repeatSwitch.active = isRepeatActive;
@@ -66,16 +67,17 @@ class RunCommandRowSettings extends Gtk.Grid {
     this.onBeginEndCombo.append('end', _('Gesture end'));
     this.onBeginEndCombo.active_id = gesture?.actionSettings?.on ?? 'begin';
 
-    // When repeat is true, display the oposite direction command entry
-    this.opositeCommandLabel = new Gtk.Label({
-      label: _('Oposite command:'),
+    // When repeat is true, display the opposite direction command entry
+    this.oppositeCommandLabel = new Gtk.Label({
+      label: _('Opposite command:'),
       halign: Gtk.Align.END,
     });
 
-    this.opositeCommandEntry = new Gtk.Entry({
+    this.oppositeCommandEntry = new Gtk.Entry({
       hexpand: true,
       valign: Gtk.Align.CENTER,
-      placeholder_text: _('Run this command when the gesture goes in the oposite direction'),
+      text: gesture?.actionSettings?.decreaseCommand ?? '',
+      placeholder_text: _('Run this command when the gesture goes in the opposite direction'),
     });
 
     // Signals & Properties
@@ -93,8 +95,8 @@ class RunCommandRowSettings extends Gtk.Grid {
     this.remove_row(2);
 
     if (isRepeatActive) {
-      this.attach(this.opositeCommandLabel, 0, 2, 1, 1);
-      this.attach(this.opositeCommandEntry, 1, 2, 1, 1);
+      this.attach(this.oppositeCommandLabel, 0, 2, 1, 1);
+      this.attach(this.oppositeCommandEntry, 1, 2, 1, 1);
     } else {
       this.attach(this.onBeginEndLabel, 0, 2, 1, 1);
       this.attach(this.onBeginEndCombo, 1, 2, 1, 1);
