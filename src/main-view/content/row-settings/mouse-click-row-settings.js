@@ -40,7 +40,7 @@ class MouseClickRowSettings extends Gtk.Grid {
     this.buttonCombo.append('1', _('Left click'));
     this.buttonCombo.append('3', _('Right click'));
     this.buttonCombo.append('2', _('Middle click'));
-    this.onBeginEndCombo.active_id = gesture?.actionSettings?.button ?? '1';
+    this.buttonCombo.active_id = gesture?.actionSettings?.button ?? '1';
 
     // On begin/end combo
     const onBeginEndLabel = new Gtk.Label({

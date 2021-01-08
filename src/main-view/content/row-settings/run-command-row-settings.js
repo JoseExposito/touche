@@ -37,6 +37,7 @@ class RunCommandRowSettings extends Gtk.Grid {
     this.commandEntry = new Gtk.Entry({
       hexpand: true,
       valign: Gtk.Align.CENTER,
+      text: gesture?.actionSettings?.command ?? '',
     });
 
     // Repeat label and switch
@@ -48,7 +49,6 @@ class RunCommandRowSettings extends Gtk.Grid {
     this.repeatSwitch = new Gtk.Switch({
       halign: Gtk.Align.START,
       valign: Gtk.Align.CENTER,
-      text: gesture?.actionSettings?.command ?? '',
     });
     const isRepeatActive = (gesture?.actionSettings?.repeat === 'true');
     this.repeatSwitch.active = isRepeatActive;

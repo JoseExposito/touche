@@ -25,6 +25,8 @@ const { GObject, Gtk } = imports.gi;
 class GestureListRow extends Gtk.ListBoxRow {
   _init(gesture) {
     super._init();
+    this.gesture = gesture;
+    this.setRowSettings = this.setRowSettings.bind(this);
 
     this.grid = new Gtk.Grid({
       margin: 8,
@@ -65,10 +67,15 @@ class GestureListRow extends Gtk.ListBoxRow {
       GObject.signal_stop_emission_by_name(this.actionsCombo, 'scroll-event');
     });
 
+    this.actionsCombo.connect('changed', () => {
+      const action = ActionType[this.actionsCombo.active_id];
+      log(`Actions ComboBoxText: Selected action ${action}`);
+      this.gesture.actionType = action;
+      this.setRowSettings();
+    });
+
     // Row settings
-    this.rowSettings = rowSettings[gesture.actionType]
-      ? new rowSettings[gesture.actionType](gesture)
-      : null;
+    this.setRowSettings();
 
     // Signals & Properties
     this.enabledSwitch.bind_property('active', this.actionsCombo, 'sensitive', GObject.BindingFlags.SYNC_CREATE);
@@ -77,23 +84,29 @@ class GestureListRow extends Gtk.ListBoxRow {
     this.grid.attach(directionLabel, 0, 0, 1, 1);
     this.grid.attach(this.enabledSwitch, 1, 0, 1, 1);
     this.grid.attach(this.actionsCombo, 0, 1, 2, 1);
-
-    if (this.rowSettings) {
-      const separator = new Gtk.Separator({
-        orientation: Gtk.Orientation.HORIZONTAL,
-        margin_bottom: 8,
-        margin_top: 8,
-      });
-
-      this.grid.attach(separator, 0, 2, 2, 1);
-      this.grid.attach(this.rowSettings, 0, 3, 2, 1);
-
-      this.enabledSwitch.bind_property('active', this.rowSettings, 'sensitive', GObject.BindingFlags.SYNC_CREATE);
-    }
-
     this.grid.show_all();
 
     this.add(this.grid);
+  }
+
+  /**
+   * Set the row advanced settings if the selected action has any.
+   */
+  setRowSettings() {
+    this.grid.remove_row(3);
+    this.grid.remove_row(2);
+
+    this.rowSettings = rowSettings[this.gesture.actionType]
+      ? new rowSettings[this.gesture.actionType](this.gesture)
+      : null;
+
+    if (this.rowSettings) {
+      this.rowSettings.margin_top = 8;
+      this.grid.attach(this.rowSettings, 0, 2, 2, 1);
+
+      this.enabledSwitch.bind_property('active', this.rowSettings, 'sensitive', GObject.BindingFlags.SYNC_CREATE);
+    }
+    this.grid.show_all();
   }
 }
 

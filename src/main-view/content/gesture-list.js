@@ -36,6 +36,14 @@ class GestureList extends Gtk.Box {
     this.list = new Gtk.ListBox({
       selection_mode: Gtk.SelectionMode.NONE,
     });
+
+    this.list.set_header_func((row, before) => {
+      if (before) {
+        const separator = new Gtk.Separator({ orientation: Gtk.Orientation.HORIZONTAL });
+        row.set_header(separator);
+      }
+    });
+
     this.listFrame = new Gtk.Frame();
     this.listFrame.add(this.list);
 
