@@ -18,6 +18,7 @@
  */
 /* eslint-disable no-underscore-dangle */
 import XmlToJson from 'xml-js';
+import GestureDirection from './gesture-direction';
 import { getUserConfigFilePath, getSystemConfigFilePath, fileExists } from './paths';
 import model from './model';
 
@@ -52,7 +53,7 @@ class XmlConfig {
 
       gestures.forEach((gesture) => {
         const gestureType = gesture._attributes.type;
-        const gestureDirection = gesture._attributes.direction;
+        const gestureDirection = gesture._attributes.direction || GestureDirection.UNKNOWN;
         const numberOfFingers = gesture._attributes.fingers;
 
         const actionType = gesture.action._attributes.type;

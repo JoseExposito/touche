@@ -40,6 +40,7 @@ class TapView extends Gtk.ScrolledWindow {
     this.box.add(helpLabel);
     this.box.margin_start = 12;
     this.box.margin_end = 12;
+    this.box.margin_bottom = 12;
     this.box.show_all();
 
     this.add(this.box);
