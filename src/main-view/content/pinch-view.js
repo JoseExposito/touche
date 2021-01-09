@@ -28,9 +28,10 @@ class PinchView extends Gtk.ScrolledWindow {
     super._init();
     this.showGestures = this.showGestures.bind(this);
 
-    this.list2 = new GestureList(_('Pinch with 2 fingers'));
-    this.list3 = new GestureList(_('Pinch with 3 fingers'));
-    this.list4 = new GestureList(_('Pinch with 4 fingers'));
+    const title = _('Pinch with %d fingers');
+    this.list2 = new GestureList(title.format(2));
+    this.list3 = new GestureList(title.format(3));
+    this.list4 = new GestureList(title.format(4));
 
     this.box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL });
     this.box.add(this.list2);

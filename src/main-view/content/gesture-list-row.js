@@ -37,7 +37,7 @@ class GestureListRow extends Gtk.ListBoxRow {
 
     // Title label
     const titleText = (gesture.gestureType === GestureType.TAP)
-      ? N_('Tap with %d fingers').format(gesture.numberOfFingers)
+      ? _('Tap with %d fingers').format(gesture.numberOfFingers)
       : gestureDirectionText(gesture.gestureDirection);
     const titleLabel = new Gtk.Label({
       label: titleText,

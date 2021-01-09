@@ -24,6 +24,15 @@ msgstr "Pellizcar"
 msgid "Tap"
 msgstr "Golpear"
 
+msgid "Swipe with %d fingers"
+msgstr "Arrastrar con %d dedos"
+
+msgid "Pinch with %d fingers"
+msgstr "Pellizcar con %d dedos"
+
+msgid "Tap with %d fingers"
+msgstr "Golpear con %d dedos"
+
 msgid "Up"
 msgstr "Arriba"
 
@@ -93,11 +102,15 @@ msgstr "Añadir aplicación"
 msgid "Remove the selected application"
 msgstr "Eliminar aplicación seleccionada"
 
-msgid "Swipe with 3 fingers"
-msgstr "Arrastrar con 3 dedos"
+msgid "Only available on touchscreens"
+msgstr "Solo en pantallas táctiles"
 
-msgid "Swipe with 4 fingers"
-msgstr "Arrastrar con 4 dedos"
+msgid ""
+"Tap gestures are only available on touchscreens. Tapping on a touchpad is "
+"not available"
+msgstr ""
+"Los gestos de tipo golpear solo funcionan en pantallas táctiles. No "
+"funcionan en touchpads"
 
 msgid "Command:"
 msgstr "Comando:"
@@ -119,3 +132,27 @@ msgstr "Comando opuesto:"
 
 msgid "Run this command when the gesture goes in the opposite direction"
 msgstr "Ejecutar este comando cuando el gesto vaya en la dirección opuesta"
+
+msgid "Modifiers:"
+msgstr "Modificadores:"
+
+msgid "Keys:"
+msgstr "Teclas:"
+
+msgid "Opposite keys:"
+msgstr "Teclas opuestas:"
+
+msgid "Use this keys when the gesture goes in the opposite direction"
+msgstr "Usar estas teclas cuando el gesto vaya en la dirección opuesta"
+
+msgid "Mouse button:"
+msgstr "Botón del ratón:"
+
+msgid "Left click"
+msgstr "Clic izquierdo"
+
+msgid "Right click"
+msgstr "Clic derecho"
+
+msgid "Middle click"
+msgstr "Clic central"

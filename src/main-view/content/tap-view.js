@@ -28,7 +28,7 @@ class TapView extends Gtk.ScrolledWindow {
     super._init();
     this.showGestures = this.showGestures.bind(this);
 
-    this.list = new GestureList('Only available on touchscreens');
+    this.list = new GestureList(_('Only available on touchscreens'));
     const helpLabel = new Gtk.Label({ label: _('Tap gestures are only available on touchscreens. Tapping on a touchpad is not available') });
 
     this.box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL });
