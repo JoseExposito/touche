@@ -18,6 +18,7 @@
  */
 import ActionType, { actionTypeText } from '~/config/action-type';
 import { gestureDirectionText } from '~/config/gesture-direction';
+import GestureType from '~/config/gesture-type';
 import rowSettings from './row-settings';
 
 const { GObject, Gtk } = imports.gi;
@@ -34,14 +35,17 @@ class GestureListRow extends Gtk.ListBoxRow {
       row_spacing: 8,
     });
 
-    // Direction label
-    const directionLabel = new Gtk.Label({
-      label: gestureDirectionText(gesture.gestureDirection),
+    // Title label
+    const titleText = (gesture.gestureType === GestureType.TAP)
+      ? N_('Tap with %d fingers').format(gesture.numberOfFingers)
+      : gestureDirectionText(gesture.gestureDirection);
+    const titleLabel = new Gtk.Label({
+      label: titleText,
       halign: Gtk.Align.START,
       valign: Gtk.Align.CENTER,
     });
-    const directionClass = Granite ? Granite.STYLE_CLASS_H3_LABEL : 'text-h3';
-    directionLabel.get_style_context().add_class(directionClass);
+    const titleClass = Granite ? Granite.STYLE_CLASS_H3_LABEL : 'text-h3';
+    titleLabel.get_style_context().add_class(titleClass);
 
     // Enabled switch
     this.enabledSwitch = new Gtk.Switch({
@@ -81,7 +85,7 @@ class GestureListRow extends Gtk.ListBoxRow {
     this.enabledSwitch.bind_property('active', this.actionsCombo, 'sensitive', GObject.BindingFlags.SYNC_CREATE);
 
     // Layout
-    this.grid.attach(directionLabel, 0, 0, 1, 1);
+    this.grid.attach(titleLabel, 0, 0, 1, 1);
     this.grid.attach(this.enabledSwitch, 1, 0, 1, 1);
     this.grid.attach(this.actionsCombo, 0, 1, 2, 1);
     this.grid.show_all();

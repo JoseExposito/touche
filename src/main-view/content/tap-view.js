@@ -28,15 +28,11 @@ class TapView extends Gtk.ScrolledWindow {
     super._init();
     this.showGestures = this.showGestures.bind(this);
 
-    this.list2 = new GestureList(_('Tap with 2 fingers'));
-    this.list3 = new GestureList(_('Tap with 3 fingers'));
-    this.list4 = new GestureList(_('Tap with 4 fingers'));
+    this.list = new GestureList('Only available on touchscreens');
     const helpLabel = new Gtk.Label({ label: _('Tap gestures are only available on touchscreens. Tapping on a touchpad is not available') });
 
     this.box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL });
-    this.box.add(this.list2);
-    this.box.add(this.list3);
-    this.box.add(this.list4);
+    this.box.add(this.list);
     this.box.add(helpLabel);
     this.box.margin_start = 12;
     this.box.margin_end = 12;
@@ -47,26 +43,15 @@ class TapView extends Gtk.ScrolledWindow {
   }
 
   showGestures(appName) {
-    const gestures2 = [
+    const gestures = [
       model.getGesture(GestureType.TAP, GestureDirection.UNKNOWN, 2, appName),
-    ];
-
-    const gestures3 = [
       model.getGesture(GestureType.TAP, GestureDirection.UNKNOWN, 3, appName),
-    ];
-
-    const gestures4 = [
       model.getGesture(GestureType.TAP, GestureDirection.UNKNOWN, 4, appName),
+      model.getGesture(GestureType.TAP, GestureDirection.UNKNOWN, 5, appName),
     ];
 
-    log('TapView: Loading 2 fingers tap');
-    this.list2.showGestures(gestures2);
-
-    log('TapView: Loading 3 fingers tap');
-    this.list3.showGestures(gestures3);
-
-    log('TapView: Loading 4 fingers tap');
-    this.list4.showGestures(gestures4);
+    log('TapView: Loading tap list');
+    this.list.showGestures(gestures);
   }
 }
 
