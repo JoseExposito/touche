@@ -20,7 +20,7 @@ const fs = require('fs');
 const path = require('path');
 const { DefinePlugin } = require('webpack');
 
-const getWebpackConfig = (rootPath, outputPath, projectName) => {
+const getWebpackConfig = (rootPath, outputPath, projectName, flatpak) => {
   const isEnvProduction = (process.env.NODE_ENV === 'production');
   const srcPath = path.resolve(rootPath, 'src');
   const packageJsonPath = path.resolve(rootPath, 'package.json');
@@ -56,6 +56,7 @@ const getWebpackConfig = (rootPath, outputPath, projectName) => {
       new DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify(isEnvProduction ? 'production' : 'development'),
         'process.env.PROJECT_NAME': JSON.stringify(projectName),
+        'process.env.FLATPAK': flatpak,
       }),
     ].filter(Boolean),
 

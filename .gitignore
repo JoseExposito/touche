@@ -34,6 +34,9 @@ node_modules/
 .env
 .env.test
 
+# Flatpak
+.flatpak-builder
+
 # Visual Studio Code
 .vscode/*
 !.vscode/settings.json

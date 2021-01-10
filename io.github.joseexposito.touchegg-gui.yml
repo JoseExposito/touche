@@ -1,0 +1,28 @@
+app-id: io.github.joseexposito.touchegg-gui
+runtime: org.gnome.Platform
+runtime-version: '3.38'
+sdk: org.gnome.Sdk
+command: io.github.joseexposito.touchegg-gui
+finish-args:
+  - '--share=ipc'
+  - '--socket=fallback-x11'
+  - '--socket=wayland'
+  - '--filesystem=home'
+  - '--filesystem=host'
+  - '--system-talk-name=org.freedesktop.Accounts' # Needed for perfers-color-scheme
+modules:
+  - name: nodejs
+    cleanup:
+      - '*'
+    sources:
+      - type: archive
+        url: https://nodejs.org/dist/v14.15.4/node-v14.15.4.tar.xz
+        sha256: adb7ecf66c74b52a14a08cc22bb0f9aedc157cac1ac93240f7f455e8c8edec9c
+
+  - name: touchegg-gui
+    buildsystem: meson
+    config-opts:
+      - -Dflatpak=true
+    sources:
+      - type: dir
+        path: .

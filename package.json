@@ -25,6 +25,7 @@
   "scripts": {
     "start": "npm run meson:debug && npm run ninja:build && npm run ninja:install && npm run gjs:run",
     "build": "npm run clean && npm run meson:release && npm run ninja:build && npm run ninja:install",
+    "flatpak": "npm run clean && flatpak-builder --user --install build io.github.joseexposito.touchegg-gui.yml",
     "clean": "rimraf build",
     "meson:debug": "meson build --prefix=$(pwd)/build/install --buildtype=debug",
     "meson:release": "meson build --prefix=/usr --buildtype=release",
