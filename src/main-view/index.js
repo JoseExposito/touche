@@ -33,6 +33,7 @@ class MainView extends Gtk.Paned {
     this.show_all();
 
     this.sidebar.connect('appSelected', this.content.appSelected);
+    this.content.appSelected(this.sidebar, 'All');
   }
 }
 
