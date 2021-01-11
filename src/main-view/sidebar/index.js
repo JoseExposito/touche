@@ -53,7 +53,10 @@ class Sidebar extends Gtk.Box {
     const removeAppButton = Gtk.Button.new_from_icon_name('list-remove-symbolic', Gtk.IconSize.BUTTON);
     removeAppButton.tooltip_text = _('Remove the selected application');
 
-    footer.get_style_context().add_class(Gtk.STYLE_CLASS_INLINE_TOOLBAR);
+    if (Granite) {
+      footer.get_style_context().add_class(Gtk.STYLE_CLASS_INLINE_TOOLBAR);
+    }
+
     footer.pack_start(addAppButton);
     footer.pack_start(removeAppButton);
 
