@@ -20,7 +20,6 @@
 import XmlToJson from 'xml-js';
 import GestureDirection from './gesture-direction';
 import { getUserConfigFilePath, getSystemConfigFilePath, fileExists } from './paths';
-import model from './model';
 
 const { Gio } = imports.gi;
 
@@ -30,8 +29,10 @@ const { Gio } = imports.gi;
 class XmlConfig {
   /**
    * Parse the configuration file and load it in the `Model`.
+   *
+   * @param {object} model The `Model`.
    */
-  static loadConfig() {
+  static loadConfig(model) {
     const configFilePath = fileExists(getUserConfigFilePath())
       ? getUserConfigFilePath()
       : getSystemConfigFilePath();
@@ -40,6 +41,15 @@ class XmlConfig {
     const configXml = XmlConfig.readFile(configFilePath);
     const config = XmlToJson.xml2js(configXml, { compact: true });
 
+    log('Saving global settings in the model');
+    const globalSettings = config['touchégg'].settings.property;
+    globalSettings.forEach((globalSetting) => {
+      const { name } = globalSetting._attributes;
+      const value = globalSetting._text;
+      model.addGlobalSetting(name, value);
+    });
+
+    log('Saving gestures in the model');
     const actionSettingsFromXmlObject = (actionXml) => (
       Object.entries(actionXml)
         .filter(([key]) => key !== '_attributes')
@@ -96,6 +106,17 @@ class XmlConfig {
     }
 
     return contents;
+  }
+
+  /**
+   * Save the `Model` as XML.
+   *
+   * @param {object} model The `Model`.
+   */
+  static saveConfig(model) {
+    // TODO
+    const apps = model.getAppNames();
+    // const
   }
 }
 

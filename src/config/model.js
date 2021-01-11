@@ -16,7 +16,8 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-import Gesture from '~/config/gesture';
+import Gesture from './gesture';
+import XmlConfig from './xml-config';
 
 /**
  * Singleton to store the user config in a friendly way.
@@ -24,6 +25,15 @@ import Gesture from '~/config/gesture';
 class Model {
   constructor() {
     this.model = {
+      /*
+       * Object with shape:
+       *  {
+       *    [property name]: <property value>,
+       *    [...]
+       *  }
+       */
+      globalSettings: {},
+
       /*
        * Object with shape:
        *  {
@@ -41,6 +51,24 @@ class Model {
       // Key: appName. Value: Array of gestureIds configured for the application.
       byAppName: {},
       allAppNames: [],
+    };
+  }
+
+  loadFromFile() {
+    XmlConfig.loadConfig(this);
+  }
+
+  saveToFile() {
+    XmlConfig.saveConfig(this);
+  }
+
+  addGlobalSetting(name, value) {
+    this.model = {
+      ...this.model,
+      globalSettings: {
+        ...this.model.globalSettings,
+        [name]: value,
+      },
     };
   }
 
@@ -81,12 +109,21 @@ class Model {
     };
   }
 
+  getGlobalSettings() {
+    return this.model.globalSettings;
+  }
+
   getAppNames() {
     return this.model.allAppNames.sort((a, b) => {
       if (a.toLowerCase() === 'all') { return -1; }
       if (b.toLowerCase() === 'all') { return 1; }
       return a.localeCompare(b);
     });
+  }
+
+  getGesturesForApp(appName) {
+    const ids = this.model.byAppName[appName];
+    return ids.map((id) => this.model.byId[id]);
   }
 
   getGesture(gestureType, gestureDirection, numberOfFingers, appName) {

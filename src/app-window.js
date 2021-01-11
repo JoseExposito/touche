@@ -18,7 +18,7 @@
  */
 import MainView from '~/main-view';
 import NotInstalledView from '~/not-installed-view';
-import XmlConfig from '~/config/xml-config';
+import model from '~/config/model';
 import { fileExists, getSystemConfigFilePath } from '~/config/paths';
 
 const { GObject, Gtk } = imports.gi;
@@ -63,7 +63,7 @@ class AppWindow extends Gtk.ApplicationWindow {
   }
 
   showMainView() {
-    XmlConfig.loadConfig();
+    model.loadFromFile();
 
     this.set_size_request(1000, 750);
 
