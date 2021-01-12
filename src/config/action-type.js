@@ -20,6 +20,7 @@ const ActionType = {
   MAXIMIZE_RESTORE_WINDOW: 'MAXIMIZE_RESTORE_WINDOW',
   MINIMIZE_WINDOW: 'MINIMIZE_WINDOW',
   TILE_WINDOW: 'TILE_WINDOW',
+  FULLSCREEN_WINDOW: 'FULLSCREEN_WINDOW',
   CLOSE_WINDOW: 'CLOSE_WINDOW',
   CHANGE_DESKTOP: 'CHANGE_DESKTOP',
   SHOW_DESKTOP: 'SHOW_DESKTOP',
@@ -36,6 +37,8 @@ export const actionTypeText = (actionType) => {
       return _('Minimize a window');
     case ActionType.TILE_WINDOW:
       return _('Tile a widow');
+    case ActionType.FULLSCREEN_WINDOW:
+      return _('Toggle fullscreen mode');
     case ActionType.CLOSE_WINDOW:
       return _('Close a window');
     case ActionType.CHANGE_DESKTOP:

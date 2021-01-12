@@ -63,6 +63,9 @@ msgstr "Minimizar una ventana"
 msgid "Tile a widow"
 msgstr "Ajustar ventana a la mitad de la pantalla"
 
+msgid "Toggle fullscreen mode"
+msgstr "Ventana a pantalla completa"
+
 msgid "Close a window"
 msgstr "Cerrar una ventana"
 
