@@ -21,7 +21,7 @@ import XmlToJson from 'xml-js';
 import GestureDirection from './gesture-direction';
 import { getUserConfigFilePath, getSystemConfigFilePath, fileExists } from './paths';
 
-const { Gio } = imports.gi;
+const { Gio, GLib } = imports.gi;
 
 /**
  * Load and save the `Model` from/to file.
@@ -93,6 +93,65 @@ class XmlConfig {
   }
 
   /**
+   * Save the `Model` as XML.
+   *
+   * @param {object} model The `Model`.
+   */
+  static saveConfig(model) {
+    const ROOT = 'touchégg';
+    const config = {
+      [ROOT]: {
+        settings: {
+          property: [],
+        },
+        application: [],
+      },
+    };
+
+    const globalSettings = model.getGlobalSettings();
+    Object.entries(globalSettings).forEach(([key, value]) => {
+      config[ROOT].settings.property.push({
+        _attributes: { name: key },
+        _text: value,
+      });
+    });
+
+    const apps = model.getAppNames();
+    apps.forEach((app) => {
+      const configGestures = [];
+
+      const gestures = model.getGesturesForApp(app);
+      gestures.forEach((gesture) => {
+        if (gesture.enabled) {
+          configGestures.push({
+            _attributes: {
+              type: gesture.gestureType,
+              fingers: gesture.numberOfFingers,
+              direction: gesture.gestureDirection,
+            },
+            action: {
+              _attributes: {
+                type: gesture.actionType,
+              },
+              ...gesture.actionSettings,
+            },
+          });
+        }
+      });
+
+      config[ROOT].application.push({
+        _attributes: {
+          name: app,
+        },
+        gesture: configGestures,
+      });
+    });
+
+    const xml = XmlToJson.js2xml(config, { compact: true, spaces: 2, fullTagEmptyElement: true });
+    XmlConfig.writeFile(getUserConfigFilePath(), xml);
+  }
+
+  /**
    * @param {string} path File path.
    * @returns {string} The file contents.
    */
@@ -109,14 +168,21 @@ class XmlConfig {
   }
 
   /**
-   * Save the `Model` as XML.
-   *
-   * @param {object} model The `Model`.
+   * @param {string} path File path.
+   * @param {string} contents File contents to store.
    */
-  static saveConfig(model) {
-    // TODO
-    const apps = model.getAppNames();
-    // const
+  static writeFile(path, contents) {
+    const file = Gio.File.new_for_path(path);
+    const [success, etag] = file.replace_contents(contents, null, false, Gio.FileCreateFlags.NONE,
+      null);
+
+    log(etag);
+    GLib.free(etag);
+
+    if (!success) {
+      // TODO Handle this error
+      throw new Error('Error saving config file');
+    }
   }
 }
 
