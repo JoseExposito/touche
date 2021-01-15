@@ -16,6 +16,8 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
+import NoScrollComboBoxText from '~/utils/no-scroll-combo-box-text';
+
 const { GObject, Gtk } = imports.gi;
 
 class MouseClickRowSettings extends Gtk.Grid {
@@ -33,7 +35,7 @@ class MouseClickRowSettings extends Gtk.Grid {
       halign: Gtk.Align.END,
     });
 
-    this.buttonCombo = new Gtk.ComboBoxText({
+    this.buttonCombo = new NoScrollComboBoxText({
       hexpand: true,
       valign: Gtk.Align.CENTER,
     });
@@ -48,7 +50,7 @@ class MouseClickRowSettings extends Gtk.Grid {
       halign: Gtk.Align.END,
     });
 
-    this.onBeginEndCombo = new Gtk.ComboBoxText({
+    this.onBeginEndCombo = new NoScrollComboBoxText({
       hexpand: true,
       valign: Gtk.Align.CENTER,
     });
