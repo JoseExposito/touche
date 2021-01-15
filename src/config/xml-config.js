@@ -76,7 +76,7 @@ class XmlConfig {
           const enabled = true;
 
           log(`Adding gesture: ${gestureType}, ${gestureDirection}, ${numberOfFingers}, ${actionType}, ${safeAppName}, enabled: ${enabled}`);
-          model.addGesture(
+          model.addGestureFromProps(
             gestureType,
             gestureDirection,
             numberOfFingers,
@@ -122,6 +122,7 @@ class XmlConfig {
 
       const gestures = model.getGesturesForApp(app);
       gestures.forEach((gesture) => {
+        // TODO Handle disabled gestures in Touchégg
         if (gesture.enabled) {
           configGestures.push({
             _attributes: {
@@ -175,8 +176,6 @@ class XmlConfig {
     const file = Gio.File.new_for_path(path);
     const [success, etag] = file.replace_contents(contents, null, false, Gio.FileCreateFlags.NONE,
       null);
-
-    log(etag);
     GLib.free(etag);
 
     if (!success) {

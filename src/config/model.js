@@ -72,7 +72,22 @@ class Model {
     };
   }
 
-  addGesture(
+  addGesture(gesture) {
+    const {
+      gestureType,
+      gestureDirection,
+      numberOfFingers,
+      actionType,
+      actionSettings,
+      appName,
+      enabled,
+    } = gesture;
+
+    this.addGestureFromProps(gestureType, gestureDirection, numberOfFingers, actionType,
+      actionSettings, appName, enabled);
+  }
+
+  addGestureFromProps(
     gestureType, gestureDirection, numberOfFingers, actionType, actionSettings, appName, enabled,
   ) {
     const gesture = new Gesture({
@@ -110,7 +125,7 @@ class Model {
   }
 
   getGlobalSettings() {
-    return this.model.globalSettings;
+    return { ...this.model.globalSettings };
   }
 
   getAppNames() {
@@ -123,19 +138,35 @@ class Model {
 
   getGesturesForApp(appName) {
     const ids = this.model.byAppName[appName];
-    return ids.map((id) => this.model.byId[id]);
+    return ids.map((id) => new Gesture({ ...this.model.byId[id] }));
   }
 
   getGesture(gestureType, gestureDirection, numberOfFingers, appName) {
     const id = Gesture.getId(gestureType, gestureDirection, numberOfFingers, appName);
     return this.model.byId[id]
-      || new Gesture({
+      ? new Gesture({ ...this.model.byId[id] })
+      : new Gesture({
         gestureType,
         gestureDirection,
         numberOfFingers,
         appName,
         enabled: false,
       });
+  }
+
+  removeGesture(gesture) {
+    this.model = {
+      ...this.model,
+      byId: Object.fromEntries(
+        Object.entries(this.model.byId).filter(([otherId]) => otherId !== gesture.id),
+      ),
+      allIds: this.model.allIds.filter((otherId) => otherId !== gesture.id),
+      byAppName: {
+        ...this.model.byAppName,
+        [gesture.appName]: (this.model.byAppName[gesture.appName] || [])
+          .filter((otherId) => otherId !== gesture.id),
+      },
+    };
   }
 
   /**
