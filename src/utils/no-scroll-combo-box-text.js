@@ -16,15 +16,19 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-import ActionType from '~/config/action-type';
-import SendKeysRowSettings from './send-keys-row-settings';
-import RunCommandRowSettings from './run-command-row-settings';
-import MouseClickRowSettings from './mouse-click-row-settings';
-import TileWindowRowSettings from './tile-window-row-settings';
+const { GObject, Gtk } = imports.gi;
 
-export default {
-  [ActionType.SEND_KEYS]: SendKeysRowSettings,
-  [ActionType.RUN_COMMAND]: RunCommandRowSettings,
-  [ActionType.MOUSE_CLICK]: MouseClickRowSettings,
-  [ActionType.TILE_WINDOW]: TileWindowRowSettings,
-};
+/**
+ * Gtk.ComboBoxText that ignores scroll events.
+ */
+class NoScrollComboBoxText extends Gtk.ComboBoxText {
+  _init(props) {
+    super._init(props);
+
+    this.connect('scroll_event', () => {
+      GObject.signal_stop_emission_by_name(this, 'scroll-event');
+    });
+  }
+}
+
+export default GObject.registerClass(NoScrollComboBoxText);
