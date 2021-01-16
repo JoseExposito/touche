@@ -16,9 +16,11 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
+import model from '~/config/model';
 import ActionType, { actionTypeText } from '~/config/action-type';
 import { gestureDirectionText } from '~/config/gesture-direction';
 import GestureType from '~/config/gesture-type';
+import NoScrollComboBoxText from '~/utils/no-scroll-combo-box-text';
 import rowSettings from './row-settings';
 
 const { GObject, Gtk } = imports.gi;
@@ -28,6 +30,7 @@ class GestureListRow extends Gtk.ListBoxRow {
     super._init();
     this.gesture = gesture;
     this.setRowSettings = this.setRowSettings.bind(this);
+    this.saveSettings = this.saveSettings.bind(this);
 
     this.grid = new Gtk.Grid({
       margin: 8,
@@ -55,7 +58,7 @@ class GestureListRow extends Gtk.ListBoxRow {
     this.enabledSwitch.active = gesture.enabled;
 
     // Actions combo box
-    this.actionsCombo = new Gtk.ComboBoxText({
+    this.actionsCombo = new NoScrollComboBoxText({
       hexpand: true,
       valign: Gtk.Align.CENTER,
     });
@@ -64,24 +67,16 @@ class GestureListRow extends Gtk.ListBoxRow {
     });
 
     if (gesture.enabled) {
+      // TODO Handle disabled gestures
       this.actionsCombo.active_id = gesture.actionType;
     }
-
-    this.actionsCombo.connect('scroll_event', () => {
-      GObject.signal_stop_emission_by_name(this.actionsCombo, 'scroll-event');
-    });
-
-    this.actionsCombo.connect('changed', () => {
-      const action = ActionType[this.actionsCombo.active_id];
-      log(`Actions ComboBoxText: Selected action ${action}`);
-      this.gesture.actionType = action;
-      this.setRowSettings();
-    });
 
     // Row settings
     this.setRowSettings();
 
     // Signals & Properties
+    this.actionsCombo.connect('changed', this.saveSettings);
+    this.enabledSwitch.connect('state-set', this.saveSettings);
     this.enabledSwitch.bind_property('active', this.actionsCombo, 'sensitive', GObject.BindingFlags.SYNC_CREATE);
 
     // Layout
@@ -111,6 +106,30 @@ class GestureListRow extends Gtk.ListBoxRow {
       this.enabledSwitch.bind_property('active', this.rowSettings, 'sensitive', GObject.BindingFlags.SYNC_CREATE);
     }
     this.grid.show_all();
+  }
+
+  saveSettings() {
+    log(`Updating gesture with ID ${this.gesture.id}`);
+
+    model.removeGesture(this.gesture);
+
+    this.gesture.enabled = this.enabledSwitch.get_active();
+    this.gesture.actionType = ActionType[this.actionsCombo.active_id];
+    log(`Gesture enabled: ${this.gesture.enabled}`);
+    log(`Gesture action: ${this.gesture.actionType}`);
+
+    // Exit if no action is selected yet
+    if (!this.gesture.actionType) {
+      return;
+    }
+
+    this.setRowSettings();
+    if (this.rowSettings) {
+      // TODO Get the action settings
+    }
+
+    model.addGesture(this.gesture);
+    model.saveToFile();
   }
 }
 
