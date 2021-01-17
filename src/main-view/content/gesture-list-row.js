@@ -75,7 +75,10 @@ class GestureListRow extends Gtk.ListBoxRow {
     this.setRowSettings();
 
     // Signals & Properties
-    this.actionsCombo.connect('changed', this.saveSettings);
+    this.actionsCombo.connect('changed', () => {
+      this.setRowSettings();
+      this.saveSettings();
+    });
     this.enabledSwitch.connect('state-set', this.saveSettings);
     this.enabledSwitch.bind_property('active', this.actionsCombo, 'sensitive', GObject.BindingFlags.SYNC_CREATE);
 
@@ -92,19 +95,31 @@ class GestureListRow extends Gtk.ListBoxRow {
    * Set the row advanced settings if the selected action has any.
    */
   setRowSettings() {
+    log('Updating row settings');
     this.grid.remove_row(3);
     this.grid.remove_row(2);
 
-    this.rowSettings = rowSettings[this.gesture.actionType]
-      ? new rowSettings[this.gesture.actionType](this.gesture)
-      : null;
-
     if (this.rowSettings) {
+      this.rowSettings.disconnect(this.rowSettingsSignalId);
+    }
+
+    this.gesture.enabled = this.enabledSwitch.get_active();
+    this.gesture.actionType = ActionType[this.actionsCombo.active_id];
+    const hasRowSettings = rowSettings[this.gesture.actionType];
+    log(`Action with type ${this.gesture.actionType} ${hasRowSettings ? 'has extra settings' : 'does NOT have extra settings'}`);
+
+    if (!hasRowSettings) {
+      this.rowSettings = null;
+    } else {
+      this.rowSettings = new rowSettings[this.gesture.actionType](this.gesture);
       this.rowSettings.margin_top = 8;
       this.grid.attach(this.rowSettings, 0, 2, 2, 1);
 
       this.enabledSwitch.bind_property('active', this.rowSettings, 'sensitive', GObject.BindingFlags.SYNC_CREATE);
+
+      this.rowSettingsSignalId = this.rowSettings.connect('changed', this.saveSettings);
     }
+
     this.grid.show_all();
   }
 
@@ -123,9 +138,11 @@ class GestureListRow extends Gtk.ListBoxRow {
       return;
     }
 
-    this.setRowSettings();
     if (this.rowSettings) {
-      // TODO Get the action settings
+      this.gesture.actionSettings = this.rowSettings.getSettings();
+      log(`Gesture extra settings: ${JSON.stringify(this.gesture.actionSettings, null, 2)}`);
+    } else {
+      this.gesture.actionSettings = null;
     }
 
     model.addGesture(this.gesture);

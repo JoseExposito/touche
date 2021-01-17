@@ -97,6 +97,14 @@ class SendKeysRowSettings extends Gtk.Grid {
     // Signals & Properties
     this.repeatSwitch.connect('state_set', (self, state) => this.repeatChanged(state));
 
+    // Changed signal
+    this.modifiersEntry.connect('changed', () => this.emit('changed'));
+    this.keysEntry.connect('changed', () => this.emit('changed'));
+    this.repeatSwitch.connect('state_set', () => this.emit('changed'));
+    this.oppositeKeysEntry.connect('changed', () => this.emit('changed'));
+    this.onBeginEndCombo.connect('changed', () => this.emit('changed'));
+
+    // Layout
     this.attach(modifiersLabel, 0, 0, 1, 1);
     this.attach(this.modifiersEntry, 1, 0, 1, 1);
     this.attach(keysLabel, 0, 1, 1, 1);
@@ -120,6 +128,29 @@ class SendKeysRowSettings extends Gtk.Grid {
 
     this.show_all();
   }
+
+  getSettings() {
+    const actionSettings = {
+      modifiers: this.modifiersEntry.text,
+      keys: this.keysEntry.text,
+      repeat: this.repeatSwitch.get_active(),
+    };
+
+    if (actionSettings.repeat) {
+      actionSettings.decreaseKeys = this.oppositeKeysEntry.text;
+    } else {
+      actionSettings.on = this.onBeginEndCombo.active_id;
+    }
+
+    return actionSettings;
+  }
 }
 
-export default GObject.registerClass(SendKeysRowSettings);
+export default GObject.registerClass(
+  {
+    Signals: {
+      changed: {},
+    },
+  },
+  SendKeysRowSettings,
+);

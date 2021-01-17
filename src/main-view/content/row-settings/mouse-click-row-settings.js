@@ -58,6 +58,10 @@ class MouseClickRowSettings extends Gtk.Grid {
     this.onBeginEndCombo.append('end', _('Gesture end'));
     this.onBeginEndCombo.active_id = gesture?.actionSettings?.on ?? 'begin';
 
+    // Changed signal
+    this.buttonCombo.connect('changed', () => this.emit('changed'));
+    this.onBeginEndCombo.connect('changed', () => this.emit('changed'));
+
     // Layout
     this.attach(buttonLabel, 0, 0, 1, 1);
     this.attach(this.buttonCombo, 1, 0, 1, 1);
@@ -65,6 +69,20 @@ class MouseClickRowSettings extends Gtk.Grid {
     this.attach(this.onBeginEndCombo, 1, 1, 1, 1);
     this.show_all();
   }
+
+  getSettings() {
+    return {
+      button: this.buttonCombo.active_id,
+      on: this.onBeginEndCombo.active_id,
+    };
+  }
 }
 
-export default GObject.registerClass(MouseClickRowSettings);
+export default GObject.registerClass(
+  {
+    Signals: {
+      changed: {},
+    },
+  },
+  MouseClickRowSettings,
+);

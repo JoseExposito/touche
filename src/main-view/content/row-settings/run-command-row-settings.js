@@ -85,6 +85,13 @@ class RunCommandRowSettings extends Gtk.Grid {
     // Signals & Properties
     this.repeatSwitch.connect('state_set', (self, state) => this.repeatChanged(state));
 
+    // Changed signal
+    this.commandEntry.connect('changed', () => this.emit('changed'));
+    this.repeatSwitch.connect('state_set', () => this.emit('changed'));
+    this.oppositeCommandEntry.connect('changed', () => this.emit('changed'));
+    this.onBeginEndCombo.connect('changed', () => this.emit('changed'));
+
+    // Layout
     this.attach(commandLabel, 0, 0, 1, 1);
     this.attach(this.commandEntry, 1, 0, 1, 1);
     this.attach(repeatLabel, 0, 1, 1, 1);
@@ -106,6 +113,28 @@ class RunCommandRowSettings extends Gtk.Grid {
 
     this.show_all();
   }
+
+  getSettings() {
+    const actionSettings = {
+      command: this.commandEntry.text,
+      repeat: this.repeatSwitch.get_active(),
+    };
+
+    if (actionSettings.repeat) {
+      actionSettings.decreaseCommand = this.oppositeCommandEntry.text;
+    } else {
+      actionSettings.on = this.onBeginEndCombo.active_id;
+    }
+
+    return actionSettings;
+  }
 }
 
-export default GObject.registerClass(RunCommandRowSettings);
+export default GObject.registerClass(
+  {
+    Signals: {
+      changed: {},
+    },
+  },
+  RunCommandRowSettings,
+);

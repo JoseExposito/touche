@@ -43,11 +43,27 @@ class TileWindowRowSettings extends Gtk.Grid {
     this.directionCombo.append('right', _('Tile window to the right half of the screen'));
     this.directionCombo.active_id = gesture?.actionSettings?.direction ?? 'left';
 
+    // Changed signal
+    this.directionCombo.connect('changed', () => this.emit('changed'));
+
     // Layout
     this.attach(directionLabel, 0, 0, 1, 1);
     this.attach(this.directionCombo, 1, 0, 1, 1);
     this.show_all();
   }
+
+  getSettings() {
+    return {
+      direction: this.directionCombo.active_id,
+    };
+  }
 }
 
-export default GObject.registerClass(TileWindowRowSettings);
+export default GObject.registerClass(
+  {
+    Signals: {
+      changed: {},
+    },
+  },
+  TileWindowRowSettings,
+);
