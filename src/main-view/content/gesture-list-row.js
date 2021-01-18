@@ -76,10 +76,16 @@ class GestureListRow extends Gtk.ListBoxRow {
 
     // Signals & Properties
     this.actionsCombo.connect('changed', () => {
+      this.gesture.actionType = ActionType[this.actionsCombo.active_id];
       this.setRowSettings();
       this.saveSettings();
     });
-    this.enabledSwitch.connect('state-set', this.saveSettings);
+
+    this.enabledSwitch.connect('state-set', () => {
+      this.gesture.enabled = this.enabledSwitch.get_active();
+      this.saveSettings();
+    });
+
     this.enabledSwitch.bind_property('active', this.actionsCombo, 'sensitive', GObject.BindingFlags.SYNC_CREATE);
 
     // Layout
@@ -103,8 +109,6 @@ class GestureListRow extends Gtk.ListBoxRow {
       this.rowSettings.disconnect(this.rowSettingsSignalId);
     }
 
-    this.gesture.enabled = this.enabledSwitch.get_active();
-    this.gesture.actionType = ActionType[this.actionsCombo.active_id];
     const hasRowSettings = rowSettings[this.gesture.actionType];
     log(`Action with type ${this.gesture.actionType} ${hasRowSettings ? 'has extra settings' : 'does NOT have extra settings'}`);
 
@@ -128,8 +132,6 @@ class GestureListRow extends Gtk.ListBoxRow {
 
     model.removeGesture(this.gesture);
 
-    this.gesture.enabled = this.enabledSwitch.get_active();
-    this.gesture.actionType = ActionType[this.actionsCombo.active_id];
     log(`Gesture enabled: ${this.gesture.enabled}`);
     log(`Gesture action: ${this.gesture.actionType}`);
 
