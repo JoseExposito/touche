@@ -1,5 +1,5 @@
 project(
-  'io.github.joseexposito.touchegg-gui',
+  'com.github.joseexposito.touchegg-gui',
   version: '1.0.0',
   license: 'GPL-3.0-or-later',
   meson_version: '>= 0.50.0',

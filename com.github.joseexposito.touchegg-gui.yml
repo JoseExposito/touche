@@ -1,14 +1,14 @@
-app-id: io.github.joseexposito.touchegg-gui
+app-id: com.github.joseexposito.touchegg-gui
 runtime: org.gnome.Platform
 runtime-version: '3.38'
 sdk: org.gnome.Sdk
-command: io.github.joseexposito.touchegg-gui
+command: com.github.joseexposito.touchegg-gui
 finish-args:
   - '--share=ipc'
   - '--socket=fallback-x11'
   - '--socket=wayland'
   - '--filesystem=home'
-  - '--filesystem=host'
+  - '--filesystem=host:ro'
   - '--system-talk-name=org.freedesktop.Accounts' # Needed for perfers-color-scheme
 modules:
   - name: nodejs

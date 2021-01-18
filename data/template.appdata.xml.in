@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2020 José Expósito <jose.exposito89@gmail.com> -->
 <component type="desktop">
-  <id>io.github.joseexposito.touchegg-gui</id>
+  <id>com.github.joseexposito.touchegg-gui</id>
   <metadata_license>CC-BY-SA-3.0</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
   <content_rating type="oars-1.0" />
