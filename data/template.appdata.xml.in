@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2020 José Expósito <jose.exposito89@gmail.com> -->
+<!-- Copyright 2020 - 2021 José Expósito <jose.exposito89@gmail.com> -->
 <component type="desktop">
   <id>com.github.joseexposito.touchegg-gui</id>
   <metadata_license>CC-BY-SA-3.0</metadata_license>
