@@ -33,8 +33,16 @@ class MainView extends Gtk.Paned {
     this.show_all();
 
     this.sidebar.connect('appSelected', this.content.appSelected);
+    this.sidebar.connect('addApp', () => this.emit('addApp'));
     this.content.appSelected(this.sidebar, 'All');
   }
 }
 
-export default GObject.registerClass(MainView);
+export default GObject.registerClass(
+  {
+    Signals: {
+      addApp: {},
+    },
+  },
+  MainView,
+);

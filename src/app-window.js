@@ -16,8 +16,9 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-import MainView from '~/main-view';
 import NotInstalledView from '~/not-installed-view';
+import MainView from '~/main-view';
+import AddAppView from '~/add-app-view';
 import model from '~/config/model';
 import { fileExists, getSystemConfigFilePath } from '~/config/paths';
 
@@ -31,6 +32,17 @@ class AppWindow extends Gtk.ApplicationWindow {
     super._init({
       application,
       title: 'Touchégg',
+    });
+
+    this.showMainView = this.showMainView.bind(this);
+    this.showAddAppView = this.showAddAppView.bind(this);
+    this.showingAddAppView = false;
+
+    this.addAppView = new AddAppView(this);
+    this.addAppView.connect('done', () => {
+      this.showingAddAppView = false;
+      this.remove(this.addAppView);
+      this.showMainView();
     });
 
     // If Touchégg is not installed, show a screen to allow to download it
@@ -68,7 +80,36 @@ class AppWindow extends Gtk.ApplicationWindow {
     this.set_size_request(1000, 750);
 
     this.mainView = new MainView();
+    this.mainView.connect('addApp', this.showAddAppView);
     this.add(this.mainView);
+  }
+
+  showAddAppView() {
+    this.showingAddAppView = true;
+    this.set_size_request(300, 180);
+    this.remove(this.mainView);
+    this.add(this.addAppView);
+    this.addAppView.grabPointer();
+  }
+
+  // When the user add a new application, the mouse pointer and the keyboard are grabbed.
+  // This virtual methods are called when a mouse or keyboard event is dispatched and, if required,
+  // the event is passed down to the add application view.
+
+  vfunc_button_press_event(event) { // eslint-disable-line camelcase
+    if (this.showingAddAppView) {
+      this.addAppView.mouseClick(event);
+      return true;
+    }
+    return false;
+  }
+
+  vfunc_key_release_event(event) { // eslint-disable-line camelcase
+    if (this.showingAddAppView) {
+      this.addAppView.keyPress(event);
+      return true;
+    }
+    return false;
   }
 }
 

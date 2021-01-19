@@ -70,6 +70,8 @@ class Sidebar extends Gtk.Box {
       log(`Sidebar: App with name "${appName}" selected`);
       this.emit('appSelected', appName);
     });
+
+    addAppButton.connect('clicked', () => this.emit('addApp'));
   }
 }
 
@@ -79,6 +81,7 @@ export default GObject.registerClass(
       appSelected: {
         param_types: [GObject.TYPE_STRING],
       },
+      addApp: {},
     },
   },
   Sidebar,
