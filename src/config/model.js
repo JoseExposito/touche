@@ -24,6 +24,10 @@ import XmlConfig from './xml-config';
  */
 class Model {
   constructor() {
+    this.resetModel();
+  }
+
+  resetModel() {
     this.model = {
       /*
        * Object with shape:
@@ -45,16 +49,14 @@ class Model {
        */
       byId: {},
 
-      // Array of all available gesture IDs
-      allIds: [],
-
-      // Key: appName. Value: Array of gestureIds configured for the application.
+      // Key: appName
+      // Value: Array of gestureIds configured for the application
       byAppName: {},
-      allAppNames: [],
     };
   }
 
   loadFromFile() {
+    this.resetModel();
     XmlConfig.loadConfig(this);
   }
 
@@ -87,9 +89,10 @@ class Model {
       actionSettings, appName, enabled);
   }
 
-  addGestureFromProps(
-    gestureType, gestureDirection, numberOfFingers, actionType, actionSettings, appName, enabled,
-  ) {
+  addGestureFromProps(gestureType, gestureDirection, numberOfFingers, actionType, actionSettings,
+    appNameUnsafe, enabled) {
+    const appName = appNameUnsafe.toLowerCase();
+
     const gesture = new Gesture({
       gestureType,
       gestureDirection,
@@ -106,10 +109,6 @@ class Model {
         ...this.model.byId,
         [gesture.id]: gesture,
       },
-      allIds: [
-        ...this.model.allIds.filter((otherId) => otherId !== gesture.id),
-        gesture.id,
-      ],
       byAppName: {
         ...this.model.byAppName,
         [appName]: [
@@ -117,10 +116,22 @@ class Model {
           gesture.id,
         ],
       },
-      allAppNames: [
-        ...this.model.allAppNames.filter((otherAppName) => otherAppName !== appName),
-        appName,
-      ],
+    };
+  }
+
+  addApplication(appNameUnsafe) {
+    const appName = appNameUnsafe.toLowerCase();
+
+    if (this.model.byAppName[appName]) {
+      return;
+    }
+
+    this.model = {
+      ...this.model,
+      byAppName: {
+        ...this.model.byAppName,
+        [appName]: [],
+      },
     };
   }
 
@@ -129,7 +140,8 @@ class Model {
   }
 
   getAppNames() {
-    return this.model.allAppNames.sort((a, b) => {
+    const appNames = Object.keys(this.model.byAppName);
+    return appNames.sort((a, b) => {
       if (a.toLowerCase() === 'all') { return -1; }
       if (b.toLowerCase() === 'all') { return 1; }
       return a.localeCompare(b);
@@ -137,7 +149,7 @@ class Model {
   }
 
   getGesturesForApp(appName) {
-    const ids = this.model.byAppName[appName];
+    const ids = this.model.byAppName[appName.toLowerCase()] ?? [];
     return ids.map((id) => new Gesture({ ...this.model.byId[id] }));
   }
 
@@ -160,12 +172,24 @@ class Model {
       byId: Object.fromEntries(
         Object.entries(this.model.byId).filter(([otherId]) => otherId !== gesture.id),
       ),
-      allIds: this.model.allIds.filter((otherId) => otherId !== gesture.id),
       byAppName: {
         ...this.model.byAppName,
-        [gesture.appName]: (this.model.byAppName[gesture.appName] || [])
+        [gesture.appName.toLowerCase()]: (this.model.byAppName[gesture.appName.toLowerCase()] || [])
           .filter((otherId) => otherId !== gesture.id),
       },
+    };
+  }
+
+  removeApplication(appNameUnsafe) {
+    const appName = appNameUnsafe.toLowerCase();
+    this.model = {
+      ...this.model,
+      byId: Object.fromEntries(
+        Object.entries(this.model.byId).filter(([, gesture]) => gesture.appName !== appName),
+      ),
+      byAppName: Object.fromEntries(
+        Object.entries(this.model.byAppName).filter(([otherAppName]) => otherAppName !== appName),
+      ),
     };
   }
 
