@@ -4,6 +4,7 @@ GenericName=Multi-touch Gestures
 Comment=Configure Touchégg multi-touch gestures
 Categories=Utility;GTK;
 Exec=@PROJECT_NAME@
+Icon=@PROJECT_NAME@
 Terminal=false
 Type=Application
 StartupNotify=true
