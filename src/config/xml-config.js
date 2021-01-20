@@ -59,8 +59,9 @@ class XmlConfig {
     const apps = config['touchégg'].application;
     apps.forEach((app) => {
       const appNames = app._attributes.name;
-      const gestures = app.gesture;
+      appNames.split(',').forEach((appName) => model.addApplication(appName));
 
+      const gestures = [app.gesture].flat().filter(Boolean);
       gestures.forEach((gesture) => {
         const gestureType = gesture._attributes.type;
         const gestureDirection = gesture._attributes.direction || GestureDirection.UNKNOWN;
