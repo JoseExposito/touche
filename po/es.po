@@ -24,12 +24,15 @@ msgstr "Pellizcar"
 msgid "Tap"
 msgstr "Golpear"
 
+#, javascript-format
 msgid "Swipe with %d fingers"
 msgstr "Arrastrar con %d dedos"
 
+#, javascript-format
 msgid "Pinch with %d fingers"
 msgstr "Pellizcar con %d dedos"
 
+#, javascript-format
 msgid "Tap with %d fingers"
 msgstr "Golpear con %d dedos"
 
@@ -99,6 +102,9 @@ msgstr "Descargar Touchégg"
 msgid "I just installed it"
 msgstr "Lo acabo de instalar"
 
+msgid "Global gestures"
+msgstr "Gestos globales"
+
 msgid "Add new application"
 msgstr "Añadir aplicación"
 
@@ -114,6 +120,15 @@ msgid ""
 msgstr ""
 "Los gestos de tipo golpear solo funcionan en pantallas táctiles. No "
 "funcionan en touchpads"
+
+msgid "Direction:"
+msgstr "Dirección:"
+
+msgid "Tile window to the left half of the screen"
+msgstr "Ajustar ventana a la mitad izquierda de la pantalla"
+
+msgid "Tile window to the right half of the screen"
+msgstr "Ajustar ventana a la mitad derecha de la pantalla"
 
 msgid "Command:"
 msgstr "Comando:"
@@ -159,3 +174,9 @@ msgstr "Clic derecho"
 
 msgid "Middle click"
 msgstr "Clic central"
+
+msgid "Add application"
+msgstr "Añadir aplicación"
+
+msgid "Add gestures for an application. Click on it's window"
+msgstr "Añade gestos para una aplicación. Haz clic en su ventana"
