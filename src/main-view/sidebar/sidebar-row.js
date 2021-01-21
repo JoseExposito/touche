@@ -16,6 +16,8 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
+import { isAll } from '~/config/all-apps';
+
 const { GObject, Gtk } = imports.gi;
 
 class SidebarRow extends Gtk.ListBoxRow {
@@ -27,7 +29,7 @@ class SidebarRow extends Gtk.ListBoxRow {
     this.box.margin = 8;
     this.box.pack_start(icon, false, false, 8);
 
-    const label = new Gtk.Label({ label: appName });
+    const label = new Gtk.Label({ label: SidebarRow.displayName(appName) });
     const labelClass = Granite ? Granite.STYLE_CLASS_H3_LABEL : 'text-h3';
     label.get_style_context().add_class(labelClass);
 
@@ -35,6 +37,30 @@ class SidebarRow extends Gtk.ListBoxRow {
     this.box.show_all();
 
     this.add(this.box);
+  }
+
+  /**
+   * Returns a better human readable string for an application name.
+   *
+   * @param {string} appName The application class name.
+   * @returns {string} The formatted equivalent.
+   */
+  static displayName(appName) {
+    if (isAll(appName)) {
+      return _('Global gestures');
+    }
+
+    // Reverse domain named apps (com.example.app) are not treated
+    if (/([a-z0-9]+\.)*[a-z0-9]+\.[a-z]+/.test(appName)) {
+      return appName;
+    }
+
+    return appName
+      .trim()
+      .toLowerCase()
+      .replace(/-/g, ' ')
+      .replace(/_/g, ' ')
+      .replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
   }
 }
 
