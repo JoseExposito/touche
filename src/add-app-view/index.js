@@ -17,6 +17,7 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 import model from '~/config/model';
+import { ALL_ID } from '~/config/all-apps';
 
 const {
   GObject,
@@ -68,28 +69,14 @@ class AddAppView extends Gtk.Box {
     const window = this.parentWindow.get_window();
     const display = Gdk.Display.get_default();
     const seat = display.get_default_seat();
-    const status = seat.grab(
-      window,
-      Gdk.SeatCapabilities.ALL_POINTING,
-      false,
-      Gdk.Cursor.new_for_display(display, Gdk.CursorType.CROSSHAIR),
-      null,
-      null,
-    );
+
+    const status = seat.grab(window, Gdk.SeatCapabilities.ALL_POINTING, false,
+      Gdk.Cursor.new_for_display(display, Gdk.CursorType.CROSSHAIR), null, null);
 
     if (status !== Gdk.GrabStatus.SUCCESS) {
       // TODO Hide the window
       log('Error grabbing mouse and keyboard');
     }
-
-    seat.grab(
-      window,
-      Gdk.SeatCapabilities.KEYBOARD,
-      false,
-      Gdk.Cursor.new_for_display(display, Gdk.CursorType.CROSSHAIR),
-      null,
-      null,
-    );
   }
 
   static ungrabPointer() {
@@ -123,21 +110,26 @@ class AddAppView extends Gtk.Box {
 
     // TODO: To avoid this issues, I could wrap this method in a C library and use XQueryPointer
 
+    let appName = ALL_ID;
+
     if (windowsUnderCursor.length > 0) {
-      const appName = windowsUnderCursor[windowsUnderCursor.length - 1].get_class_instance_name();
-      log(`Adding application ${appName} to the model`);
-      // TODO
+      appName = windowsUnderCursor[windowsUnderCursor.length - 1]
+        .get_class_instance_name()
+        .toLowerCase();
+      log(`Adding application "${appName}" to the model`);
+      model.addApplication(appName);
+      model.saveToFile();
     }
 
     AddAppView.ungrabPointer();
-    this.emit('done');
+    this.emit('done', appName);
   }
 
   keyPress(event) {
     if (event.keyval === Gdk.KEY_Escape) {
       log('CANCEL');
       AddAppView.ungrabPointer();
-      this.emit('done');
+      this.emit('done', ALL_ID);
     }
   }
 }
@@ -145,7 +137,9 @@ class AddAppView extends Gtk.Box {
 export default GObject.registerClass(
   {
     Signals: {
-      done: {},
+      done: {
+        param_types: [GObject.TYPE_STRING],
+      },
     },
   },
   AddAppView,

@@ -20,6 +20,7 @@
 import XmlToJson from 'xml-js';
 import GestureDirection from './gesture-direction';
 import { getUserConfigFilePath, getSystemConfigFilePath, fileExists } from './paths';
+import { isAll } from './all-apps';
 
 const { Gio, GLib } = imports.gi;
 
@@ -56,7 +57,7 @@ class XmlConfig {
         .reduce((res, [key, { _text }]) => ({ ...res, [key]: _text }), {})
     );
 
-    const apps = config['touchégg'].application;
+    const apps = config['touchégg'].application || [];
     apps.forEach((app) => {
       const appNames = app._attributes.name;
       appNames.split(',').forEach((appName) => model.addApplication(appName));
@@ -143,7 +144,8 @@ class XmlConfig {
 
       config[ROOT].application.push({
         _attributes: {
-          name: app,
+          // Use "All" for backward compatibility
+          name: isAll(app) ? 'All' : app,
         },
         gesture: configGestures,
       });

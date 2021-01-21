@@ -20,6 +20,7 @@ import NotInstalledView from '~/not-installed-view';
 import MainView from '~/main-view';
 import AddAppView from '~/add-app-view';
 import model from '~/config/model';
+import { ALL_ID } from '~/config/all-apps';
 import { fileExists, getSystemConfigFilePath } from '~/config/paths';
 
 const { GObject, Gtk } = imports.gi;
@@ -38,17 +39,22 @@ class AppWindow extends Gtk.ApplicationWindow {
     this.showAddAppView = this.showAddAppView.bind(this);
     this.showingAddAppView = false;
 
+    this.mainView = new MainView();
+    this.mainView.connect('addApp', this.showAddAppView);
+
     this.addAppView = new AddAppView(this);
-    this.addAppView.connect('done', () => {
+    this.addAppView.connect('done', (self, appName) => {
       this.showingAddAppView = false;
       this.remove(this.addAppView);
-      this.showMainView();
+      this.showMainView(appName);
+
+      this.show();
     });
 
     // If Touchégg is not installed, show a screen to allow to download it
     // Otherwise, start the app showing the main view
     if (AppWindow.isToucheggInstalled()) {
-      this.showMainView();
+      this.showMainView(ALL_ID);
     } else {
       this.showNonInstalledView();
     }
@@ -69,19 +75,16 @@ class AppWindow extends Gtk.ApplicationWindow {
     this.notInstalledView.connect('installed', () => {
       if (AppWindow.isToucheggInstalled()) {
         this.remove(this.notInstalledView);
-        this.showMainView();
+        this.showMainView(ALL_ID);
       }
     });
   }
 
-  showMainView() {
+  showMainView(selectedAppName) {
     model.loadFromFile();
-
     this.set_size_request(1000, 750);
-
-    this.mainView = new MainView();
-    this.mainView.connect('addApp', this.showAddAppView);
     this.add(this.mainView);
+    this.mainView.showAppGestures(selectedAppName);
   }
 
   showAddAppView() {
