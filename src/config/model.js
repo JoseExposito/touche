@@ -18,6 +18,7 @@
  */
 import Gesture from './gesture';
 import XmlConfig from './xml-config';
+import { ALL_ID, isAll } from './all-apps';
 
 /**
  * Singleton to store the user config in a friendly way.
@@ -51,7 +52,9 @@ class Model {
 
       // Key: appName
       // Value: Array of gestureIds configured for the application
-      byAppName: {},
+      byAppName: {
+        [ALL_ID]: [],
+      },
     };
   }
 
@@ -142,8 +145,8 @@ class Model {
   getAppNames() {
     const appNames = Object.keys(this.model.byAppName);
     return appNames.sort((a, b) => {
-      if (a.toLowerCase() === 'all') { return -1; }
-      if (b.toLowerCase() === 'all') { return 1; }
+      if (isAll(a)) { return -1; }
+      if (isAll(b)) { return 1; }
       return a.localeCompare(b);
     });
   }
