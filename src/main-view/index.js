@@ -16,6 +16,8 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
+import model from '~/config/model';
+import { ALL_ID, isAll } from '~/config/all-apps';
 import Sidebar from './sidebar';
 import Content from './content';
 
@@ -32,9 +34,25 @@ class MainView extends Gtk.Paned {
     this.add2(this.content);
     this.show_all();
 
-    this.sidebar.connect('appSelected', this.content.appSelected);
+    this.sidebar.connect('appSelected', (self, appName) => this.content.appSelected(appName));
     this.sidebar.connect('addApp', () => this.emit('addApp'));
-    this.content.appSelected(this.sidebar, 'All');
+    this.sidebar.connect('removeApp', (self, appName) => this.removeApp(appName));
+  }
+
+  showAppGestures(appName) {
+    this.sidebar.reloadAppsList(appName);
+    this.content.appSelected(appName);
+  }
+
+  removeApp(appName) {
+    if (!appName || isAll(appName)) {
+      return;
+    }
+
+    log(`Removing app with name "${appName}"`);
+    model.removeApplication(appName);
+    model.saveToFile();
+    this.showAppGestures(ALL_ID);
   }
 }
 

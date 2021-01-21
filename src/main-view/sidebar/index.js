@@ -17,6 +17,7 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 import model from '~/config/model';
+import { isAll } from '~/config/all-apps';
 import SidebarRow from './sidebar-row';
 
 const { GObject, Gtk } = imports.gi;
@@ -27,22 +28,10 @@ class Sidebar extends Gtk.Box {
 
     // Add the application list inside a scroll window
     const scrolled = new Gtk.ScrolledWindow();
-    const list = new Gtk.ListBox();
-    list.selection_mode = Gtk.SelectionMode.BROWSE;
-    list.expand = true;
-    scrolled.add(list);
-
-    const appNames = model.getAppNames();
-    appNames.forEach((appName, index) => {
-      const icon = Gtk.Image.new_from_icon_name('input-touchpad', Gtk.IconSize.DND);
-      // icon.icon_size = Gtk.IconSize.NORMAL; // GTK4 + remove the icon size ^ from the constructor
-      const row = new SidebarRow(appName, icon);
-      list.add(row);
-
-      if (index === 0) {
-        list.select_row(row);
-      }
-    });
+    this.list = new Gtk.ListBox();
+    this.list.selection_mode = Gtk.SelectionMode.BROWSE;
+    this.list.expand = true;
+    scrolled.add(this.list);
 
     // Add the footer to allow to add more apps
     const footer = new Gtk.ActionBar();
@@ -65,13 +54,46 @@ class Sidebar extends Gtk.Box {
     this.set_size_request(250, -1);
     this.show_all();
 
-    list.connect('row_selected', (self, row) => {
+    this.list.connect('row_selected', (self, row) => {
+      if (!row) {
+        return;
+      }
+
       const { appName } = row;
       log(`Sidebar: App with name "${appName}" selected`);
+      removeAppButton.sensitive = !isAll(appName);
       this.emit('appSelected', appName);
     });
 
     addAppButton.connect('clicked', () => this.emit('addApp'));
+    removeAppButton.connect('clicked', () => {
+      const appName = this.list.get_selected_row()?.appName;
+      if (appName) {
+        this.emit('removeApp', appName);
+      }
+    });
+  }
+
+  reloadAppsList(selectedAppName) {
+    log('MainView Sidebar: Reloading application list');
+    this.list.foreach((row) => this.list.remove(row));
+
+    const appNames = model.getAppNames();
+    appNames.forEach((appName) => {
+      const icon = Gtk.Image.new_from_icon_name('input-touchpad', Gtk.IconSize.DND);
+      // icon.icon_size = Gtk.IconSize.NORMAL; // GTK4 + remove the icon size ^ from the constructor
+      const row = new SidebarRow(appName, icon);
+      this.list.add(row);
+
+      if (appName.toLowerCase() === selectedAppName.toLowerCase()) {
+        log(` - ${appName} [SELECTED]`);
+        this.list.select_row(row);
+      } else {
+        log(` - ${appName}`);
+      }
+    });
+
+    this.show_all();
   }
 }
 
@@ -82,6 +104,9 @@ export default GObject.registerClass(
         param_types: [GObject.TYPE_STRING],
       },
       addApp: {},
+      removeApp: {
+        param_types: [GObject.TYPE_STRING],
+      },
     },
   },
   Sidebar,

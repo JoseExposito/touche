@@ -54,7 +54,7 @@ class GestureList extends Gtk.Box {
   }
 
   showGestures(gestures) {
-    this.list.forall((row) => this.list.remove(row));
+    this.list.foreach((row) => this.list.remove(row));
 
     gestures.forEach((gesture) => {
       log(JSON.stringify(gesture));
