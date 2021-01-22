@@ -11,6 +11,16 @@ finish-args:
   - '--filesystem=host:ro'
   - '--system-talk-name=org.freedesktop.Accounts' # Needed for perfers-color-scheme
 modules:
+  - name: libwnck
+    buildsystem: meson
+    config-opts:
+      - '-Dinstall_tools=false'
+      - '-Dgtk_doc=false'
+    sources:
+      - type: git
+        url: https://gitlab.gnome.org/GNOME/libwnck.git
+        tag: '3.36.0'
+
   - name: nodejs
     cleanup:
       - '*'
