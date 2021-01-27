@@ -1,8 +1,8 @@
-app-id: com.github.joseexposito.touchegg-gui
+app-id: com.github.joseexposito.touche
 runtime: org.gnome.Platform
 runtime-version: '3.38'
 sdk: org.gnome.Sdk
-command: com.github.joseexposito.touchegg-gui
+command: com.github.joseexposito.touche
 finish-args:
   - '--share=ipc'
   - '--socket=fallback-x11'
@@ -29,7 +29,7 @@ modules:
         url: https://nodejs.org/dist/v14.15.4/node-v14.15.4.tar.xz
         sha256: adb7ecf66c74b52a14a08cc22bb0f9aedc157cac1ac93240f7f455e8c8edec9c
 
-  - name: touchegg-gui
+  - name: touche
     buildsystem: meson
     config-opts:
       - -Dflatpak=true

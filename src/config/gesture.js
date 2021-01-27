@@ -1,7 +1,7 @@
 /*
  * Copyright 2020 - 2021 José Expósito <jose.exposito89@gmail.com>
  *
- * This file is part of Touchégg-GUI.
+ * This file is part of Touché.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
