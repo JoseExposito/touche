@@ -26,6 +26,7 @@
     "start": "npm run meson:debug && npm run ninja:build && npm run ninja:install && npm run gjs:run",
     "build": "npm run clean && npm run meson:release && npm run ninja:build && npm run ninja:install",
     "flatpak": "npm run clean && flatpak-builder --user --install build com.github.joseexposito.touche.yml",
+    "flatpak:archive": "npm install && tar --exclude='.flatpak-builder' --exclude='.git' --exclude='build' --exclude='com.github.joseexposito.touche.yml' -czf ../flatpak-archive.tar.gz . && sha256sum ../flatpak-archive.tar.gz",
     "clean": "rm -fr build",
     "meson:debug": "meson build --prefix=$(pwd)/build/install --buildtype=debug",
     "meson:release": "meson build --prefix=/usr --buildtype=release",

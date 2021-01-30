@@ -9,7 +9,6 @@ finish-args:
   - '--socket=wayland'
   - '--filesystem=home'
   - '--filesystem=host:ro'
-  - '--system-talk-name=org.freedesktop.Accounts' # Needed for perfers-color-scheme
 modules:
   - name: libwnck
     buildsystem: meson
@@ -34,5 +33,6 @@ modules:
     config-opts:
       - -Dflatpak=true
     sources:
-      - type: dir
-        path: .
+      - type: archive
+        url: https://github.com/JoseExposito/touche/releases/download/1.0.0/flatpak-archive.tar.gz
+        sha256: 71fe9515392a78563da554945c309399fa7e0982fa88c5069a4c802f00dfe762
