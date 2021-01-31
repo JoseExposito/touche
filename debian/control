@@ -1,0 +1,30 @@
+Source: touche
+Section: misc
+Priority: optional
+Maintainer: José Expósito <jose.exposito89@gmail.com>
+Build-Depends: appstream,
+               appstream-util,
+               debhelper-compat (= 12),
+               desktop-file-utils,
+               hicolor-icon-theme,
+               libglib2.0-dev-bin,
+               libgtk-3-dev,
+               libwnck-3-dev,
+               meson (>= 0.50),
+               nodejs (>= 8),
+               npm (>= 3)
+Standards-Version: 4.5.0
+Homepage: https://github.com/JoseExposito/touche
+Vcs-Browser: https://github.com/JoseExposito/touche
+Vcs-Git: https://github.com/JoseExposito/touche.git
+
+Package: touche
+Architecture: any
+Depends: ${misc:Depends},
+         gjs (>= 1.50),
+         hicolor-icon-theme,
+         libgtk-3-dev,
+         libwnck-3-dev
+Description: The desktop application to configure Touchégg
+ Easily configure your touchpad and touchscreen multi-touch gestures
+ with this GTK graphical user interface.

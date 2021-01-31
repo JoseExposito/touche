@@ -39,9 +39,9 @@ $ ninja -C build
 $ sudo ninja -C build install
 ```
 
-# Flatpak
+## Flatpak
 
-It is possible to use Flatpak to distribute and install the application.
+Flatpak is the recommended way to distribute and install the application.
 
 First, generate a Flatpak archive with all the npm dependencies:
 
@@ -67,4 +67,13 @@ And install it using:
 
 ```bash
 $ npm run flatpak
+```
+
+## Debian package
+
+In addition to Flatpak, you can generate a Debian package and install it:
+
+```bash
+$ dpkg-buildpackage -rfakeroot -us -uc -tc
+$ sudo apt install ../touche_*.deb # Install the package
 ```

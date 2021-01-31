@@ -47,7 +47,7 @@ appstream_file = i18n.merge_file(
 )
 
 if appstream_util_bin.found()
-  test('Validate appstream file', appstream_util_bin, args: ['validate', appstream_file])
+  test('Validate appstream file', appstream_util_bin, args: ['validate-relax', appstream_file])
 endif
 
 
