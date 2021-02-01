@@ -1,3 +1,9 @@
 # If the app is running in a Flatpak container
 # Available in code as a boolean in "process.env.FLATPAK"
 option('flatpak', type: 'string', value: 'false')
+
+# The target desktop environment, possible values are:
+#  - elementary
+#  - gnome
+# Available in code as a string in "process.env.TARGET_DE"
+option('target-de', type: 'string', value: 'elementary')

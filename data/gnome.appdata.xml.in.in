@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2020 - 2021 José Expósito <jose.exposito89@gmail.com> -->
+<component type="desktop">
+  <id>@PROJECT_NAME@</id>
+  <url type="homepage">https://github.com/JoseExposito/touche</url>
+  <url type="bugtracker">https://github.com/JoseExposito/touche/issues</url>
+  <url type="donation">https://github.com/sponsors/JoseExposito</url>
+  <url type="help">https://github.com/JoseExposito/touche/issues</url>
+  <metadata_license>CC-BY-SA-3.0</metadata_license>
+  <project_license>@PROJECT_LICENSE@</project_license>
+  <content_rating type="oars-1.0"/>
+  <developer_name>José Expósito</developer_name>
+  <name>Touché</name>
+  <summary>The desktop application to configure Touchégg</summary>
+  <description>
+    <p>Easily configure your touchpad and touchscreen multi-touch gestures using Touchégg with this GTK graphical user interface.</p>
+    <p>For example, you can swipe up with 3 fingers to maximize a window or swipe left with 4 finger to switch to the next desktop.</p>
+    <p>Many more actions and gestures are available and everything is easily configurable.</p>
+  </description>
+  <screenshots>
+    <screenshot type="default">
+      <caption>Touché main window</caption>
+      <image type="source" width="1000" height="750">https://raw.githubusercontent.com/JoseExposito/touche/master/.github/images/adwaita.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Touché main window in dark mode</caption>
+      <image type="source" width="1000" height="750">https://raw.githubusercontent.com/JoseExposito/touche/master/.github/images/adwaita-dark.png</image>
+    </screenshot>
+  </screenshots>
+  <releases>
+    <release version="1.0.0" date="2021-01-30" urgency="medium">
+      <description>
+        <p>Initial release</p>
+      </description>
+    </release>
+  </releases>
+</component>
