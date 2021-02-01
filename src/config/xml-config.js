@@ -19,7 +19,12 @@
 /* eslint-disable no-underscore-dangle */
 import XmlToJson from 'xml-js';
 import GestureDirection from './gesture-direction';
-import { getUserConfigFilePath, getSystemConfigFilePath, fileExists } from './paths';
+import {
+  getUserConfigDirPath,
+  getUserConfigFilePath,
+  getSystemConfigFilePath,
+  fileExists,
+} from './paths';
 import { isAll } from './all-apps';
 
 const { Gio, GLib } = imports.gi;
@@ -57,7 +62,7 @@ class XmlConfig {
         .reduce((res, [key, { _text }]) => ({ ...res, [key]: _text }), {})
     );
 
-    const apps = config['touchégg'].application || [];
+    const apps = [config['touchégg'].application].flat().filter(Boolean);
     apps.forEach((app) => {
       const appNames = app._attributes.name;
       appNames.split(',').forEach((appName) => model.addApplication(appName));
@@ -152,6 +157,7 @@ class XmlConfig {
     });
 
     const xml = XmlToJson.js2xml(config, { compact: true, spaces: 2, fullTagEmptyElement: true });
+    XmlConfig.createDir(getUserConfigDirPath());
     XmlConfig.writeFile(getUserConfigFilePath(), xml);
   }
 
@@ -169,6 +175,18 @@ class XmlConfig {
     }
 
     return contents;
+  }
+
+  /**
+   * Create a directory if doesn't exists yet.
+   *
+   * @param {string} path Directory path.
+   */
+  static createDir(path) {
+    const file = Gio.File.new_for_path(path);
+    if (!file.query_exists(null)) {
+      file.make_directory(null);
+    }
   }
 
   /**
