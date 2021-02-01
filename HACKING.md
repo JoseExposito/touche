@@ -69,6 +69,9 @@ And install it using:
 $ npm run flatpak
 ```
 
+Updates to the application available on Flathub are managed from:
+https://github.com/flathub/com.github.joseexposito.touche
+
 ## Debian package
 
 In addition to Flatpak, you can generate a Debian package and install it:
