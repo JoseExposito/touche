@@ -31,6 +31,11 @@
     <value key="x-appcenter-suggested-price">5</value>
   </custom>
   <releases>
+    <release version="1.0.1" date="2021-02-01" urgency="medium">
+      <description>
+        <p>elementary OS AppCenter release</p>
+      </description>
+    </release>
     <release version="1.0.0" date="2021-01-30" urgency="medium">
       <description>
         <p>Initial release</p>
