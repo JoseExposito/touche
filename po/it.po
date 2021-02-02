@@ -1,0 +1,181 @@
+# Copyright 2020 - 2021 José Expósito <jose.exposito89@gmail.com>
+# This file is distributed under the same license as the com.github.joseexposito.touche package.
+# Albano Battistella <albano_battistella@hotmail.com>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/JoseExposito/touche/issues\n"
+"POT-Creation-Date: 2020-10-14 19:00+0200\n"
+"PO-Revision-Date: 2021-02-02 20:00+0100\n"
+"Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Swipe"
+msgstr "Trascina"
+
+msgid "Pinch"
+msgstr "Pinch"
+
+msgid "Tap"
+msgstr "Tocco"
+
+#, javascript-format
+msgid "Swipe with %d fingers"
+msgstr "Trascina con %d le dita"
+
+#, javascript-format
+msgid "Pinch with %d fingers"
+msgstr "Pizzica con %d le dita"
+
+#, javascript-format
+msgid "Tap with %d fingers"
+msgstr "Tocca con %d le dita"
+
+msgid "Up"
+msgstr "Su"
+
+msgid "Down"
+msgstr "Giù"
+
+msgid "Left"
+msgstr "Sinistra"
+
+msgid "Right"
+msgstr "Destra"
+
+msgid "In"
+msgstr "Dentro"
+
+msgid "Out"
+msgstr "Fuori"
+
+msgid "Unknown"
+msgstr "Sconosciuto"
+
+msgid "Maximize or restore a window"
+msgstr "Massimizzare o ripristinare una finestra"
+
+msgid "Minimize a window"
+msgstr "Minimizzare una finestra"
+
+msgid "Tile a widow"
+msgstr "Adatta la finestra al centro dello schermo"
+
+msgid "Toggle fullscreen mode"
+msgstr "Finestra a schermo intero"
+
+msgid "Close a window"
+msgstr "Chiudi una finestra"
+
+msgid "Switch desktop"
+msgstr "Cambia desktop"
+
+msgid "Show desktop"
+msgstr "Mostra desktop"
+
+msgid "Keyboard shortcut"
+msgstr "Scorciatoia da tastiera"
+
+msgid "Execute a command"
+msgstr "Esegui comando"
+
+msgid "Mouse click"
+msgstr "Clic del mouse"
+
+msgid "Unknown action"
+msgstr "Azione sconosciuta"
+
+msgid "Touchégg is not installed"
+msgstr "Touchégg non è installato"
+
+msgid "It looks like Touchégg is not installed, let's start by downloading it"
+msgstr "Sembra che Touchégg non sia installato, scaricalo"
+
+msgid "Download Touchégg"
+msgstr "Scarica Touchégg"
+
+msgid "I just installed it"
+msgstr "L'ho appena installato"
+
+msgid "Global gestures"
+msgstr "Gesti globali"
+
+msgid "Add new application"
+msgstr "Aggiungi app"
+
+msgid "Remove the selected application"
+msgstr "Elimina l'app selezionata"
+
+msgid "Only available on touchscreens"
+msgstr "Solo su touchscreen"
+
+msgid ""
+"Tap gestures are only available on touchscreens. Tapping on a touchpad is "
+"not available"
+msgstr ""
+"I gesti di tipo tocco funzionano solo sui touchscreen. Non "
+"funzionano sui touchpad"
+
+msgid "Direction:"
+msgstr "Direzione:"
+
+msgid "Tile window to the left half of the screen"
+msgstr "Adatta la finestra alla metà sinistra dello schermo"
+
+msgid "Tile window to the right half of the screen"
+msgstr "Adatta la finestra alla metà destra dello schermo"
+
+msgid "Command:"
+msgstr "Comando:"
+
+msgid "Repeat command:"
+msgstr "Repeti comando:"
+
+msgid "Execute on:"
+msgstr "Eseguire quando:"
+
+msgid "Gesture begin"
+msgstr "Inizia il gesto"
+
+msgid "Gesture end"
+msgstr "Finisce il gesto"
+
+msgid "Opposite command:"
+msgstr "Comando opposto:"
+
+msgid "Run this command when the gesture goes in the opposite direction"
+msgstr "Esegui questo comando quando il gesto va nella direzione opposta"
+
+msgid "Modifiers:"
+msgstr "Modificatori:"
+
+msgid "Keys:"
+msgstr "Chiavi:"
+
+msgid "Opposite keys:"
+msgstr "Chiavi opposte:"
+
+msgid "Use this keys when the gesture goes in the opposite direction"
+msgstr "Usa questi tasti quando il gesto va nella direzione opposta"
+
+msgid "Mouse button:"
+msgstr "Pulsante del mouse:"
+
+msgid "Left click"
+msgstr "Clic sinistro"
+
+msgid "Right click"
+msgstr "Clic destro"
+
+msgid "Middle click"
+msgstr "Clic centrale"
+
+msgid "Add application"
+msgstr "Aggiungi app"
+
+msgid "Add gestures for an application. Click on it's window"
+msgstr "Aggiungi gesti per un'app. Fare clic sulla sua finestra"
