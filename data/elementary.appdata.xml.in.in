@@ -13,9 +13,11 @@
   <name>Touché</name>
   <summary>Multi-touch Gestures</summary>
   <description>
-    <p>Easily configure your touchpad and touchscreen multi-touch gestures using Touchégg with this GTK graphical user interface.</p>
+    <p>Easily configure your touchpad and touchscreen multi-touch gestures with this GTK graphical user interface.</p>
     <p>For example, you can swipe up with 3 fingers to maximize a window or swipe left with 4 finger to switch to the next desktop.</p>
-    <p>Many more actions and gestures are available and everything is easily configurable.</p>
+    <p>There are many more actions and gestures available and everything is easily configurable.</p>
+    <p>Touchégg must also be installed:</p>
+    <p>https://github.com/JoseExposito/touchegg#readme</p>
   </description>
   <screenshots>
     <screenshot type="default">
@@ -31,9 +33,9 @@
     <value key="x-appcenter-suggested-price">5</value>
   </custom>
   <releases>
-    <release version="1.0.1" date="2021-02-01" urgency="medium">
+    <release version="1.0.1" date="2021-02-02" urgency="medium">
       <description>
-        <p>elementary OS AppCenter release</p>
+        <p>Initial release</p>
       </description>
     </release>
     <release version="1.0.0" date="2021-01-30" urgency="medium">

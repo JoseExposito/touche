@@ -36,4 +36,4 @@ modules:
     sources:
       - type: archive
         url: https://github.com/JoseExposito/touche/releases/download/1.0.1/flatpak-archive.tar.gz
-        sha256: 019e173de622cc732e9ac9a4983cc08c9d4d7bf1f36cd2c943e7c8a5f4ca60fa
+        sha256: cd0669a5fd44922d9c90e30991345946c94ec132a2b2f23c62729ab4a2264726
