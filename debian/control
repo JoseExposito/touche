@@ -10,7 +10,7 @@ Build-Depends: appstream,
                libglib2.0-dev-bin,
                libgtk-3-dev,
                libwnck-3-dev,
-               meson (>= 0.50),
+               meson (>= 0.49),
                nodejs (>= 8),
                npm (>= 3)
 Standards-Version: 4.5.0
