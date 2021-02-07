@@ -29,6 +29,13 @@ Easily configure your touchpad and touchscreen multi-touch gestures using
 </details>
 
 
-## Installation
+<br />
+<br />
 
-Coming soon...
+<div align="center">
+  <a href='https://flathub.org/apps/details/com.github.joseexposito.touche'>
+    <img width='240' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.png'/>
+  </a>
+
+  [Or download a package for your distribution](https://github.com/JoseExposito/touche/releases)
+</div>
