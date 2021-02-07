@@ -1,6 +1,6 @@
 name: Build
 
-on: push
+on: release
 
 jobs:
 
@@ -11,7 +11,7 @@ jobs:
       target_distribution: buster
     strategy:
       matrix:
-        target_arch: ["amd64", "armhf", "arm64"]
+        target_arch: ["amd64"]
     steps:
       - name: GitHub Environment Variables Action
         uses: FranzDiebold/github-env-vars-action@v1.2.1
@@ -46,5 +46,5 @@ jobs:
       - name: Upload Debian package artifacts
         uses: "actions/upload-artifact@v2"
         with:
-          name: "${{ env.GITHUB_REPOSITORY_NAME }}-${{ env.GITHUB_REF }}-${{matrix.target_arch}}-deb"
-          path: "${{ github.workspace }}/artifacts/${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF }}_${{matrix.target_arch}}.deb"
+          name: "${{ env.GITHUB_REPOSITORY_NAME }}-${{ env.GITHUB_REF_NAME }}-${{matrix.target_arch}}-deb"
+          path: "${{ github.workspace }}/artifacts/${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_${{matrix.target_arch}}.deb"
