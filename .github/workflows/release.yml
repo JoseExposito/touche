@@ -1,0 +1,47 @@
+name: Build
+
+on: push
+
+jobs:
+
+  deb-package:
+    runs-on: ubuntu-20.04
+    env:
+      target_docker_image: debian:buster-backports
+      target_distribution: buster
+    strategy:
+      matrix:
+        target_arch: ["amd64", "armhf", "arm64"]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Patch target distribution in Debian changelog
+        # touchegg (x.y.z) DISTRO; urgency=medium
+        # -z to replace only the first occurrence
+        # -i to update the file
+        # ([)] ) - Group 0, find the first ") "
+        # (\w+)  - Group 1, find a word (DISTRO)
+        # \1${{ env.target_distribution }} - Replace group 1 with the target distribution name
+        run: |
+          sed -zri "s/([)] )(\w+)/\1${{ env.target_distribution }}/" ${{ github.workspace }}/debian/changelog
+
+      - name: Build Debian package
+        uses: pi-top/action-debian-package@v0.2.2
+        with:
+          source_directory: "${{ github.workspace }}"
+          artifacts_directory: "${{ github.workspace }}/artifacts"
+
+          docker_image: ${{ env.target_docker_image }}
+          distribution: ${{ env.target_distribution }}
+          target_architecture: ${{ matrix.target_arch }}
+
+          lintian_opts: "--dont-check-part nmu --no-tag-display-limit --display-info --show-overrides"
+          # Package uses latest packaging syntax and Lintian opts/tags
+          dpkg_buildpackage_opts: "--no-sign --no-check-builddeps --post-clean"
+
+      - name: Upload Debian package artifacts
+        uses: "actions/upload-artifact@v2"
+        with:
+          name: "${{ env.GITHUB_REPOSITORY_NAME }}-${{ env.GITHUB_REF }}-${{matrix.target_arch}}-deb"
+          path: "${{ github.workspace }}/artifacts/${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF }}_${{matrix.target_arch}}.deb"
