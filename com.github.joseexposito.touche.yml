@@ -35,5 +35,5 @@ modules:
       - -Dtarget-de=gnome
     sources:
       - type: archive
-        url: https://github.com/JoseExposito/touche/releases/download/1.0.1/flatpak-archive.tar.gz
-        sha256: cd0669a5fd44922d9c90e30991345946c94ec132a2b2f23c62729ab4a2264726
+        url: https://github.com/JoseExposito/touche/releases/download/1.0.2/flatpak-archive.tar.gz
+        sha256: c5b8f89db2a27e1888479c4dd362c2bfaaac5b5714e4ce2ebc3850175fccbdb0

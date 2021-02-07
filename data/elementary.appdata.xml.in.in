@@ -33,6 +33,11 @@
     <value key="x-appcenter-suggested-price">5</value>
   </custom>
   <releases>
+    <release version="1.0.2" date="2021-02-07" urgency="medium">
+      <description>
+        <p>Added Italian translation</p>
+      </description>
+    </release>
     <release version="1.0.1" date="2021-02-02" urgency="medium">
       <description>
         <p>Initial release</p>
