@@ -1,0 +1,182 @@
+# Copyright 2020 - 2021 José Expósito <jose.exposito89@gmail.com>
+# This file is distributed under the same license as the com.github.joseexposito.touche package.
+# Didier Courtaud <didier.courtaud@free.fr>, 2021.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/JoseExposito/touche/issues\n"
+"POT-Creation-Date: 2020-10-14 19:00+0200\n"
+"PO-Revision-Date: 2021-02-08 16:43+0100\n"
+"Last-Translator: Didier Courtaud <didier.courtaud@free.fr>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Swipe"
+msgstr "Glisser"
+
+msgid "Pinch"
+msgstr "Pincer"
+
+msgid "Tap"
+msgstr "Taper"
+
+#, javascript-format
+msgid "Swipe with %d fingers"
+msgstr "Glisser avec %d doigts"
+
+#, javascript-format
+msgid "Pinch with %d fingers"
+msgstr "Pincer avec %d doigts"
+
+#, javascript-format
+msgid "Tap with %d fingers"
+msgstr "Taper avec %d doigts"
+
+msgid "Up"
+msgstr "Haut"
+
+msgid "Down"
+msgstr "Bas"
+
+msgid "Left"
+msgstr "Gauche"
+
+msgid "Right"
+msgstr "Droit"
+
+msgid "In"
+msgstr "Dedans"
+
+msgid "Out"
+msgstr "Dehors"
+
+msgid "Unknown"
+msgstr "Inconnu"
+
+msgid "Maximize or restore a window"
+msgstr "Maximiser ou réduire une fenêtre"
+
+msgid "Minimize a window"
+msgstr "Minimiser une fenêtre"
+
+msgid "Tile a widow"
+msgstr "Pousser la fenêtre"
+
+msgid "Toggle fullscreen mode"
+msgstr "Basculer en plein écran"
+
+msgid "Close a window"
+msgstr "Fermer une fenêtre"
+
+msgid "Switch desktop"
+msgstr "Changer de bureau"
+
+msgid "Show desktop"
+msgstr "Monter le bureau"
+
+msgid "Keyboard shortcut"
+msgstr "Raccourcis clavier"
+
+msgid "Execute a command"
+msgstr "Exécuter une commande"
+
+msgid "Mouse click"
+msgstr "Clic de souris"
+
+msgid "Unknown action"
+msgstr "Action inconnue"
+
+msgid "Touchégg is not installed"
+msgstr "Touchégg n'est pas installé"
+
+msgid "It looks like Touchégg is not installed, let's start by downloading it"
+msgstr ""
+"Il semble que Touchegg n'est pas installé, commencez par le télécharger"
+
+msgid "Download Touchégg"
+msgstr "Télécharger Touchegg"
+
+msgid "I just installed it"
+msgstr "Je viens juste de l'installer"
+
+msgid "Global gestures"
+msgstr "Gestes globaux"
+
+msgid "Add new application"
+msgstr "Ajouter une nouvelle application"
+
+msgid "Remove the selected application"
+msgstr "Enlever l'application sélectionnée"
+
+msgid "Only available on touchscreens"
+msgstr "Disponible uniquement sur écran tactile"
+
+msgid ""
+"Tap gestures are only available on touchscreens. Tapping on a touchpad is "
+"not available"
+msgstr ""
+"Les gestes de frappe sont seulement disponibles sur écran tactile. Les "
+"frappes ne sont pas disponibles sur les pavés tactiles"
+
+msgid "Direction:"
+msgstr "Direction:"
+
+msgid "Tile window to the left half of the screen"
+msgstr "Coincer la fenêtre sur la moitié gauche de l'écran"
+
+msgid "Tile window to the right half of the screen"
+msgstr "Coincer la fenêtre sur la moitié droite de l'écran"
+
+msgid "Command:"
+msgstr "Commande:"
+
+msgid "Repeat command:"
+msgstr "Repéter la commande:"
+
+msgid "Execute on:"
+msgstr "Exécuter quand:"
+
+msgid "Gesture begin"
+msgstr "Début du geste"
+
+msgid "Gesture end"
+msgstr "Fin du geste"
+
+msgid "Opposite command:"
+msgstr "Commande opposée:"
+
+msgid "Run this command when the gesture goes in the opposite direction"
+msgstr "Exécuter cette commande quand le geste part dans la direction opposée"
+
+msgid "Modifiers:"
+msgstr "Modificateurs:"
+
+msgid "Keys:"
+msgstr "Clés:"
+
+msgid "Opposite keys:"
+msgstr "Clés opposées:"
+
+msgid "Use this keys when the gesture goes in the opposite direction"
+msgstr "Utiliser cette clé quand le geste part dans la direction opposée"
+
+msgid "Mouse button:"
+msgstr "Bouton de souris:"
+
+msgid "Left click"
+msgstr "Clic gauche"
+
+msgid "Right click"
+msgstr "Clic droit"
+
+msgid "Middle click"
+msgstr "Clic milieu"
+
+msgid "Add application"
+msgstr "Ajouter une application"
+
+msgid "Add gestures for an application. Click on it's window"
+msgstr "Ajouter des gestes pour une application, cliquez sur sa fenêtre"
