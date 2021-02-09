@@ -28,8 +28,6 @@ Easily configure your touchpad and touchscreen multi-touch gestures using
   ![Touché on GNOME using Adwaita dark theme](.github/images/adwaita-dark.png)
 </details>
 
-
-<br />
 <br />
 
 <div align="center">
