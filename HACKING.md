@@ -5,13 +5,13 @@ Before you start coding, you will need to install some dependencies:
 ```bash
 # Ubuntu, Debian and derivatives:
 $ sudo apt-get install build-essential git tar \
-  nodejs npm gjs gettext appstream appstream-util libglib2.0-dev-bin \
+  meson nodejs npm gjs gettext appstream appstream-util libglib2.0-dev-bin \
   libgtk-3-dev libwnck-3-dev
 
 # Red Hat, Fedora, CentOS and derivatives:
 $ sudo yum groupinstall "Development Tools"
 $ sudo yum install git tar \
-  nodejs npm gjs gettext appstream \
+  meson nodejs npm gjs gettext appstream \
   gtk3-devel libwnck-devel
 ```
 
