@@ -48,7 +48,7 @@ class XmlConfig {
     const config = XmlToJson.xml2js(configXml, { compact: true });
 
     log('Saving global settings in the model');
-    const globalSettings = config['touchégg'].settings.property;
+    const globalSettings = [config['touchégg'].settings.property].flat().filter(Boolean);
     globalSettings.forEach((globalSetting) => {
       const { name } = globalSetting._attributes;
       const value = globalSetting._text;
