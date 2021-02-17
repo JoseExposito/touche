@@ -62,11 +62,6 @@ jobs:
         run: |
           tar -xf archive.tar.gz
 
-      - name: Copy node_modules to debian/missing-sources
-        run: |
-          mkdir -p debian/missing-sources
-          cp -r node_modules debian/missing-sources
-
       - name: Patch target distribution in Debian changelog
         # touche (x.y.z) DISTRO; urgency=medium
         # -z to replace only the first occurrence
