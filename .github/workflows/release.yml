@@ -1,23 +1,68 @@
-name: Build
+# Workflow to create a release when a new tag is created
+# It will generate the release on GitHub and attach the packages
 
-on: release
+name: Release
+
+# on:
+#   push:
+#     tags:
+#       - '*'
+on: push
 
 jobs:
 
+  build-archive:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        path: ${{ github.workspace }}/touche
+
+      - name: Build archive
+        run: |
+          cd ${{ github.workspace }}/touche
+          npm run archive
+
+      - name: Generate checksum
+        run: |
+          sha256sum ${{ github.workspace }}/archive.tar.gz > ARCHIVE-SHA256SUM
+
+      - name: Upload archive artifact
+        uses: "actions/upload-artifact@v2"
+        with:
+          name: "archive.tar.gz"
+          path: "${{ github.workspace }}/archive.tar.gz"
+
+      - name: Upload archive checksum artifact
+        uses: "actions/upload-artifact@v2"
+        with:
+          name: "ARCHIVE-SHA256SUM"
+          path: "${{ github.workspace }}/ARCHIVE-SHA256SUM"
+
   deb-package:
     runs-on: ubuntu-20.04
+    needs: [ build-archive ]
     env:
       target_docker_image: debian:buster-backports
       target_distribution: buster
     strategy:
       matrix:
-        target_arch: ["amd64"]
+        target_arch: ["amd64", "armhf", "arm64"]
     steps:
+      - name: Download archive
+        uses: "actions/download-artifact@v2"
+        with:
+          name: archive.tar.gz
+
+      - name: Extract archive
+        run: |
+          tar -xf archive.tar.gz
+
       - name: GitHub Environment Variables Action
         uses: FranzDiebold/github-env-vars-action@v1.2.1
 
-      - name: Checkout code
-        uses: actions/checkout@v2
+      # - name: Checkout code
+      #   uses: actions/checkout@v2
 
       - name: Patch target distribution in Debian changelog
         # touche (x.y.z) DISTRO; urgency=medium
