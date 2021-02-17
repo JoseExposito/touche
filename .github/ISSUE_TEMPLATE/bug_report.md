@@ -29,12 +29,13 @@ $ flatpak run com.github.joseexposito.touche
 $ com.github.joseexposito.touche
 ```
 
-Attache Touchégg configuration, placed at `~/.config/touchegg/touchegg.conf`, if you consider it
+Attach Touchégg configuration, placed at `~/.config/touchegg/touchegg.conf`, if you consider it
 relevant.
 
 ### Your environment
 
- * Version of Touché
+ * Touché version:
+ * Touchégg version:
  * Operating System: Ubuntu, Fedora, Arch Linux...
  * Desktop Environment: Gnome, KDE, Xfce...
  * Installation method: Flatpak, Debian package...
