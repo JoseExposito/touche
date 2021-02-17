@@ -26,7 +26,7 @@ jobs:
 
       - name: Generate checksum
         run: |
-          sha256sum ${{ github.workspace }}/archive.tar.gz > ARCHIVE-SHA256SUM
+          sha256sum archive.tar.gz > ARCHIVE-SHA256SUM
 
       - name: Upload archive artifact
         uses: "actions/upload-artifact@v2"
@@ -50,6 +50,9 @@ jobs:
       matrix:
         target_arch: ["amd64", "armhf", "arm64"]
     steps:
+      - name: GitHub Environment Variables Action
+        uses: FranzDiebold/github-env-vars-action@v1.2.1
+
       - name: Download archive
         uses: "actions/download-artifact@v2"
         with:
@@ -59,11 +62,10 @@ jobs:
         run: |
           tar -xf archive.tar.gz
 
-      - name: GitHub Environment Variables Action
-        uses: FranzDiebold/github-env-vars-action@v1.2.1
-
-      # - name: Checkout code
-      #   uses: actions/checkout@v2
+      - name: Copy node_modules to debian/missing-sources
+        run: |
+          mkdir -p debian/missing-sources
+          cp -r node_modules debian/missing-sources
 
       - name: Patch target distribution in Debian changelog
         # touche (x.y.z) DISTRO; urgency=medium
