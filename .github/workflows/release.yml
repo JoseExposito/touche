@@ -16,7 +16,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        path: ${{ github.workspace }}/touche
+        with:
+          path: ${{ github.workspace }}/touche
 
       - name: Build archive
         run: |
