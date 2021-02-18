@@ -17,19 +17,10 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 import './pkg-init';
+// The pkg-init ^ import must be the first import
 import AppWindow from '~/app-window';
 
-
 const { Gio, Gtk, Gdk } = imports.gi;
-
-// Import Granite if it is available
-try {
-  const { Granite } = imports.gi;
-  window.Granite = Granite;
-} catch (error) {
-  log('Granite is not available');
-  window.Granite = null;
-}
 
 /**
  * Application  entry point.
