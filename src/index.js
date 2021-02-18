@@ -16,17 +16,9 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
+import './pkg-init';
 import AppWindow from '~/app-window';
 
-pkg.initGettext();
-pkg.initFormat();
-
-pkg.require({
-  Gio: '2.0',
-  Gtk: '3.0',
-  Gdk: '3.0',
-  Wnck: '3.0',
-});
 
 const { Gio, Gtk, Gdk } = imports.gi;
 
