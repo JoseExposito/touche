@@ -3,11 +3,10 @@
 
 name: Release
 
-# on:
-#   push:
-#     tags:
-#       - '*'
-on: push
+on:
+  push:
+    tags:
+      - '*'
 
 jobs:
 
@@ -91,3 +90,76 @@ jobs:
         with:
           name: "${{ env.GITHUB_REPOSITORY_NAME }}-${{ env.GITHUB_REF_NAME }}-${{matrix.target_arch}}-deb"
           path: "${{ github.workspace }}/artifacts/${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_${{matrix.target_arch}}.deb"
+
+  create-release:
+    runs-on: ubuntu-20.04
+    needs: [ build-archive, deb-package ]
+    steps:
+      - name: GitHub Environment Variables Action
+        uses: FranzDiebold/github-env-vars-action@v1.2.1
+
+      - name: Download packages
+        uses: "actions/download-artifact@v2"
+        with:
+          path: ./
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.GITHUB_REF_NAME }}
+          release_name: ${{ env.GITHUB_REF_NAME }}
+          draft: true
+          prerelease: false
+
+      - name: Upload Debian package (amd64)
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: "${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_amd64.deb/${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_amd64.deb"
+          asset_name: "${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_amd64.deb"
+          asset_content_type: application/vnd.debian.binary-package
+
+      - name: Upload Debian package (armhf)
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: "${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_armhf.deb/${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_armhf.deb"
+          asset_name: "${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_armhf.deb"
+          asset_content_type: application/vnd.debian.binary-package
+
+      - name: Upload Debian package (arm64)
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: "${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_arm64.deb/${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_arm64.deb"
+          asset_name: "${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_arm64.deb"
+          asset_content_type: application/vnd.debian.binary-package
+
+      - name: Upload archive
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: "archive.tar.gz/archive.tar.gz"
+          asset_name: "archive.tar.gz"
+          asset_content_type: application/gzip
+
+      - name: Upload SHA256SUM
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: "ARCHIVE-SHA256SUM/ARCHIVE-SHA256SUM"
+          asset_name: "ARCHIVE-SHA256SUM"
+          asset_content_type: text/plain
