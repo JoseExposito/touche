@@ -17,7 +17,7 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 import model from '~/config/model';
-import ActionType, { actionTypeText } from '~/config/action-type';
+import ActionType, { actionTypeText, GNOME_SHELL_ACTION } from '~/config/action-type';
 import { gestureDirectionText } from '~/config/gesture-direction';
 import GestureType from '~/config/gesture-type';
 import NoScrollComboBoxText from '~/utils/no-scroll-combo-box-text';
@@ -66,8 +66,12 @@ class GestureListRow extends Gtk.ListBoxRow {
       this.actionsCombo.append(action, actionTypeText(action));
     });
 
+    // TODO Handle disabled gestures
     if (gesture.enabled) {
-      // TODO Handle disabled gestures
+      if (gesture.actionType === GNOME_SHELL_ACTION) {
+        this.actionsCombo.append(GNOME_SHELL_ACTION, actionTypeText(GNOME_SHELL_ACTION));
+      }
+
       this.actionsCombo.active_id = gesture.actionType;
     }
 
@@ -87,6 +91,12 @@ class GestureListRow extends Gtk.ListBoxRow {
     });
 
     this.enabledSwitch.bind_property('active', this.actionsCombo, 'sensitive', GObject.BindingFlags.SYNC_CREATE);
+
+    // If the selected action is GNOME_SHELL disable the row
+    if (gesture.actionType === GNOME_SHELL_ACTION) {
+      this.actionsCombo.sensitive = false;
+      this.enabledSwitch.sensitive = false;
+    }
 
     // Layout
     this.grid.attach(titleLabel, 0, 0, 1, 1);

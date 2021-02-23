@@ -29,6 +29,12 @@ const ActionType = {
   MOUSE_CLICK: 'MOUSE_CLICK',
 };
 
+/*
+ * The "GNOME_SHELL" action is an special action that the GNOME Shell Touchégg extension adds to the
+ * XML to indicate that the gesture is reserved by the DE.
+ */
+export const GNOME_SHELL_ACTION = 'GNOME_SHELL';
+
 export const actionTypeText = (actionType) => {
   switch (actionType) {
     case ActionType.MAXIMIZE_RESTORE_WINDOW:
@@ -51,8 +57,11 @@ export const actionTypeText = (actionType) => {
       return _('Execute a command');
     case ActionType.MOUSE_CLICK:
       return _('Mouse click');
+    case GNOME_SHELL_ACTION:
+      return _('Used by GNOME');
     default:
       return _('Unknown action');
   }
 };
+
 export default ActionType;
