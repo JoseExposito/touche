@@ -28,6 +28,7 @@ import {
 import { isAll } from './all-apps';
 
 const { Gio, GLib } = imports.gi;
+const ByteArray = imports.byteArray;
 
 /**
  * Load and save the `Model` from/to file.
@@ -170,11 +171,13 @@ class XmlConfig {
     const [success, contents] = file.load_contents(null);
 
     if (!success) {
-    // TODO Handle this error
+      // TODO Handle this error
       throw new Error('Error loading config file');
     }
 
-    return contents;
+    const str = ByteArray.toString(contents, 'UTF-8');
+    GLib.free(contents);
+    return str;
   }
 
   /**
