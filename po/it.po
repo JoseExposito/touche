@@ -179,3 +179,6 @@ msgstr "Aggiungi app"
 
 msgid "Add gestures for an application. Click on it's window"
 msgstr "Aggiungi gesti per un'app. Fare clic sulla sua finestra"
+
+msgid "Used by GNOME"
+msgstr "Usato da GNOME"

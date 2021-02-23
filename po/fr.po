@@ -1,7 +1,7 @@
 # Copyright 2020 - 2021 José Expósito <jose.exposito89@gmail.com>
 # This file is distributed under the same license as the com.github.joseexposito.touche package.
 # Didier Courtaud <didier.courtaud@free.fr>, 2021.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.0\n"
@@ -180,3 +180,6 @@ msgstr "Ajouter une application"
 
 msgid "Add gestures for an application. Click on it's window"
 msgstr "Ajouter des gestes pour une application, cliquez sur sa fenêtre"
+
+msgid "Used by GNOME"
+msgstr "Utilisé par GNOME"
