@@ -20,15 +20,6 @@ compile_schemas_bin = find_program('glib-compile-schemas', required: false)
 xgettext_bin = find_program('xgettext', required: false)
 
 
-# if get_option('flatpak') == 'false'
-#   message('Installing npm dependencies...')
-#   npm_install = run_command(npm_bin, 'install')
-#   if npm_install.returncode() != 0
-#    error('Error installing npm dependencies')
-#   endif
-# endif
-
-
 subdir('data')
 subdir('bundle')
 subdir('po')

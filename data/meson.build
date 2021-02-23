@@ -46,10 +46,12 @@ appstream_file = i18n.merge_file(
   install_dir: join_paths(get_option('datadir'), 'appdata'),
 )
 
-# TODO Enable this check
-#if appstream_util_bin.found()
-#  test('Validate appstream file', appstream_util_bin, args: ['validate-relax', appstream_file])
-#endif
+# There is an issue generating DEB packages on ARM because of this command needing internet access:
+# https://github.com/JoseExposito/touche/issues/5
+# Remove the "host_machine.cpu_family() == 'x86_64'" check once it gets fixed
+if appstream_util_bin.found() and host_machine.cpu_family() == 'x86_64'
+  test('Validate appstream file', appstream_util_bin, args: ['validate-relax', appstream_file])
+endif
 
 
 # Generate the gschema.xml file (GSettings)
