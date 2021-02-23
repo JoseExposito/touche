@@ -30,6 +30,12 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="1.0.3" date="2021-02-23" urgency="medium">
+      <description>
+        <p>Added French translation</p>
+        <p>Bug fixing</p>
+      </description>
+    </release>
     <release version="1.0.2" date="2021-02-07" urgency="medium">
       <description>
         <p>Added Italian translation</p>
