@@ -51,7 +51,7 @@ class NotInstalledView extends Gtk.Box {
     download.get_style_context().add_class('download-button');
     download.connect('clicked', () => Gtk.show_uri_on_window(
       null,
-      'https://github.com/JoseExposito/touchegg/releases',
+      'https://github.com/JoseExposito/touchegg#readme',
       Gdk.CURRENT_TIME,
     ));
 
