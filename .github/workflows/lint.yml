@@ -1,0 +1,22 @@
+# Run ESLint on every commit
+
+name: Lint
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y nodejs npm
+          npm install
+
+      - name: ESLint
+        run: |
+          npm run lint
