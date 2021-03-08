@@ -35,7 +35,8 @@ app_bundle = custom_target(
     get_option('buildtype'),
     meson.project_name(),
     get_option('flatpak'),
-    get_option('target-de')
+    get_option('target-de'),
+    get_option('system-config-file-path')
   ],
   capture: false,
   output: meson.project_name() + '.js',

@@ -35,11 +35,7 @@ export const getUserConfigFilePath = () => (
 /**
  * @returns {string} System config file path (/usr/share/touchegg/touchegg.conf).
  */
-export const getSystemConfigFilePath = () => (
-  process.env.FLATPAK
-    ? GLib.build_filenamev([GLib.DIR_SEPARATOR_S, 'var', 'run', 'host', 'usr', 'share', 'touchegg', 'touchegg.conf'])
-    : GLib.build_filenamev([GLib.DIR_SEPARATOR_S, 'usr', 'share', 'touchegg', 'touchegg.conf'])
-);
+export const getSystemConfigFilePath = () => process.env.SYSTEM_CONFIG_FILE_PATH;
 
 /**
  * @param {string} path File path.

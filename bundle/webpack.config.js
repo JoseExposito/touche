@@ -20,7 +20,14 @@ const fs = require('fs');
 const path = require('path');
 const { DefinePlugin } = require('webpack');
 
-const getWebpackConfig = (rootPath, outputPath, projectName, flatpak, targetDE) => {
+const getWebpackConfig = ({
+  rootPath,
+  outputPath,
+  projectName,
+  flatpak,
+  targetDE,
+  systemConfigFilePath,
+}) => {
   const isEnvProduction = (process.env.NODE_ENV === 'production');
   const srcPath = path.resolve(rootPath, 'src');
   const packageJsonPath = path.resolve(rootPath, 'package.json');
@@ -58,6 +65,7 @@ const getWebpackConfig = (rootPath, outputPath, projectName, flatpak, targetDE) 
         'process.env.PROJECT_NAME': JSON.stringify(projectName),
         'process.env.FLATPAK': flatpak,
         'process.env.TARGET_DE': JSON.stringify(targetDE),
+        'process.env.SYSTEM_CONFIG_FILE_PATH': JSON.stringify(systemConfigFilePath),
       }),
     ].filter(Boolean),
 

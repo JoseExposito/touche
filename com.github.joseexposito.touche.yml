@@ -33,6 +33,7 @@ modules:
     config-opts:
       - -Dflatpak=true
       - -Dtarget-de=gnome
+      - -Dsystem-config-file-path=/var/run/host/usr/share/touchegg/touchegg.conf
     sources:
       - type: archive
         url: file:///home/jose/Devel/archive.tar.gz

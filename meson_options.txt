@@ -7,3 +7,7 @@ option('flatpak', type: 'string', value: 'false')
 #  - gnome
 # Available in code as a string in "process.env.TARGET_DE"
 option('target-de', type: 'string', value: 'elementary')
+
+# Path to the system configuration file
+# Override it on Flatpak or if Touchégg was installed in a different prefix
+option('system-config-file-path', type: 'string', value: '/usr/share/touchegg/touchegg.conf')
