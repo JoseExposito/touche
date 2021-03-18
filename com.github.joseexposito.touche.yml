@@ -7,7 +7,7 @@ finish-args:
   - '--share=ipc'
   - '--socket=fallback-x11'
   - '--socket=wayland'
-  - '--filesystem=~/.config/touchegg'
+  - '--filesystem=~/.config'
   - '--filesystem=host:ro'
 modules:
   - name: libwnck
@@ -37,4 +37,4 @@ modules:
     sources:
       - type: archive
         url: file:///home/jose/Devel/archive.tar.gz
-        sha256: d26133eef8b6db4708b9ab4a590a8c663be00295132ac30ca4300077120e633c
+        sha256: 5d37b391f79a6b3b62fb18f30d64c755241914f7e0aa2b3d0d27d63bf18c3ead
