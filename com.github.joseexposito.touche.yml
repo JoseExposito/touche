@@ -10,16 +10,6 @@ finish-args:
   - '--filesystem=~/.config'
   - '--filesystem=host:ro'
 modules:
-  - name: libwnck
-    buildsystem: meson
-    config-opts:
-      - '-Dinstall_tools=false'
-      - '-Dgtk_doc=false'
-    sources:
-      - type: archive
-        url: https://download.gnome.org/sources/libwnck/3.36/libwnck-3.36.0.tar.xz
-        sha256: bc508150b3ed5d22354b0e6774ad4eee465381ebc0ace45eb0e2d3a4186c925f
-
   - name: nodejs
     cleanup:
       - '*'
