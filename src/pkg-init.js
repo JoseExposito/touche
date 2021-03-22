@@ -23,7 +23,7 @@ pkg.require({
   Gio: '2.0',
   Gtk: '3.0',
   Gdk: '3.0',
-  Wnck: '3.0',
+  Touche: '1.0.0',
 });
 
 // Import Granite if it is available

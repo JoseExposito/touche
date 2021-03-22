@@ -24,7 +24,7 @@
 
 G_BEGIN_DECLS
 
-const char *touche_get_window_under_cursor_class_name();
+GString *touche_get_window_under_cursor_class_name();
 
 G_END_DECLS
 

@@ -23,7 +23,7 @@ const {
   GObject,
   Gtk,
   Gdk,
-  Wnck,
+  Touche,
 } = imports.gi;
 
 class AddAppView extends Gtk.Box {
@@ -74,8 +74,8 @@ class AddAppView extends Gtk.Box {
       Gdk.Cursor.new_for_display(display, Gdk.CursorType.CROSSHAIR), null, null);
 
     if (status !== Gdk.GrabStatus.SUCCESS) {
-      // TODO Hide the window
       log('Error grabbing mouse and keyboard');
+      this.emit('done', ALL_ID);
     }
   }
 
@@ -86,43 +86,15 @@ class AddAppView extends Gtk.Box {
   }
 
   mouseClick(event) { // eslint-disable-line
-    const mouseX = event.x_root;
-    const mouseY = event.y_root;
-
-    const screen = Wnck.Screen.get_default();
-    screen.force_update();
-    const currentWorkspace = screen.get_active_workspace();
-
-    const windowsUnderCursor = screen.get_windows_stacked()
-      .filter((window) => {
-        const [x, y, width, height] = window.get_client_window_geometry();
-        return mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height;
-      })
-      .filter((window) => (
-        window.is_visible_on_workspace(currentWorkspace)
-      ));
-
-    // FIXME: Filtering by workspace excludes windows in the secondary screen in Mutter when the
-    //        active workspace is not the first one
-
-    // FIXME: When using CSD, clicking on the shadow returns the wrong window because the atom
-    //        _GTK_FRAME_EXTENTS is not being used.
-
-    // TODO: To avoid this issues, I could wrap this method in a C library and use XQueryPointer
-
-    let appName = ALL_ID;
-
-    if (windowsUnderCursor.length > 0) {
-      appName = windowsUnderCursor[windowsUnderCursor.length - 1]
-        .get_class_instance_name()
-        .toLowerCase();
-      log(`Adding application "${appName}" to the model`);
+    const appName = Touche.get_window_under_cursor_class_name().free(false);
+    if (appName) {
       model.addApplication(appName);
       model.saveToFile();
     }
 
     AddAppView.ungrabPointer();
-    this.emit('done', appName);
+
+    this.emit('done', appName || ALL_ID);
   }
 
   keyPress(event) {

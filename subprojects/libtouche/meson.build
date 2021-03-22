@@ -1,7 +1,7 @@
 project(
   'libtouche',
-  'c',
-  version: '1.0.0',
+  'cpp',
+  version: '1.0.0', # Warning: If you increase this version remember to change src/pkg-init.js
   meson_version: '>= 0.49.0'
 )
 
@@ -14,7 +14,7 @@ headers = [
 ]
 
 sources = [
-  'touche.c'
+  'touche.cpp'
 ]
 
 dependencies = [
