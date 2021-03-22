@@ -5,23 +5,22 @@ Before you start coding, you will need to install some dependencies:
 ```bash
 # Ubuntu, Debian and derivatives:
 $ sudo apt-get install build-essential git tar \
-  meson nodejs npm gjs gettext appstream appstream-util libglib2.0-dev-bin \
-  libgtk-3-dev libwnck-3-dev
+  meson nodejs npm gjs gettext appstream appstream-util libglib2.0-dev-bin gobject-introspection \
+  libgtk-3-dev libglib2.0-dev libx11-dev
 
 # Red Hat, Fedora, CentOS and derivatives:
 $ sudo yum groupinstall "Development Tools"
 $ sudo yum install git tar \
-  meson nodejs npm gjs gettext appstream \
-  gtk3-devel libwnck-devel
+  meson nodejs npm gjs gettext appstream gobject-introspection \
+  gtk3-devel glib2-devel libX11-devel
 ```
 
-Now clone the source code and compile run it:
+Now clone the source and install dependencies from npm:
 
 ```bash
 $ git clone https://github.com/JoseExposito/touche.git
 $ cd touche
 $ npm install
-$ npm start
 ```
 
 # Installation
@@ -83,4 +82,27 @@ In addition to Flatpak, you can generate a Debian package and install it:
 ```bash
 $ dpkg-buildpackage -rfakeroot -us -uc -tc
 $ sudo apt install ../touche_*.deb # Install the package
+```
+
+## Running your local changes
+
+Touché is written mainly in JavaScript (`./src`) but it uses a little bit of C++
+(`./subprojects/libtouche`) when something can not be done in JavaScript.
+
+Before you start coding, make sure to install the C++ library at the system level:
+
+```bash
+$ git clone https://github.com/JoseExposito/touche.git
+$ cd touche
+$ npm install
+$ npm run build
+$ npm run clean
+```
+
+If you make any change to the C++ code, make sure to run `npm run build`.
+
+Now, you can test your JavaScript changes by running:
+
+```
+$ npm start
 ```
