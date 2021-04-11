@@ -175,7 +175,15 @@ class XmlConfig {
       throw new Error('Error loading config file');
     }
 
-    const str = ByteArray.toString(contents, 'UTF-8');
+    let str = ByteArray.toString(contents, 'UTF-8');
+
+    // Workaround for GNOME 3.28:
+    // https://github.com/JoseExposito/touche/issues/18
+    // https://github.com/paradoxxxzero/gnome-shell-system-monitor-applet/issues/520#issuecomment-489533051
+    if (str.match(/GjsModule byteArray/)) {
+      str = `${contents}`;
+    }
+
     GLib.free(contents);
     return str;
   }
