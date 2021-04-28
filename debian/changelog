@@ -1,3 +1,10 @@
+touche (1.0.5) focal; urgency=medium
+
+  * Improve compatibility with old versions of GNOME
+  * Bug fixing
+
+ -- José Expósito <jose.exposito89@gmail.com>  Wed, 28 Apr 2021 12:00:00 +0100
+
 touche (1.0.4) focal; urgency=medium
 
   * Fix issues adding new applications by selecting its window

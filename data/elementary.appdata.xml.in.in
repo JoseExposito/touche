@@ -33,6 +33,12 @@
     <value key="x-appcenter-suggested-price">5</value>
   </custom>
   <releases>
+    <release version="1.0.5" date="2021-04-28" urgency="medium">
+      <description>
+        <p>Improve compatibility with old versions of GNOME</p>
+        <p>Bug fixing</p>
+      </description>
+    </release>
     <release version="1.0.4" date="2021-03-24" urgency="medium">
       <description>
         <p>Fix issues adding new applications by selecting its window</p>
