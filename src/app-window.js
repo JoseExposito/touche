@@ -82,7 +82,7 @@ class AppWindow extends Gtk.ApplicationWindow {
 
   showMainView(selectedAppName) {
     model.loadFromFile();
-    this.set_size_request(1000, 750);
+    this.set_size_request(900, 650);
     this.add(this.mainView);
     this.mainView.showAppGestures(selectedAppName);
   }
