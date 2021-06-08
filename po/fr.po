@@ -75,7 +75,7 @@ msgid "Switch desktop"
 msgstr "Changer de bureau"
 
 msgid "Show desktop"
-msgstr "Monter le bureau"
+msgstr "Montrer le bureau"
 
 msgid "Keyboard shortcut"
 msgstr "Raccourcis clavier"
