@@ -10,7 +10,7 @@ $ sudo apt-get install build-essential git tar \
 
 # Red Hat, Fedora, CentOS and derivatives:
 $ sudo yum groupinstall "Development Tools"
-$ sudo yum install git tar \
+$ sudo yum install git tar rpm-build \
   meson nodejs npm gjs gettext appstream gobject-introspection \
   gtk3-devel glib2-devel libX11-devel
 ```
@@ -82,6 +82,17 @@ In addition to Flatpak, you can generate a Debian package and install it:
 ```bash
 $ dpkg-buildpackage -rfakeroot -us -uc -tc
 $ sudo apt install ../touche_*.deb # Install the package
+```
+
+## RPM package
+
+Or an RPM package:
+
+```bash
+$ mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
+$ tar --exclude='.flatpak-builder' --exclude='.git' --exclude='build' --exclude='com.github.joseexposito.touche.yml' -czvf ~/rpmbuild/SOURCES/touche.tar.gz -C .. touche
+$ rpmbuild -ba rpm/touche.spec
+$ sudo dnf install ~/rpmbuild/RPMS/x86_64/touchegg-?.?.?-?.x86_64.rpm
 ```
 
 ## Running your local changes
