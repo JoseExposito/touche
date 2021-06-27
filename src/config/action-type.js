@@ -42,7 +42,7 @@ export const actionTypeText = (actionType) => {
     case ActionType.MINIMIZE_WINDOW:
       return _('Minimize a window');
     case ActionType.TILE_WINDOW:
-      return _('Tile a widow');
+      return _('Tile a window');
     case ActionType.FULLSCREEN_WINDOW:
       return _('Toggle fullscreen mode');
     case ActionType.CLOSE_WINDOW:

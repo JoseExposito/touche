@@ -63,7 +63,7 @@ msgstr "Maximizar o restablecer una ventana"
 msgid "Minimize a window"
 msgstr "Minimizar una ventana"
 
-msgid "Tile a widow"
+msgid "Tile a window"
 msgstr "Ajustar ventana a la mitad de la pantalla"
 
 msgid "Toggle fullscreen mode"
