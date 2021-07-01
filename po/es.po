@@ -183,3 +183,30 @@ msgstr "Añade gestos para una aplicación. Haz clic en su ventana"
 
 msgid "Used by GNOME"
 msgstr "Usado por GNOME"
+
+msgid "Arrow up"
+msgstr "Flecha hacia arriba"
+
+msgid "Arrow down"
+msgstr "Flecha hacia abajo"
+
+msgid "Arrow left"
+msgstr "Flecha hacia la izquierda"
+
+msgid "Arrow right"
+msgstr "Flecha hacia la derecha"
+
+msgid "Maximize a window"
+msgstr "Maximizar una ventana"
+
+msgid "Restore a window"
+msgstr "Restablecer una ventana"
+
+msgid "Hide desktop"
+msgstr "Dejar de mostrar escritorio"
+
+msgid "Without animation"
+msgstr "Sin animación"
+
+msgid "Animation:"
+msgstr "Animación:"
