@@ -16,6 +16,7 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
+import AnimationComboBoxText from '~/main-view/content/row-settings/animation-combo-box-text';
 import NoScrollComboBoxText from '~/utils/no-scroll-combo-box-text';
 
 const { GObject, Gtk } = imports.gi;
@@ -82,6 +83,18 @@ class RunCommandRowSettings extends Gtk.Grid {
       placeholder_text: _('Run this command when the gesture goes in the opposite direction'),
     });
 
+    // Animation label and combo
+    this.animationLabel = new Gtk.Label({
+      label: _('Animation:'),
+      halign: Gtk.Align.END,
+    });
+
+    this.animationCombo = new AnimationComboBoxText({
+      hexpand: true,
+      valign: Gtk.Align.CENTER,
+    });
+    this.animationCombo.setAnimationType(gesture?.actionSettings?.animation);
+
     // Signals & Properties
     this.repeatSwitch.connect('state_set', (self, state) => this.repeatChanged(state));
 
@@ -90,6 +103,7 @@ class RunCommandRowSettings extends Gtk.Grid {
     this.repeatSwitch.connect('state_set', () => this.emit('changed'));
     this.oppositeCommandEntry.connect('changed', () => this.emit('changed'));
     this.onBeginEndCombo.connect('changed', () => this.emit('changed'));
+    this.animationCombo.connect('changed', () => this.emit('changed'));
 
     // Layout
     this.attach(commandLabel, 0, 0, 1, 1);
@@ -101,6 +115,7 @@ class RunCommandRowSettings extends Gtk.Grid {
   }
 
   repeatChanged(isRepeatActive) {
+    this.remove_row(3);
     this.remove_row(2);
 
     if (isRepeatActive) {
@@ -111,6 +126,9 @@ class RunCommandRowSettings extends Gtk.Grid {
       this.attach(this.onBeginEndCombo, 1, 2, 1, 1);
     }
 
+    this.attach(this.animationLabel, 0, 3, 1, 1);
+    this.attach(this.animationCombo, 1, 3, 1, 1);
+
     this.show_all();
   }
 
@@ -118,6 +136,7 @@ class RunCommandRowSettings extends Gtk.Grid {
     const actionSettings = {
       command: this.commandEntry.text,
       repeat: this.repeatSwitch.get_active(),
+      animation: this.animationCombo.getAnimationType(),
     };
 
     if (actionSettings.repeat) {

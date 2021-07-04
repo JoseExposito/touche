@@ -16,6 +16,7 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
+import AnimationComboBoxText from '~/main-view/content/row-settings/animation-combo-box-text';
 import NoScrollComboBoxText from '~/utils/no-scroll-combo-box-text';
 
 const { GObject, Gtk } = imports.gi;
@@ -94,6 +95,18 @@ class SendKeysRowSettings extends Gtk.Grid {
       placeholder_text: _('Use this keys when the gesture goes in the opposite direction'),
     });
 
+    // Animation label and combo
+    const animationLabel = new Gtk.Label({
+      label: _('Animation:'),
+      halign: Gtk.Align.END,
+    });
+
+    this.animationCombo = new AnimationComboBoxText({
+      hexpand: true,
+      valign: Gtk.Align.CENTER,
+    });
+    this.animationCombo.setAnimationType(gesture?.actionSettings?.animation);
+
     // Signals & Properties
     this.repeatSwitch.connect('state_set', (self, state) => this.repeatChanged(state));
 
@@ -103,6 +116,7 @@ class SendKeysRowSettings extends Gtk.Grid {
     this.repeatSwitch.connect('state_set', () => this.emit('changed'));
     this.oppositeKeysEntry.connect('changed', () => this.emit('changed'));
     this.onBeginEndCombo.connect('changed', () => this.emit('changed'));
+    this.animationCombo.connect('changed', () => this.emit('changed'));
 
     // Layout
     this.attach(modifiersLabel, 0, 0, 1, 1);
@@ -112,6 +126,8 @@ class SendKeysRowSettings extends Gtk.Grid {
     this.attach(repeatLabel, 0, 2, 1, 1);
     this.attach(this.repeatSwitch, 1, 2, 1, 1);
     this.repeatChanged(isRepeatActive);
+    this.attach(animationLabel, 0, 4, 1, 1);
+    this.attach(this.animationCombo, 1, 4, 1, 1);
     this.show_all();
   }
 
@@ -134,6 +150,7 @@ class SendKeysRowSettings extends Gtk.Grid {
       modifiers: this.modifiersEntry.text,
       keys: this.keysEntry.text,
       repeat: this.repeatSwitch.get_active(),
+      animation: this.animationCombo.getAnimationType(),
     };
 
     if (actionSettings.repeat) {
