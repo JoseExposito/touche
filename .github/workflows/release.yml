@@ -112,7 +112,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          path: ${{ github.workspace }}/touche
+          path: ${{ env.GITHUB_REPOSITORY_NAME }}
 
       - name: Create rpmbuild directories
         run: |
@@ -120,7 +120,7 @@ jobs:
 
       - name: Install npm packages
         run: |
-          cd ${{ github.workspace }}/touche
+          cd ${{ env.GITHUB_REPOSITORY_NAME }}
           npm install
 
       - name: Generate tarball
