@@ -104,7 +104,7 @@ jobs:
           dnf config-manager --set-enabled powertools
           dnf install -y epel-release
           dnf groupinstall -y "Development Tools"
-          dnf install -y tar rpm-build meson nodejs npm gjs gettext appstream gobject-introspection gtk3-devel glib2-devel libX11-devel
+          dnf install -y tar rpm-build meson nodejs npm gjs gettext libappstream-glib gobject-introspection gtk3-devel glib2-devel libX11-devel
 
       - name: GitHub Environment Variables Action
         uses: FranzDiebold/github-env-vars-action@v1.2.1

@@ -11,7 +11,7 @@ $ sudo apt-get install build-essential git tar \
 # Red Hat, Fedora, CentOS and derivatives:
 $ sudo yum groupinstall "Development Tools"
 $ sudo yum install git tar rpm-build \
-  meson nodejs npm gjs gettext appstream gobject-introspection \
+  meson nodejs npm gjs gettext libappstream-glib gobject-introspection \
   gtk3-devel glib2-devel libX11-devel
 ```
 
