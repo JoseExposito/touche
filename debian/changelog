@@ -1,3 +1,12 @@
+touche (1.0.6) focal; urgency=medium
+
+  * Allow to display a custom animation on keyboard shortcut and execute command actions
+  * Smaller default window size
+  * French translation improvements
+  * RPM packaging support
+
+ -- José Expósito <jose.exposito89@gmail.com>  Tue, 06 Jul 2021 12:00:00 +0100
+
 touche (1.0.5) focal; urgency=medium
 
   * Improve compatibility with old versions of GNOME

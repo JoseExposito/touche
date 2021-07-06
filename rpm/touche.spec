@@ -75,7 +75,8 @@ Easily configure your touchpad and touchscreen multi-touch gestures with this GT
 
 %changelog
 
-* Fri Jun 11 2021 José Expósito <jose.exposito89@gmail.com> - 1.0.6-1
+* Tue Jul 06 2021 José Expósito <jose.exposito89@gmail.com> - 1.0.6-1
+- Allow to display a custom animation on keyboard shortcut and execute command actions
 - Smaller default window size
 - French translation improvements
 - RPM packaging support

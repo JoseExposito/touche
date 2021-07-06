@@ -30,6 +30,14 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="1.0.6" date="2021-07-06" urgency="medium">
+      <description>
+        <p>Allow to display a custom animation on keyboard shortcut and execute command actions</p>
+        <p>Smaller default window size</p>
+        <p>French translation improvements</p>
+        <p>RPM packaging support</p>
+      </description>
+    </release>
     <release version="1.0.5" date="2021-04-28" urgency="medium">
       <description>
         <p>Improve compatibility with old versions of GNOME</p>
