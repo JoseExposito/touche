@@ -112,7 +112,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          path: ${{ env.GITHUB_REPOSITORY_NAME }}
+          path: ${{ github.workspace }}/touche
 
       - name: Create rpmbuild directories
         run: |
