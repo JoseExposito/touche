@@ -78,7 +78,7 @@ msgid "Show desktop"
 msgstr "Montrer le bureau"
 
 msgid "Keyboard shortcut"
-msgstr "Raccourcis clavier"
+msgstr "Raccourci clavier"
 
 msgid "Execute a command"
 msgstr "Exécuter une commande"
@@ -183,3 +183,36 @@ msgstr "Ajouter des gestes pour une application, cliquez sur sa fenêtre"
 
 msgid "Used by GNOME"
 msgstr "Utilisé par GNOME"
+
+msgid "Animation:"
+msgstr "Animation:"
+
+msgid "Arrow up"
+msgstr "Flèche haut"
+
+msgid "Arrow down"
+msgstr "Flèche bas"
+
+msgid "Arrow left"
+msgstr "Flèche gauche"
+
+msgid "Arrow right"
+msgstr "Flèche droite"
+
+msgid "Maximize a window"
+msgstr "Maximiser la fenêtre"
+
+msgid "Restore a window"
+msgstr "Restaurer la fenêtre"
+
+msgid "Hide desktop"
+msgstr "Cacher le bureau"
+
+msgid "Without animation"
+msgstr "Sans animation"
+
+msgid "Shortcut:"
+msgstr "Raccourci:"
+
+msgid "Click here to add shortcut"
+msgstr "Cliquez-ici pour ajouter un raccourci"
