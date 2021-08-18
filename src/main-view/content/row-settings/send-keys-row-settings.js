@@ -18,6 +18,7 @@
  */
 import AnimationComboBoxText from '~/main-view/content/row-settings/animation-combo-box-text';
 import NoScrollComboBoxText from '~/utils/no-scroll-combo-box-text';
+import ShortcutButton from '~/main-view/content/shortcut-button';
 
 const { GObject, Gtk } = imports.gi;
 
@@ -28,25 +29,20 @@ class SendKeysRowSettings extends Gtk.Grid {
       column_spacing: 16,
     });
 
+    // function binding
     this.gesture = gesture;
     this.repeatChanged = this.repeatChanged.bind(this);
 
+    this.shortcutButton = new ShortcutButton(gesture);
+
     // Modifiers label and entry
-    const modifiersLabel = new Gtk.Label({
-      label: _('Modifiers:'),
+    const shortcutLabel = new Gtk.Label({
+      label: _('Shortcut:'),
       halign: Gtk.Align.END,
     });
 
     this.modifiersEntry = new Gtk.Entry({
-      hexpand: true,
-      valign: Gtk.Align.CENTER,
       text: gesture?.actionSettings?.modifiers ?? '',
-    });
-
-    // Keys label and entry
-    const keysLabel = new Gtk.Label({
-      label: _('Keys:'),
-      halign: Gtk.Align.END,
     });
 
     this.keysEntry = new Gtk.Entry({
@@ -117,29 +113,28 @@ class SendKeysRowSettings extends Gtk.Grid {
     this.oppositeKeysEntry.connect('changed', () => this.emit('changed'));
     this.onBeginEndCombo.connect('changed', () => this.emit('changed'));
     this.animationCombo.connect('changed', () => this.emit('changed'));
+    this.shortcutButton.connect('changed', () => this.emit('changed'));
 
     // Layout
-    this.attach(modifiersLabel, 0, 0, 1, 1);
-    this.attach(this.modifiersEntry, 1, 0, 1, 1);
-    this.attach(keysLabel, 0, 1, 1, 1);
-    this.attach(this.keysEntry, 1, 1, 1, 1);
-    this.attach(repeatLabel, 0, 2, 1, 1);
-    this.attach(this.repeatSwitch, 1, 2, 1, 1);
+    this.attach(shortcutLabel, 0, 0, 1, 1);
+    this.attach(this.shortcutButton, 1, 0, 1, 1);
+    this.attach(repeatLabel, 0, 1, 1, 1);
+    this.attach(this.repeatSwitch, 1, 1, 1, 1);
     this.repeatChanged(isRepeatActive);
-    this.attach(animationLabel, 0, 4, 1, 1);
-    this.attach(this.animationCombo, 1, 4, 1, 1);
+    this.attach(animationLabel, 0, 3, 1, 1);
+    this.attach(this.animationCombo, 1, 3, 1, 1);
     this.show_all();
   }
 
   repeatChanged(isRepeatActive) {
-    this.remove_row(3);
+    this.remove_row(2);
 
     if (isRepeatActive) {
-      this.attach(this.oppositeKeysLabel, 0, 3, 1, 1);
-      this.attach(this.oppositeKeysEntry, 1, 3, 1, 1);
+      this.attach(this.oppositeKeysLabel, 0, 2, 1, 1);
+      this.attach(this.oppositeKeysEntry, 1, 2, 1, 1);
     } else {
-      this.attach(this.onBeginEndLabel, 0, 3, 1, 1);
-      this.attach(this.onBeginEndCombo, 1, 3, 1, 1);
+      this.attach(this.onBeginEndLabel, 0, 2, 1, 1);
+      this.attach(this.onBeginEndCombo, 1, 2, 1, 1);
     }
 
     this.show_all();
@@ -147,8 +142,8 @@ class SendKeysRowSettings extends Gtk.Grid {
 
   getSettings() {
     const actionSettings = {
-      modifiers: this.modifiersEntry.text,
-      keys: this.keysEntry.text,
+      modifiers: this.shortcutButton.getModifiers(),
+      keys: this.shortcutButton.getKeys(),
       repeat: this.repeatSwitch.get_active(),
       animation: this.animationCombo.getAnimationType(),
     };
