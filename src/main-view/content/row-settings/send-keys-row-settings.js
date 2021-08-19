@@ -92,7 +92,7 @@ class SendKeysRowSettings extends Gtk.Grid {
     });
 
     // Animation label and combo
-    const animationLabel = new Gtk.Label({
+    this.animationLabel = new Gtk.Label({
       label: _('Animation:'),
       halign: Gtk.Align.END,
     });
@@ -121,12 +121,13 @@ class SendKeysRowSettings extends Gtk.Grid {
     this.attach(repeatLabel, 0, 1, 1, 1);
     this.attach(this.repeatSwitch, 1, 1, 1, 1);
     this.repeatChanged(isRepeatActive);
-    this.attach(animationLabel, 0, 3, 1, 1);
+    this.attach(this.animationLabel, 0, 3, 1, 1);
     this.attach(this.animationCombo, 1, 3, 1, 1);
     this.show_all();
   }
 
   repeatChanged(isRepeatActive) {
+    this.remove_row(3);
     this.remove_row(2);
 
     if (isRepeatActive) {
@@ -136,6 +137,9 @@ class SendKeysRowSettings extends Gtk.Grid {
       this.attach(this.onBeginEndLabel, 0, 2, 1, 1);
       this.attach(this.onBeginEndCombo, 1, 2, 1, 1);
     }
+
+    this.attach(this.animationLabel, 0, 3, 1, 1);
+    this.attach(this.animationCombo, 1, 3, 1, 1);
 
     this.show_all();
   }
