@@ -183,9 +183,6 @@ msgstr "Aggiungi gesti per un'app. Fare clic sulla sua finestra"
 msgid "Used by GNOME"
 msgstr "Usato da GNOME"
 
-msgid "Used by GNOME"
-msgstr "Usado por GNOME"
-
 msgid "Arrow up"
 msgstr "Freccia su"
 
