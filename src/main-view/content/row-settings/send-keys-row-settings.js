@@ -33,15 +33,17 @@ class SendKeysRowSettings extends Gtk.Grid {
     this.gesture = gesture;
     this.repeatChanged = this.repeatChanged.bind(this);
 
+    this.shortcutButton = new ShortcutButton(gesture);
+
     // Modifiers label and entry
     const shortcutLabel = new Gtk.Label({
       label: _('Shortcut:'),
       halign: Gtk.Align.END,
     });
 
-     // map initial settings with arrays
+    // map initial settings with arrays
     this.shortcutButton = new ShortcutButton(gesture?.actionSettings?.modifiers?.split('+') ?? [],
-     gesture?.actionSettings?.keys?.split('+') ?? []);
+      gesture?.actionSettings?.keys?.split('+') ?? []);
 
     // Repeat label and switch
     const repeatLabel = new Gtk.Label({
@@ -55,7 +57,7 @@ class SendKeysRowSettings extends Gtk.Grid {
     });
 
     const isRepeatActive = (gesture?.actionSettings?.repeat === 'true');
-    this.repeatSwitch.set_active(isRepeatActive);
+    this.repeatSwitch.active = isRepeatActive;
 
     // When repeat is false, display the on begin/end combo
     this.onBeginEndLabel = new Gtk.Label({
@@ -78,10 +80,10 @@ class SendKeysRowSettings extends Gtk.Grid {
     });
 
     // this shortcut button did not accept modifiers, only keys
-    this.oppositeShortcutButton = new ShortcutButton([], gesture?.actionSettings?.decreaseKeys?.split('+') ?? [], false);
+    this.oppositeShortcutButton = new ShortcutButton([], gesture?.actionSettings?.decreaseKeys?.split('+') ?? []);
 
     // Animation label and combo
-    const animationLabel = new Gtk.Label({
+    this.animationLabel = new Gtk.Label({
       label: _('Animation:'),
       halign: Gtk.Align.END,
     });
@@ -108,13 +110,14 @@ class SendKeysRowSettings extends Gtk.Grid {
     this.attach(repeatLabel, 0, 1, 1, 1);
     this.attach(this.repeatSwitch, 1, 1, 1, 1);
     this.repeatChanged(isRepeatActive);
-    this.attach(animationLabel, 0, 3, 1, 1);
+    this.attach(this.animationLabel, 0, 3, 1, 1);
     this.attach(this.animationCombo, 1, 3, 1, 1);
 
     this.show_all();
   }
 
   repeatChanged(isRepeatActive) {
+    this.remove_row(3);
     this.remove_row(2);
 
     if (isRepeatActive) {
@@ -124,6 +127,9 @@ class SendKeysRowSettings extends Gtk.Grid {
       this.attach(this.onBeginEndLabel, 0, 2, 1, 1);
       this.attach(this.onBeginEndCombo, 1, 2, 1, 1);
     }
+
+    this.attach(this.animationLabel, 0, 3, 1, 1);
+    this.attach(this.animationCombo, 1, 3, 1, 1);
 
     this.show_all();
   }
@@ -137,7 +143,7 @@ class SendKeysRowSettings extends Gtk.Grid {
     };
 
     if (actionSettings.repeat) {
-      actionSettings.decreaseKeys = this.oppositeShortcutButton.getKeys();
+      actionSettings.decreaseKeys = [...this.oppositeShortcutButton.getModifiers().toString().split('+'), this.oppositeShortcutButton.getKeys().toString().split('+')].toString().replace(/,/g, '+');
     } else {
       actionSettings.on = this.onBeginEndCombo.active_id;
     }

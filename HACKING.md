@@ -4,13 +4,13 @@ Before you start coding, you will need to install some dependencies:
 
 ```bash
 # Ubuntu, Debian and derivatives:
-$ sudo apt-get install build-essential git tar \
+$ sudo apt-get install build-essential git tar flatpak-builder \
   meson nodejs npm gjs gettext appstream appstream-util libglib2.0-dev-bin libgirepository1.0-dev gobject-introspection \
   libgtk-3-dev libglib2.0-dev libx11-dev
 
 # Red Hat, Fedora, CentOS and derivatives:
 $ sudo yum groupinstall "Development Tools"
-$ sudo yum install git tar rpm-build \
+$ sudo yum install git tar rpm-build flatpak-builder \
   meson nodejs npm gjs gettext libappstream-glib gobject-introspection gobject-introspection-devel \
   gtk3-devel glib2-devel libX11-devel
 ```
@@ -66,7 +66,13 @@ generated file:
         sha256: # Paste the checksum here
 ```
 
-And install it using:
+Install the GNOME runtime and SDK:
+
+```bash
+$ flatpak install flathub org.gnome.Platform//40 org.gnome.Sdk//40
+```
+
+Finally, install Touché using:
 
 ```bash
 $ npm run flatpak

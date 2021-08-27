@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: 1.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/JoseExposito/touche/issues\n"
 "POT-Creation-Date: 2020-10-14 19:00+0200\n"
-"PO-Revision-Date: 2021-02-02 20:00+0100\n"
+"PO-Revision-Date: 2021-08-22 12:40+0200\n"
 "Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Swipe"
-msgstr "Trascina"
+msgstr "Scorri"
 
 msgid "Pinch"
 msgstr "Pinch"
@@ -25,7 +25,7 @@ msgstr "Tocco"
 
 #, javascript-format
 msgid "Swipe with %d fingers"
-msgstr "Trascina con %d le dita"
+msgstr "Scorri con %d le dita"
 
 #, javascript-format
 msgid "Pinch with %d fingers"
@@ -81,7 +81,7 @@ msgid "Keyboard shortcut"
 msgstr "Scorciatoia da tastiera"
 
 msgid "Execute a command"
-msgstr "Esegui comando"
+msgstr "Esegui un comando"
 
 msgid "Mouse click"
 msgstr "Clic del mouse"
@@ -182,3 +182,30 @@ msgstr "Aggiungi gesti per un'app. Fare clic sulla sua finestra"
 
 msgid "Used by GNOME"
 msgstr "Usato da GNOME"
+
+msgid "Arrow up"
+msgstr "Freccia su"
+
+msgid "Arrow down"
+msgstr "Freccia giù"
+
+msgid "Arrow left"
+msgstr "Freccia sinistra"
+
+msgid "Arrow right"
+msgstr "Freccia destra"
+
+msgid "Maximize a window"
+msgstr "Massimizza una finestra"
+
+msgid "Restore a window"
+msgstr "Ripristina una finestra"
+
+msgid "Hide desktop"
+msgstr "Nascondi desktop"
+
+msgid "Without animation"
+msgstr "Senza animazione"
+
+msgid "Animation:"
+msgstr "Animazione:"
