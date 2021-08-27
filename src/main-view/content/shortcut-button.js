@@ -45,14 +45,11 @@ class ShortcutButton extends Gtk.Button {
     this.buildShortcutLabelContent();
 
     this.connect('clicked', () => {
-      this.grab_add();
+      this.grabKeyboard();
       this.clearShortcut();
     });
+    this.connect('focus-out-event', () => this.ungrabKeyboard());
 
-    this.connect('focus-out-event', () => {
-      // ensure we don´t keep grab when focus out
-      this.grab_remove();
-    });
     this.connect('key-press-event', (widget, event) => {
       const keyval = event.get_keyval()[1];
       const key = Gdk.keyval_name(keyval);
@@ -68,7 +65,7 @@ class ShortcutButton extends Gtk.Button {
 
       /// if escape, clear
       if (keyval === Gdk.KEY_Escape) {
-        widget.grab_remove();
+        this.ungrabKeyboard();
         this.clearShortcut();
         return;
       }
@@ -83,7 +80,7 @@ class ShortcutButton extends Gtk.Button {
       widget.emit('changed');
     });
 
-    this.connect('key-release-event', (widget) => widget.grab_remove());
+    this.connect('key-release-event', () => this.ungrabKeyboard());
   }
 
   getModifiers() {
@@ -92,6 +89,29 @@ class ShortcutButton extends Gtk.Button {
 
   getKeys() {
     return this.keys.toString().replace(/,/g, '+');
+  }
+
+  grabKeyboard() {
+    const window = this.get_toplevel().get_window();
+    const display = Gdk.Display.get_default();
+    const seat = display.get_default_seat();
+
+    const status = seat.grab(window, Gdk.SeatCapabilities.KEYBOARD, false, null, null, null);
+
+    if (status !== Gdk.GrabStatus.SUCCESS) {
+      log('Error grabbing keyboard');
+      return;
+    }
+
+    this.grab_add();
+  }
+
+  ungrabKeyboard() {
+    const display = Gdk.Display.get_default();
+    const seat = display.get_default_seat();
+    seat.ungrab();
+
+    this.grab_remove();
   }
 
   clearShortcut() {
