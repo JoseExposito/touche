@@ -20,7 +20,7 @@ const { GObject, Gtk, Gdk } = imports.gi;
 const MODIFIERS = ['Control_L', 'Alt_L', 'ISO_Level3_Shift', 'Control_R', 'Shift_L', 'Shift_R'];
 
 class ShortcutButton extends Gtk.Button {
-  _init(gesture) {
+  _init(modifiers, keys, acceptModifiers) {
     super._init({ label: '' });
 
     // bind functions
@@ -28,31 +28,19 @@ class ShortcutButton extends Gtk.Button {
     this.getKeys = this.getKeys.bind(this);
 
     // modifiers/keys lists
-    this.modifiers = [];
-    this.keys = [];
+    this.modifiers = modifiers;
+    this.keys = keys;
 
-    // map initial settings with arrays
-    if (gesture?.actionSettings?.modifiers !== undefined
-      && gesture.actionSettings.modifiers.length > 0) {
-      this.modifiers = gesture.actionSettings.modifiers.split('+');
-    }
-
-    if (gesture?.actionSettings?.keys !== undefined
-      && gesture?.actionSettings?.keys.length > 0) {
-      this.keys = gesture.actionSettings.keys.split('+');
-    }
+    this.acceptModifiers = acceptModifiers !== undefined && acceptModifiers;
 
     this.buildShortcutLabelContent();
 
     this.connect('clicked', () => {
-      this.grab_add();
+      this.grabKeyboard();
       this.clearShortcut();
     });
+    this.connect('focus-out-event', () => this.ungrabKeyboard());
 
-    this.connect('focus-out-event', () => {
-      // ensure we don´t keep grab when focus out
-      this.grab_remove();
-    });
     this.connect('key-press-event', (widget, event) => {
       const keyval = event.get_keyval()[1];
       const key = Gdk.keyval_name(keyval);
@@ -68,22 +56,26 @@ class ShortcutButton extends Gtk.Button {
 
       /// if escape, clear
       if (keyval === Gdk.KEY_Escape) {
-        widget.grab_remove();
+        this.ungrabKeyboard();
         this.clearShortcut();
         return;
       }
       // if modifier
       if (MODIFIERS.includes(key)) {
-        this.modifiers.push(key);
+        if (this.acceptModifiers) {
+          this.modifiers.push(key);
+          widget.emit('changed');
+        }
       } else {
         this.keys.push(key);
+        widget.emit('changed');
       }
 
       this.buildShortcutLabelContent();
-      widget.emit('changed');
+
     });
 
-    this.connect('key-release-event', (widget) => widget.grab_remove());
+    this.connect('key-release-event', () => this.ungrabKeyboard());
   }
 
   getModifiers() {
@@ -92,6 +84,29 @@ class ShortcutButton extends Gtk.Button {
 
   getKeys() {
     return this.keys.toString().replace(/,/g, '+');
+  }
+
+  grabKeyboard() {
+    const window = this.get_toplevel().get_window();
+    const display = Gdk.Display.get_default();
+    const seat = display.get_default_seat();
+
+    const status = seat.grab(window, Gdk.SeatCapabilities.KEYBOARD, false, null, null, null);
+
+    if (status !== Gdk.GrabStatus.SUCCESS) {
+      log('Error grabbing keyboard');
+      return;
+    }
+
+    this.grab_add();
+  }
+
+  ungrabKeyboard() {
+    const display = Gdk.Display.get_default();
+    const seat = display.get_default_seat();
+    seat.ungrab();
+
+    this.grab_remove();
   }
 
   clearShortcut() {
@@ -114,8 +129,9 @@ class ShortcutButton extends Gtk.Button {
 export default GObject.registerClass(
   {
     Signals: {
-      changed: {},
+      changed: { },
     },
   },
   ShortcutButton,
 );
+
