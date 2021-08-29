@@ -41,15 +41,9 @@ class SendKeysRowSettings extends Gtk.Grid {
       halign: Gtk.Align.END,
     });
 
-    this.modifiersEntry = new Gtk.Entry({
-      text: gesture?.actionSettings?.modifiers ?? '',
-    });
-
-    this.keysEntry = new Gtk.Entry({
-      hexpand: true,
-      valign: Gtk.Align.CENTER,
-      text: gesture?.actionSettings?.keys ?? '',
-    });
+    // map initial settings with arrays
+    this.shortcutButton = new ShortcutButton(gesture?.actionSettings?.modifiers?.split('+') ?? [],
+      gesture?.actionSettings?.keys?.split('+') ?? []);
 
     // Repeat label and switch
     const repeatLabel = new Gtk.Label({
@@ -61,6 +55,7 @@ class SendKeysRowSettings extends Gtk.Grid {
       halign: Gtk.Align.START,
       valign: Gtk.Align.CENTER,
     });
+
     const isRepeatActive = (gesture?.actionSettings?.repeat === 'true');
     this.repeatSwitch.active = isRepeatActive;
 
@@ -84,12 +79,8 @@ class SendKeysRowSettings extends Gtk.Grid {
       halign: Gtk.Align.END,
     });
 
-    this.oppositeKeysEntry = new Gtk.Entry({
-      hexpand: true,
-      valign: Gtk.Align.CENTER,
-      text: gesture?.actionSettings?.decreaseKeys ?? '',
-      placeholder_text: _('Use this keys when the gesture goes in the opposite direction'),
-    });
+    // this shortcut button did not accept modifiers, only keys
+    this.oppositeShortcutButton = new ShortcutButton([], gesture?.actionSettings?.decreaseKeys?.split('+') ?? []);
 
     // Animation label and combo
     this.animationLabel = new Gtk.Label({
@@ -107,10 +98,8 @@ class SendKeysRowSettings extends Gtk.Grid {
     this.repeatSwitch.connect('state_set', (self, state) => this.repeatChanged(state));
 
     // Changed signal
-    this.modifiersEntry.connect('changed', () => this.emit('changed'));
-    this.keysEntry.connect('changed', () => this.emit('changed'));
     this.repeatSwitch.connect('state_set', () => this.emit('changed'));
-    this.oppositeKeysEntry.connect('changed', () => this.emit('changed'));
+    this.oppositeShortcutButton.connect('changed', () => this.emit('changed'));
     this.onBeginEndCombo.connect('changed', () => this.emit('changed'));
     this.animationCombo.connect('changed', () => this.emit('changed'));
     this.shortcutButton.connect('changed', () => this.emit('changed'));
@@ -123,6 +112,7 @@ class SendKeysRowSettings extends Gtk.Grid {
     this.repeatChanged(isRepeatActive);
     this.attach(this.animationLabel, 0, 3, 1, 1);
     this.attach(this.animationCombo, 1, 3, 1, 1);
+
     this.show_all();
   }
 
@@ -132,7 +122,7 @@ class SendKeysRowSettings extends Gtk.Grid {
 
     if (isRepeatActive) {
       this.attach(this.oppositeKeysLabel, 0, 2, 1, 1);
-      this.attach(this.oppositeKeysEntry, 1, 2, 1, 1);
+      this.attach(this.oppositeShortcutButton, 1, 2, 1, 1);
     } else {
       this.attach(this.onBeginEndLabel, 0, 2, 1, 1);
       this.attach(this.onBeginEndCombo, 1, 2, 1, 1);
@@ -153,7 +143,7 @@ class SendKeysRowSettings extends Gtk.Grid {
     };
 
     if (actionSettings.repeat) {
-      actionSettings.decreaseKeys = this.oppositeKeysEntry.text;
+      actionSettings.decreaseKeys = [...this.oppositeShortcutButton.getModifiers().toString().split('+'), this.oppositeShortcutButton.getKeys().toString().split('+')].toString().replace(/,/g, '+');
     } else {
       actionSettings.on = this.onBeginEndCombo.active_id;
     }

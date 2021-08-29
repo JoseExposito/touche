@@ -20,7 +20,7 @@ const { GObject, Gtk, Gdk } = imports.gi;
 const MODIFIERS = ['Control_L', 'Alt_L', 'ISO_Level3_Shift', 'Control_R', 'Shift_L', 'Shift_R'];
 
 class ShortcutButton extends Gtk.Button {
-  _init(gesture) {
+  _init(modifiers, keys) {
     super._init({ label: '' });
 
     // bind functions
@@ -28,19 +28,8 @@ class ShortcutButton extends Gtk.Button {
     this.getKeys = this.getKeys.bind(this);
 
     // modifiers/keys lists
-    this.modifiers = [];
-    this.keys = [];
-
-    // map initial settings with arrays
-    if (gesture?.actionSettings?.modifiers !== undefined
-      && gesture.actionSettings.modifiers.length > 0) {
-      this.modifiers = gesture.actionSettings.modifiers.split('+');
-    }
-
-    if (gesture?.actionSettings?.keys !== undefined
-      && gesture?.actionSettings?.keys.length > 0) {
-      this.keys = gesture.actionSettings.keys.split('+');
-    }
+    this.modifiers = modifiers ?? [];
+    this.keys = keys ?? [];
 
     this.buildShortcutLabelContent();
 
@@ -76,11 +65,14 @@ class ShortcutButton extends Gtk.Button {
         this.keys.push(key);
       }
 
-      this.buildShortcutLabelContent();
       widget.emit('changed');
+      this.buildShortcutLabelContent();
     });
 
-    this.connect('key-release-event', () => this.ungrabKeyboard());
+    this.connect('key-release-event', () => {
+      this.ungrabKeyboard();
+      this.buildShortcutLabelContent();
+    });
   }
 
   getModifiers() {
