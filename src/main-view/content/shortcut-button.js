@@ -35,8 +35,10 @@ class ShortcutButton extends Gtk.Button {
 
     this.connect('clicked', () => {
       this.grabKeyboard();
+      this.saveShortcut();
       this.clearShortcut();
     });
+
     this.connect('focus-out-event', () => this.ungrabKeyboard());
 
     this.connect('key-press-event', (widget, event) => {
@@ -56,6 +58,15 @@ class ShortcutButton extends Gtk.Button {
       if (keyval === Gdk.KEY_BackSpace) {
         this.ungrabKeyboard();
         this.clearShortcut();
+        widget.emit('changed');
+        return;
+      }
+
+      // If escape, cancel
+      if (keyval === Gdk.KEY_Escape) {
+        this.ungrabKeyboard();
+        this.restoreShortcut();
+        this.buildShortcutLabelContent();
         widget.emit('changed');
         return;
       }
@@ -122,6 +133,22 @@ class ShortcutButton extends Gtk.Button {
     } else {
       this.label = [...this.modifiers, ...this.keys].toString().replace(/,/g, '+');
     }
+  }
+
+  /**
+   * Save the current shortcut to restore it with "restoreShortcut".
+   */
+  saveShortcut() {
+    this.modifiersBackup = this.modifiers;
+    this.keysBackup = this.keys;
+  }
+
+  /**
+   * Restore the shortcut saved with "saveShortcut".
+   */
+  restoreShortcut() {
+    this.modifiers = this.modifiersBackup;
+    this.keys = this.keysBackup;
   }
 }
 
