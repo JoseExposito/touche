@@ -52,12 +52,14 @@ class ShortcutButton extends Gtk.Button {
         return;
       }
 
-      /// if escape, clear
-      if (keyval === Gdk.KEY_Escape) {
+      // If backspace, clear
+      if (keyval === Gdk.KEY_BackSpace) {
         this.ungrabKeyboard();
         this.clearShortcut();
+        widget.emit('changed');
         return;
       }
+
       // if modifier
       if (MODIFIERS.includes(key)) {
         this.modifiers.push(key);
