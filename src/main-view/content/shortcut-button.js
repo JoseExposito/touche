@@ -89,11 +89,11 @@ class ShortcutButton extends Gtk.Button {
   }
 
   getModifiers() {
-    return this.modifiers.toString().replace(/,/g, '+');
+    return this.modifiers;
   }
 
   getKeys() {
-    return this.keys.toString().replace(/,/g, '+');
+    return this.keys;
   }
 
   grabKeyboard() {

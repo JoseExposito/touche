@@ -136,14 +136,17 @@ class SendKeysRowSettings extends Gtk.Grid {
 
   getSettings() {
     const actionSettings = {
-      modifiers: this.shortcutButton.getModifiers(),
-      keys: this.shortcutButton.getKeys(),
+      modifiers: this.shortcutButton.getModifiers().join('+'),
+      keys: this.shortcutButton.getKeys().join('+'),
       repeat: this.repeatSwitch.get_active(),
       animation: this.animationCombo.getAnimationType(),
     };
 
     if (actionSettings.repeat) {
-      actionSettings.decreaseKeys = [...this.oppositeShortcutButton.getModifiers().toString().split('+'), this.oppositeShortcutButton.getKeys().toString().split('+')].toString().replace(/,/g, '+');
+      actionSettings.decreaseKeys = [
+        ...this.oppositeShortcutButton.getModifiers(),
+        ...this.oppositeShortcutButton.getKeys(),
+      ].join('+');
     } else {
       actionSettings.on = this.onBeginEndCombo.active_id;
     }
