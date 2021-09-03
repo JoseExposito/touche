@@ -17,9 +17,20 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 const { GObject, Gtk, Gdk } = imports.gi;
-const MODIFIERS = ['Control_L', 'Alt_L', 'ISO_Level3_Shift', 'Control_R', 'Shift_L', 'Shift_R'];
 
 class ShortcutButton extends Gtk.Button {
+  static MODIFIERS = [
+    'Control_L',
+    'Control_R',
+    'Super_L',
+    'Super_R',
+    'Alt_L',
+    'Alt_R',
+    'ISO_Level3_Shift',
+    'Shift_L',
+    'Shift_R',
+  ];
+
   _init(modifiers, keys) {
     super._init({ label: '' });
 
@@ -72,7 +83,7 @@ class ShortcutButton extends Gtk.Button {
       }
 
       // if modifier
-      if (MODIFIERS.includes(key)) {
+      if (ShortcutButton.MODIFIERS.includes(key)) {
         this.modifiers.push(key);
       } else {
         this.keys.push(key);
