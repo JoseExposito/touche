@@ -29,11 +29,8 @@ class SendKeysRowSettings extends Gtk.Grid {
       column_spacing: 16,
     });
 
-    // function binding
     this.gesture = gesture;
     this.repeatChanged = this.repeatChanged.bind(this);
-
-    this.shortcutButton = new ShortcutButton(gesture);
 
     // Modifiers label and entry
     const shortcutLabel = new Gtk.Label({
@@ -41,9 +38,9 @@ class SendKeysRowSettings extends Gtk.Grid {
       halign: Gtk.Align.END,
     });
 
-    // map initial settings with arrays
-    this.shortcutButton = new ShortcutButton(gesture?.actionSettings?.modifiers?.split('+') ?? [],
-      gesture?.actionSettings?.keys?.split('+') ?? []);
+    const modifiers = SendKeysRowSettings.keySettingsToArray(gesture?.actionSettings?.modifiers);
+    const keys = SendKeysRowSettings.keySettingsToArray(gesture?.actionSettings?.keys);
+    this.shortcutButton = new ShortcutButton(modifiers, keys);
 
     // Repeat label and switch
     const repeatLabel = new Gtk.Label({
@@ -80,7 +77,10 @@ class SendKeysRowSettings extends Gtk.Grid {
     });
 
     // this shortcut button did not accept modifiers, only keys
-    this.oppositeShortcutButton = new ShortcutButton([], gesture?.actionSettings?.decreaseKeys?.split('+') ?? []);
+    const decreaseKeys = SendKeysRowSettings.keySettingsToArray(
+      gesture?.actionSettings?.decreaseKeys,
+    );
+    this.oppositeShortcutButton = new ShortcutButton([], decreaseKeys);
 
     // Animation label and combo
     this.animationLabel = new Gtk.Label({
@@ -136,22 +136,46 @@ class SendKeysRowSettings extends Gtk.Grid {
 
   getSettings() {
     const actionSettings = {
-      modifiers: this.shortcutButton.getModifiers().join('+'),
-      keys: this.shortcutButton.getKeys().join('+'),
+      modifiers: SendKeysRowSettings.arrayToKeySettings(this.shortcutButton.getModifiers()),
+      keys: SendKeysRowSettings.arrayToKeySettings(this.shortcutButton.getKeys()),
       repeat: this.repeatSwitch.get_active(),
       animation: this.animationCombo.getAnimationType(),
     };
 
     if (actionSettings.repeat) {
-      actionSettings.decreaseKeys = [
+      actionSettings.decreaseKeys = SendKeysRowSettings.arrayToKeySettings([
         ...this.oppositeShortcutButton.getModifiers(),
         ...this.oppositeShortcutButton.getKeys(),
-      ].join('+');
+      ]);
     } else {
       actionSettings.on = this.onBeginEndCombo.active_id;
     }
 
     return actionSettings;
+  }
+
+  /**
+   * Transforms the gesture key settings to an array.
+   *
+   * @param {string} keySettings Keys as stored in settings: 'Key1+Key2+Key3'.
+   * @returns {Array<string>} Array of keys: ['Key1', 'Key2', 'Key3'].
+   */
+  static keySettingsToArray(keySettings) {
+    if (!keySettings) {
+      return [];
+    }
+
+    return keySettings.split('+');
+  }
+
+  /**
+   * Transforms an array of keys to the gesture key settings string.
+   *
+   * @param {Array<string>} keyArray Array of keys: ['Key1', 'Key2', 'Key3'].
+   * @returns {string} Keys as stored in settings: 'Key1+Key2+Key3'.
+   */
+  static arrayToKeySettings(keyArray) {
+    return keyArray.join('+');
   }
 }
 
