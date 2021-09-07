@@ -82,13 +82,7 @@ class ShortcutButton extends Gtk.Button {
         return;
       }
 
-      // if modifier
-      if (ShortcutButton.MODIFIERS.includes(key)) {
-        this.modifiers.push(key);
-      } else {
-        this.keys.push(key);
-      }
-
+      this.addKey(key);
       widget.emit('changed');
       this.buildShortcutLabelContent();
     });
@@ -128,6 +122,29 @@ class ShortcutButton extends Gtk.Button {
     seat.ungrab();
 
     this.grab_remove();
+  }
+
+  addKey(key) {
+    if (ShortcutButton.MODIFIERS.includes(key)) {
+      this.modifiers.push(key);
+    } else {
+      this.keys.push(key);
+    }
+
+    // When multiple modifiers are available, make sure to keep the most "important" one in the
+    // modifiers array and add the others as keys to make configs like this work:
+    // <modifiers>Alt_L</modifiers>
+    // <keys>Shift_L+Tab</keys>
+    // <decreaseKeys>Tab</decreaseKeys>
+    if (this.modifiers.length <= 1) {
+      return;
+    }
+
+    const shortedModifiers = this.modifiers.sort((a, b) => (
+      ShortcutButton.MODIFIERS.indexOf(a) - ShortcutButton.MODIFIERS.indexOf(b)
+    ));
+    this.modifiers = [shortedModifiers[0]];
+    this.keys = [...shortedModifiers.slice(1), ...this.keys];
   }
 
   clearShortcut() {
