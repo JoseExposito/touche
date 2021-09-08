@@ -33,6 +33,15 @@
     <value key="x-appcenter-suggested-price">5</value>
   </custom>
   <releases>
+    <release version="1.0.7" date="2021-09-08" urgency="medium">
+      <description>
+        <p>Configure your keyboard shortcuts easily</p>
+        <p>Update Flatpak runtime to GNOME 40</p>
+        <p>Update Italian translations</p>
+        <p>Update French translations</p>
+        <p>Fix a bug making some keyboard shortcuts options disappear</p>
+      </description>
+    </release>
     <release version="1.0.6" date="2021-07-06" urgency="medium">
       <description>
         <p>Allow to display a custom animation on keyboard shortcut and execute command actions</p>

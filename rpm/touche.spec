@@ -1,7 +1,7 @@
 Name:           touche
 Summary:        The desktop application to configure Touchégg
 Url:            https://github.com/JoseExposito/touche
-Version:        1.0.6
+Version:        1.0.7
 Release:        1
 License:        GPLv3+
 Group:          Applications/Productivity
@@ -74,6 +74,13 @@ Easily configure your touchpad and touchscreen multi-touch gestures with this GT
 
 
 %changelog
+
+* Wed Sep 08 2021 José Expósito <jose.exposito89@gmail.com> - 1.0.7-1
+- Configure your keyboard shortcuts easily
+- Update Flatpak runtime to GNOME 40
+- Update Italian translations
+- Update French translations
+- Fix a bug making some keyboard shortcuts options disappear
 
 * Tue Jul 06 2021 José Expósito <jose.exposito89@gmail.com> - 1.0.6-1
 - Allow to display a custom animation on keyboard shortcut and execute command actions

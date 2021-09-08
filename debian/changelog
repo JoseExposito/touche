@@ -1,3 +1,13 @@
+touche (1.0.7) focal; urgency=medium
+
+  * Configure your keyboard shortcuts easily
+  * Update Flatpak runtime to GNOME 40
+  * Update Italian translations
+  * Update French translations
+  * Fix a bug making some keyboard shortcuts options disappear
+
+ -- José Expósito <jose.exposito89@gmail.com>  Wed, 08 Sep 2021 12:00:00 +0100
+
 touche (1.0.6) focal; urgency=medium
 
   * Allow to display a custom animation on keyboard shortcut and execute command actions
