@@ -38,3 +38,8 @@ Easily configure your touchpad and touchscreen multi-touch gestures using
   Or download a package for [Ubuntu](https://github.com/JoseExposito/touche/releases) or [Arch Linux](https://aur.archlinux.org/packages/touche)
 
 </div>
+
+### Using GNOME?
+
+Don't forget to also install the [X11 Gestures](https://github.com/JoseExposito/gnome-shell-extension-x11gestures)
+GNOME Shell extension.
