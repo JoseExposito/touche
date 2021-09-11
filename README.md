@@ -41,5 +41,5 @@ Easily configure your touchpad and touchscreen multi-touch gestures using
 
 ### Using GNOME?
 
-Don't forget to also install the [X11 Gestures](https://github.com/JoseExposito/gnome-shell-extension-x11gestures)
+Don't forget to also the [X11 Gestures](https://github.com/JoseExposito/gnome-shell-extension-x11gestures)
 GNOME Shell extension.
