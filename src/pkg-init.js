@@ -25,12 +25,3 @@ pkg.require({
   Gdk: '3.0',
   Touche: '1.0.0',
 });
-
-// Import Granite if it is available
-try {
-  const { Granite } = imports.gi;
-  window.Granite = Granite;
-} catch (error) {
-  log('Granite is not available');
-  window.Granite = null;
-}

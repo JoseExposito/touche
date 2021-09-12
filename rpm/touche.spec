@@ -21,7 +21,7 @@ Easily configure your touchpad and touchscreen multi-touch gestures with this GT
 
 
 %build
-%meson -Dflatpak=false -Dtarget-de=gnome
+%meson -Dflatpak=false
 %meson_build
 
 

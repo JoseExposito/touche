@@ -25,7 +25,6 @@ const getWebpackConfig = ({
   outputPath,
   projectName,
   flatpak,
-  targetDE,
   systemConfigFilePath,
 }) => {
   const isEnvProduction = (process.env.NODE_ENV === 'production');
@@ -64,7 +63,6 @@ const getWebpackConfig = ({
         'process.env.NODE_ENV': JSON.stringify(isEnvProduction ? 'production' : 'development'),
         'process.env.PROJECT_NAME': JSON.stringify(projectName),
         'process.env.FLATPAK': flatpak,
-        'process.env.TARGET_DE': JSON.stringify(targetDE),
         'process.env.SYSTEM_CONFIG_FILE_PATH': JSON.stringify(systemConfigFilePath),
       }),
     ].filter(Boolean),

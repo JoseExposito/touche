@@ -33,7 +33,7 @@ endif
 # https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html
 
 appstream_in_file = configure_file(
-  input: get_option('target-de') + '.appdata.xml.in.in',
+  input: 'app.appdata.xml.in.in',
   output: 'app.appdata.xml.in',
   configuration: data_conf,
 )

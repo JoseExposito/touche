@@ -47,8 +47,7 @@ class GestureListRow extends Gtk.ListBoxRow {
       halign: Gtk.Align.START,
       valign: Gtk.Align.CENTER,
     });
-    const titleClass = Granite ? Granite.STYLE_CLASS_H3_LABEL : 'text-h3';
-    titleLabel.get_style_context().add_class(titleClass);
+    titleLabel.get_style_context().add_class('text-h3');
 
     // Enabled switch
     this.enabledSwitch = new Gtk.Switch({

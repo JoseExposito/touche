@@ -43,16 +43,14 @@ class AddAppView extends Gtk.Box {
       hexpand: true,
       valign: Gtk.Align.BASELINE,
     });
-    const titleClass = Granite ? Granite.STYLE_CLASS_H2_LABEL : 'text-h2';
-    title.get_style_context().add_class(titleClass);
+    title.get_style_context().add_class('text-h2');
 
     const description = new Gtk.Label({
       label: _('Add gestures for an application. Click on it\'s window'),
       hexpand: true,
       valign: Gtk.Align.START,
     });
-    const descriptionClass = Granite ? Granite.STYLE_CLASS_H3_LABEL : 'text-h3';
-    description.get_style_context().add_class(descriptionClass);
+    description.get_style_context().add_class('text-h3');
 
     const centerBox = new Gtk.Box({
       orientation: Gtk.Orientation.VERTICAL,

@@ -25,13 +25,9 @@ class GestureList extends Gtk.Box {
     super._init({ orientation: Gtk.Orientation.VERTICAL });
     this.showGestures = this.showGestures.bind(this);
 
-    if (Granite) {
-      this.titleLabel = new Granite.HeaderLabel({ label: title });
-    } else {
-      this.titleLabel = new Gtk.Label({ label: title });
-      this.titleLabel.get_style_context().add_class('text-h4');
-      this.titleLabel.xalign = 0;
-    }
+    this.titleLabel = new Gtk.Label({ label: title });
+    this.titleLabel.get_style_context().add_class('text-h4');
+    this.titleLabel.xalign = 0;
 
     this.list = new Gtk.ListBox({
       selection_mode: Gtk.SelectionMode.NONE,

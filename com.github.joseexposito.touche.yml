@@ -22,7 +22,6 @@ modules:
     buildsystem: meson
     config-opts:
       - -Dflatpak=true
-      - -Dtarget-de=gnome
       - -Dsystem-config-file-path=/var/run/host/usr/share/touchegg/touchegg.conf
     sources:
       - type: archive

@@ -25,8 +25,7 @@ const outputPath = process.argv[3];
 const buildType = process.argv[4];
 const projectName = process.argv[5];
 const flatpak = (process.argv[6] === 'true');
-const targetDE = process.argv[7];
-const systemConfigFilePath = process.argv[8];
+const systemConfigFilePath = process.argv[7];
 const env = (buildType === 'release') ? 'production' : 'development';
 
 // TODO: Using 'production' fails because of xml-js, use libxml2
@@ -40,7 +39,6 @@ const webpackConfig = getWebpackConfig({
   outputPath,
   projectName,
   flatpak,
-  targetDE,
   systemConfigFilePath,
 });
 const compiler = webpack(webpackConfig);

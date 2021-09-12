@@ -30,15 +30,13 @@ class NotInstalledView extends Gtk.Box {
     });
 
     const title = new Gtk.Label({ label: _('Touchégg is not installed'), hexpand: true });
-    const titleClass = Granite ? Granite.STYLE_CLASS_H2_LABEL : 'text-h2';
-    title.get_style_context().add_class(titleClass);
+    title.get_style_context().add_class('text-h2');
 
     const description = new Gtk.Label({
       label: _('It looks like Touchégg is not installed, let\'s start by downloading it'),
       hexpand: true,
     });
-    const descriptionClass = Granite ? Granite.STYLE_CLASS_H3_LABEL : 'text-h3';
-    description.get_style_context().add_class(descriptionClass);
+    description.get_style_context().add_class('text-h3');
 
     const download = new Gtk.Button({
       label: _('Download Touchégg'),

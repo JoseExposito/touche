@@ -49,7 +49,6 @@
     "imports": "readonly",
     "pkg": "readonly",
     "_": "readonly",
-    "window": "readonly",
-    "Granite": "readonly"
+    "window": "readonly"
   }
 }

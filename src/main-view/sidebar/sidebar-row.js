@@ -30,8 +30,7 @@ class SidebarRow extends Gtk.ListBoxRow {
     this.box.pack_start(icon, false, false, 8);
 
     const label = new Gtk.Label({ label: SidebarRow.displayName(appName) });
-    const labelClass = Granite ? Granite.STYLE_CLASS_H3_LABEL : 'text-h3';
-    label.get_style_context().add_class(labelClass);
+    label.get_style_context().add_class('text-h3');
 
     this.box.pack_start(label, false, false, 0);
     this.box.show_all();
