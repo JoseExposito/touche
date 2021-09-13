@@ -21,7 +21,7 @@ pkg.initFormat();
 
 pkg.require({
   Gio: '2.0',
-  Gtk: '3.0',
-  Gdk: '3.0',
+  Gtk: '4.0',
+  Gdk: '4.0',
   Touche: '1.0.0',
 });
