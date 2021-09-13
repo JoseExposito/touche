@@ -38,7 +38,7 @@ function main(argv) {
     // Load global CSS
     const provider = new Gtk.CssProvider();
     provider.load_from_resource(`${process.env.PROJECT_NAME.split('.').join('/')}/assets/global.css`);
-    Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
+    Gtk.StyleContext.add_provider_for_display(Gdk.Display.get_default(), provider,
       Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
     // Show the app window
