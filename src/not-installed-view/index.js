@@ -26,17 +26,17 @@ class NotInstalledView extends Gtk.Box {
     super._init({
       orientation: Gtk.Orientation.VERTICAL,
       spacing: 12,
-      margin: 24,
     });
+    this.add_css_class('not-installed-view');
 
     const title = new Gtk.Label({ label: _('Touchégg is not installed'), hexpand: true });
-    title.get_style_context().add_class('text-h2');
+    title.add_css_class('text-h2');
 
     const description = new Gtk.Label({
       label: _('It looks like Touchégg is not installed, let\'s start by downloading it'),
       hexpand: true,
     });
-    description.get_style_context().add_class('text-h3');
+    description.add_css_class('text-h3');
 
     const download = new Gtk.Button({
       label: _('Download Touchégg'),
@@ -45,12 +45,14 @@ class NotInstalledView extends Gtk.Box {
       valign: Gtk.Align.CENTER,
       margin_top: 12,
     });
-    download.get_style_context().add_class(Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-    download.get_style_context().add_class('download-button');
-    download.connect('clicked', () => Gtk.show_uri_on_window(
+    download.add_css_class('suggested-action');
+    download.add_css_class('download-button');
+    download.connect('clicked', () => Gtk.show_uri_full(
       null,
       'https://github.com/JoseExposito/touchegg#readme',
       Gdk.CURRENT_TIME,
+      null,
+      null,
     ));
 
     const installed = new Gtk.LinkButton({
@@ -63,11 +65,10 @@ class NotInstalledView extends Gtk.Box {
       return true;
     });
 
-    this.pack_start(title, false, false, 0);
-    this.pack_start(description, false, false, 0);
-    this.pack_start(download, true, true, 0);
-    this.pack_end(installed, false, false, 0);
-    this.show_all();
+    this.append(title);
+    this.append(description);
+    this.append(download);
+    this.append(installed);
   }
 }
 
