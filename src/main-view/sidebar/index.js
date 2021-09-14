@@ -27,28 +27,31 @@ class Sidebar extends Gtk.Box {
     super._init({ orientation: Gtk.Orientation.VERTICAL });
 
     // Add the application list inside a scroll window
-    const scrolled = new Gtk.ScrolledWindow();
     this.list = new Gtk.ListBox();
     this.list.selection_mode = Gtk.SelectionMode.BROWSE;
-    this.list.expand = true;
-    scrolled.add(this.list);
+    this.list.vexpand = true;
+
+    const scrolled = new Gtk.ScrolledWindow();
+    scrolled.vexpand = true;
+    scrolled.set_child(this.list);
 
     // Add the footer to allow to add more apps
-    const footer = new Gtk.ActionBar();
-
-    const addAppButton = Gtk.Button.new_from_icon_name('list-add-symbolic', Gtk.IconSize.BUTTON);
+    const addAppButton = Gtk.Button.new_from_icon_name('list-add-symbolic');
     addAppButton.tooltip_text = _('Add new application');
 
-    const removeAppButton = Gtk.Button.new_from_icon_name('list-remove-symbolic', Gtk.IconSize.BUTTON);
+    const removeAppButton = Gtk.Button.new_from_icon_name('list-remove-symbolic');
     removeAppButton.tooltip_text = _('Remove the selected application');
+    removeAppButton.margin_start = 8;
+    removeAppButton.margin_end = 8;
 
+    const footer = new Gtk.ActionBar();
     footer.pack_start(addAppButton);
     footer.pack_start(removeAppButton);
 
-    this.pack_start(scrolled, true, true, 0);
-    this.pack_end(footer, false, false, 0);
-    this.set_size_request(250, -1);
-    this.show_all();
+    this.append(scrolled);
+    this.append(footer);
+    this.set_size_request(200, -1);
+    this.baseline_position = Gtk.BaselinePosition.BOTTOM;
 
     this.list.connect('row_selected', (self, row) => {
       if (!row) {
@@ -72,14 +75,18 @@ class Sidebar extends Gtk.Box {
 
   reloadAppsList(selectedAppName) {
     log('MainView Sidebar: Reloading application list');
-    this.list.foreach((row) => this.list.remove(row));
+    let child = this.list.get_row_at_index(0);
+    while (child) {
+      this.list.remove(child);
+      child = this.list.get_row_at_index(0);
+    }
 
     const appNames = model.getAppNames();
     appNames.forEach((appName) => {
-      const icon = Gtk.Image.new_from_icon_name('input-touchpad', Gtk.IconSize.DND);
-      // icon.icon_size = Gtk.IconSize.NORMAL; // GTK4 + remove the icon size ^ from the constructor
+      const icon = Gtk.Image.new_from_icon_name('input-touchpad');
+      icon.icon_size = Gtk.IconSize.LARGE;
       const row = new SidebarRow(appName, icon);
-      this.list.add(row);
+      this.list.append(row);
 
       if (appName.toLowerCase() === selectedAppName.toLowerCase()) {
         log(` - ${appName} [SELECTED]`);
@@ -88,8 +95,6 @@ class Sidebar extends Gtk.Box {
         log(` - ${appName}`);
       }
     });
-
-    this.show_all();
   }
 }
 
