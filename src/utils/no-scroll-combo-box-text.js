@@ -25,9 +25,13 @@ class NoScrollComboBoxText extends Gtk.ComboBoxText {
   _init(props) {
     super._init(props);
 
-    this.connect('scroll_event', () => {
-      GObject.signal_stop_emission_by_name(this, 'scroll-event');
-    });
+    // eslint-disable-next-line no-bitwise
+    const flags = Gtk.EventControllerScrollFlags.BOTH_AXES
+      | Gtk.EventControllerScrollFlags.DISCRETE
+      | Gtk.EventControllerScrollFlags.KINETIC;
+    const controller = Gtk.EventControllerScroll.new(flags);
+    controller.connect('scroll', () => true);
+    this.add_controller(controller);
   }
 }
 
