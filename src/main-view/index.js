@@ -30,9 +30,8 @@ class MainView extends Gtk.Paned {
     this.sidebar = new Sidebar();
     this.content = new Content();
 
-    this.pack1(this.sidebar, false, false);
-    this.add2(this.content);
-    this.show_all();
+    this.set_start_child(this.sidebar);
+    this.set_end_child(this.content);
 
     this.sidebar.connect('appSelected', (self, appName) => this.content.appSelected(appName));
     this.sidebar.connect('addApp', () => this.emit('addApp'));
