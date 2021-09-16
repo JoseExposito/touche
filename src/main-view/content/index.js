@@ -38,6 +38,7 @@ class Content extends Gtk.Box {
     this.stack.add_titled(this.pinchView, Views.PINCH_VIEW, _('Pinch'));
     this.stack.add_titled(this.tapView, Views.TAP_VIEW, _('Tap'));
     this.stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
+    this.stack.vexpand = true;
 
     // Stack Switcher
     this.stackSwitcher = new Gtk.StackSwitcher();
@@ -45,12 +46,13 @@ class Content extends Gtk.Box {
     this.stackSwitcher.halign = Gtk.Align.CENTER;
     this.stackSwitcher.homogeneous = true;
     this.stackSwitcher.get_style_context().add_class('gestures-stack-switcher');
+    this.stackSwitcher.margin_top = 12;
+    this.stackSwitcher.margin_bottom = 12;
 
     // Layout
-    this.pack_start(this.stackSwitcher, false, false, 12);
-    this.pack_end(this.stack, true, true, 0);
+    this.append(this.stackSwitcher);
+    this.append(this.stack);
     this.set_size_request(200, -1);
-    this.show_all();
   }
 
   appSelected(appName) {
