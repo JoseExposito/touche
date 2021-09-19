@@ -28,6 +28,10 @@ class GestureList extends Gtk.Box {
     this.titleLabel = new Gtk.Label({ label: title });
     this.titleLabel.get_style_context().add_class('text-h4');
     this.titleLabel.xalign = 0;
+    this.titleLabel.margin_start = 12;
+    this.titleLabel.margin_end = 12;
+    this.titleLabel.margin_top = 12;
+    this.titleLabel.margin_bottom = 12;
 
     this.list = new Gtk.ListBox({
       selection_mode: Gtk.SelectionMode.NONE,
@@ -41,23 +45,26 @@ class GestureList extends Gtk.Box {
     });
 
     this.listFrame = new Gtk.Frame();
-    this.listFrame.add(this.list);
+    this.listFrame.set_child(this.list);
+    this.listFrame.margin_start = 12;
+    this.listFrame.margin_end = 12;
+    this.listFrame.margin_bottom = 12;
 
-    this.pack_start(this.titleLabel, false, false, 0);
-    this.pack_start(this.listFrame, false, false, 12);
-
-    this.show_all();
+    this.append(this.titleLabel);
+    this.append(this.listFrame);
   }
 
   showGestures(gestures) {
-    this.list.foreach((row) => this.list.remove(row));
+    let child = this.list.get_row_at_index(0);
+    while (child) {
+      this.list.remove(child);
+      child = this.list.get_row_at_index(0);
+    }
 
     gestures.forEach((gesture) => {
       log(JSON.stringify(gesture));
-      this.list.add(new GestureListRow(gesture));
+      this.list.append(new GestureListRow(gesture));
     });
-
-    this.show_all();
   }
 }
 
