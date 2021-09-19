@@ -33,8 +33,10 @@ class GestureListRow extends Gtk.ListBoxRow {
     this.saveSettings = this.saveSettings.bind(this);
 
     this.grid = new Gtk.Grid({
-      margin: 8,
+      margin_top: 8,
       margin_bottom: 16,
+      margin_start: 8,
+      margin_end: 8,
       row_spacing: 8,
     });
 
@@ -101,9 +103,8 @@ class GestureListRow extends Gtk.ListBoxRow {
     this.grid.attach(titleLabel, 0, 0, 1, 1);
     this.grid.attach(this.enabledSwitch, 1, 0, 1, 1);
     this.grid.attach(this.actionsCombo, 0, 1, 2, 1);
-    this.grid.show_all();
 
-    this.add(this.grid);
+    this.set_child(this.grid);
   }
 
   /**
@@ -132,8 +133,6 @@ class GestureListRow extends Gtk.ListBoxRow {
 
       this.rowSettingsSignalId = this.rowSettings.connect('changed', this.saveSettings);
     }
-
-    this.grid.show_all();
   }
 
   saveSettings() {
