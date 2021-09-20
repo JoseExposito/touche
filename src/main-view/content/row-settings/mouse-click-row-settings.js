@@ -67,7 +67,6 @@ class MouseClickRowSettings extends Gtk.Grid {
     this.attach(this.buttonCombo, 1, 0, 1, 1);
     this.attach(onBeginEndLabel, 0, 1, 1, 1);
     this.attach(this.onBeginEndCombo, 1, 1, 1, 1);
-    this.show_all();
   }
 
   getSettings() {
