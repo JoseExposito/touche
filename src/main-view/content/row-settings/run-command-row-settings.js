@@ -111,7 +111,6 @@ class RunCommandRowSettings extends Gtk.Grid {
     this.attach(repeatLabel, 0, 1, 1, 1);
     this.attach(this.repeatSwitch, 1, 1, 1, 1);
     this.repeatChanged(isRepeatActive);
-    this.show_all();
   }
 
   repeatChanged(isRepeatActive) {
@@ -128,8 +127,6 @@ class RunCommandRowSettings extends Gtk.Grid {
 
     this.attach(this.animationLabel, 0, 3, 1, 1);
     this.attach(this.animationCombo, 1, 3, 1, 1);
-
-    this.show_all();
   }
 
   getSettings() {
