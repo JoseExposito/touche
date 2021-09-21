@@ -49,7 +49,6 @@ class TileWindowRowSettings extends Gtk.Grid {
     // Layout
     this.attach(directionLabel, 0, 0, 1, 1);
     this.attach(this.directionCombo, 1, 0, 1, 1);
-    this.show_all();
   }
 
   getSettings() {
