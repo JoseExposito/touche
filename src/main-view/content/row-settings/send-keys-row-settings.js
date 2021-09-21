@@ -112,8 +112,6 @@ class SendKeysRowSettings extends Gtk.Grid {
     this.repeatChanged(isRepeatActive);
     this.attach(this.animationLabel, 0, 3, 1, 1);
     this.attach(this.animationCombo, 1, 3, 1, 1);
-
-    this.show_all();
   }
 
   repeatChanged(isRepeatActive) {
@@ -130,8 +128,6 @@ class SendKeysRowSettings extends Gtk.Grid {
 
     this.attach(this.animationLabel, 0, 3, 1, 1);
     this.attach(this.animationCombo, 1, 3, 1, 1);
-
-    this.show_all();
   }
 
   getSettings() {
