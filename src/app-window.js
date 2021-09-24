@@ -58,8 +58,6 @@ class AppWindow extends Gtk.ApplicationWindow {
     } else {
       this.showNonInstalledView();
     }
-
-    this.show_all();
   }
 
   static isToucheggInstalled() {
@@ -70,7 +68,7 @@ class AppWindow extends Gtk.ApplicationWindow {
     this.set_size_request(300, 180);
 
     this.notInstalledView = new NotInstalledView();
-    this.add(this.notInstalledView);
+    this.set_child(this.notInstalledView);
 
     this.notInstalledView.connect('installed', () => {
       if (AppWindow.isToucheggInstalled()) {
@@ -83,7 +81,7 @@ class AppWindow extends Gtk.ApplicationWindow {
   showMainView(selectedAppName) {
     model.loadFromFile();
     this.set_size_request(900, 650);
-    this.add(this.mainView);
+    this.set_child(this.mainView);
     this.mainView.showAppGestures(selectedAppName);
   }
 
@@ -91,7 +89,7 @@ class AppWindow extends Gtk.ApplicationWindow {
     this.showingAddAppView = true;
     this.set_size_request(300, 180);
     this.remove(this.mainView);
-    this.add(this.addAppView);
+    this.set_child(this.addAppView);
     this.addAppView.grabPointer();
   }
 
