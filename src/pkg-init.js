@@ -23,5 +23,6 @@ pkg.require({
   Gio: '2.0',
   Gtk: '4.0',
   Gdk: '4.0',
-  Touche: '1.0.0',
+  GdkX11: '4.0',
+  Touche: '2.0.0',
 });
