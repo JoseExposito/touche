@@ -18,6 +18,7 @@
  */
 #include "touche.h"
 
+#include <X11/cursorfont.h>
 #include <X11/X.h>
 #include <X11/Xatom.h>
 #include <X11/Xlib.h>
@@ -160,4 +161,45 @@ GString *touche_get_window_under_cursor_class_name() {
   Window window = getWindowUnderCursor();
   std::string className = getWindowClassName(window);
   return g_string_new(className.c_str());
+}
+
+gboolean touche_grab_pointer(unsigned long xid) {
+  int grabStatus = XGrabPointer(display, xid,
+      False, ButtonPressMask | ButtonReleaseMask,
+      GrabModeAsync, GrabModeAsync,
+      None,
+      XCreateFontCursor(display, XC_crosshair),
+      CurrentTime);
+  if (grabStatus != GrabSuccess) {
+    return false;
+  }
+
+  grabStatus = XGrabKeyboard(display, xid, False, GrabModeAsync, GrabModeAsync, CurrentTime);
+  if (grabStatus != GrabSuccess) {
+    return false;
+  }
+
+  XFlush(display);
+
+  XEvent event;
+  bool clicked = false;
+  while (!clicked) {
+    XNextEvent(display, &event);
+
+    if (event.type == ButtonRelease && event.xbutton.button == 1) {
+      clicked = true;
+    }
+
+    if (event.type == KeyRelease && event.xkey.keycode == 0x09) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+void touche_ungrab_pointer() {
+  XUngrabPointer(display, CurrentTime);
+  XUngrabKeyboard(display, CurrentTime);
+  XFlush(display);
 }
