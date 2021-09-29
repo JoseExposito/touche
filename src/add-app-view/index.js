@@ -20,9 +20,9 @@ import model from '~/config/model';
 import { ALL_ID } from '~/config/all-apps';
 
 const {
+  GLib,
   GObject,
   Gtk,
-  Gdk,
   Touche,
 } = imports.gi;
 
@@ -31,76 +31,56 @@ class AddAppView extends Gtk.Box {
     super._init({
       orientation: Gtk.Orientation.VERTICAL,
       spacing: 12,
-      margin: 24,
+      margin_top: 24,
+      margin_bottom: 24,
+      margin_start: 24,
+      margin_end: 24,
     });
 
-    this.mouseClick = this.mouseClick.bind(this);
-    this.keyPress = this.keyPress.bind(this);
     this.parentWindow = parentWindow;
 
     const title = new Gtk.Label({
       label: _('Add application'),
       hexpand: true,
-      valign: Gtk.Align.BASELINE,
+      vexpand: true,
+      valign: Gtk.Align.END,
     });
     title.get_style_context().add_class('text-h2');
 
     const description = new Gtk.Label({
       label: _('Add gestures for an application. Click on it\'s window'),
       hexpand: true,
+      vexpand: true,
       valign: Gtk.Align.START,
     });
     description.get_style_context().add_class('text-h3');
 
-    const centerBox = new Gtk.Box({
-      orientation: Gtk.Orientation.VERTICAL,
-      spacing: 12,
-      margin: 24,
-    });
-    centerBox.pack_start(title, true, false, 0);
-    centerBox.pack_start(description, true, false, 0);
-    this.pack_start(centerBox, true, false, 0);
-    this.show_all();
+    this.append(title);
+    this.append(description);
   }
 
   grabPointer() {
-    const window = this.parentWindow.get_window();
-    const display = Gdk.Display.get_default();
-    const seat = display.get_default_seat();
+    const window = this.parentWindow;
+    const native = window.get_native();
+    const surface = native.get_surface();
+    const xid = surface.get_xid();
 
-    const status = seat.grab(window, Gdk.SeatCapabilities.ALL_POINTING, false,
-      Gdk.Cursor.new_for_display(display, Gdk.CursorType.CROSSHAIR), null, null);
+    GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
+      if (!Touche.grab_pointer(xid)) {
+        log('Error grabbing mouse and keyboard');
+        this.emit('done', ALL_ID);
+      } else {
+        const appName = Touche.get_window_under_cursor_class_name().free(false);
+        if (appName) {
+          model.addApplication(appName);
+          model.saveToFile();
+        }
+        this.emit('done', appName || ALL_ID);
+      }
 
-    if (status !== Gdk.GrabStatus.SUCCESS) {
-      log('Error grabbing mouse and keyboard');
-      this.emit('done', ALL_ID);
-    }
-  }
-
-  static ungrabPointer() {
-    const display = Gdk.Display.get_default();
-    const seat = display.get_default_seat();
-    seat.ungrab();
-  }
-
-  mouseClick(event) { // eslint-disable-line
-    const appName = Touche.get_window_under_cursor_class_name().free(false);
-    if (appName) {
-      model.addApplication(appName);
-      model.saveToFile();
-    }
-
-    AddAppView.ungrabPointer();
-
-    this.emit('done', appName || ALL_ID);
-  }
-
-  keyPress(event) {
-    if (event.keyval === Gdk.KEY_Escape) {
-      log('CANCEL');
-      AddAppView.ungrabPointer();
-      this.emit('done', ALL_ID);
-    }
+      Touche.ungrab_pointer();
+      return false;
+    });
   }
 }
 
