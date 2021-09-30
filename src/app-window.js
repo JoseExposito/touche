@@ -45,9 +45,7 @@ class AppWindow extends Gtk.ApplicationWindow {
     this.addAppView = new AddAppView(this);
     this.addAppView.connect('done', (self, appName) => {
       this.showingAddAppView = false;
-      this.remove(this.addAppView);
       this.showMainView(appName);
-
       this.show();
     });
 
@@ -88,29 +86,8 @@ class AppWindow extends Gtk.ApplicationWindow {
   showAddAppView() {
     this.showingAddAppView = true;
     this.set_size_request(300, 180);
-    this.remove(this.mainView);
     this.set_child(this.addAppView);
     this.addAppView.grabPointer();
-  }
-
-  // When the user add a new application, the mouse pointer and the keyboard are grabbed.
-  // This virtual methods are called when a mouse or keyboard event is dispatched and, if required,
-  // the event is passed down to the add application view.
-
-  vfunc_button_press_event(event) { // eslint-disable-line camelcase
-    if (this.showingAddAppView) {
-      this.addAppView.mouseClick(event);
-      return true;
-    }
-    return false;
-  }
-
-  vfunc_key_release_event(event) { // eslint-disable-line camelcase
-    if (this.showingAddAppView) {
-      this.addAppView.keyPress(event);
-      return true;
-    }
-    return false;
   }
 }
 
