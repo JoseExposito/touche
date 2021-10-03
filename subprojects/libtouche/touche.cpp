@@ -23,6 +23,7 @@
 #include <X11/Xatom.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
+#include <X11/keysymdef.h>
 
 #include <algorithm>
 #include <iostream>
@@ -190,7 +191,7 @@ gboolean touche_grab_pointer(unsigned long xid) {
       clicked = true;
     }
 
-    if (event.type == KeyRelease && event.xkey.keycode == 0x09) {
+    if (event.type == KeyRelease && XLookupKeysym(&event.xkey, 0) == XK_Escape) {
       return false;
     }
   }
