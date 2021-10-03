@@ -42,7 +42,7 @@ class AppWindow extends Gtk.ApplicationWindow {
     this.mainView = new MainView();
     this.mainView.connect('addApp', this.showAddAppView);
 
-    this.addAppView = new AddAppView(this);
+    this.addAppView = new AddAppView();
     this.addAppView.connect('done', (self, appName) => {
       this.showingAddAppView = false;
       this.showMainView(appName);

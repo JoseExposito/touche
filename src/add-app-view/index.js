@@ -27,7 +27,7 @@ const {
 } = imports.gi;
 
 class AddAppView extends Gtk.Box {
-  _init(parentWindow) {
+  _init() {
     super._init({
       orientation: Gtk.Orientation.VERTICAL,
       spacing: 12,
@@ -36,8 +36,6 @@ class AddAppView extends Gtk.Box {
       margin_start: 24,
       margin_end: 24,
     });
-
-    this.parentWindow = parentWindow;
 
     const title = new Gtk.Label({
       label: _('Add application'),
@@ -60,7 +58,7 @@ class AddAppView extends Gtk.Box {
   }
 
   grabPointer() {
-    const window = this.parentWindow;
+    const window = this.get_root();
     const native = window.get_native();
     const surface = native.get_surface();
     const xid = surface.get_xid();
