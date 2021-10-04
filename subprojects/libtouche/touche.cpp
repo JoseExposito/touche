@@ -199,6 +199,48 @@ gboolean touche_grab_pointer(unsigned long xid) {
   return true;
 }
 
+/**
+ * touche_grab_keyboard:
+ * Returns: (element-type GString) (transfer full): Array of keys.
+ */
+GList *touche_grab_keyboard(unsigned long xid) {
+  int grabStatus = XGrabKeyboard(display, xid, False, GrabModeAsync, GrabModeAsync, CurrentTime);
+  if (grabStatus != GrabSuccess) {
+    return nullptr;
+  }
+
+  GList *keys = nullptr;
+  XFlush(display);
+
+  XEvent event;
+  bool released = false;
+  while (!released) {
+    XNextEvent(display, &event);
+
+    if (event.type == KeyPress) {
+      KeySym keysym = XLookupKeysym(&event.xkey, 0);
+      GString *key = g_string_new(XKeysymToString(keysym));
+      keys = g_list_append(keys, key);
+    }
+
+    if (event.type == KeyRelease) {
+      released = true;
+
+      if (XEventsQueued(display, QueuedAfterReading)) {
+        XEvent nextEvent;
+        XPeekEvent(display, &nextEvent);
+        bool isRepeat = (nextEvent.type == KeyPress)
+            && (nextEvent.xkey.time == event.xkey.time)
+            && (nextEvent.xkey.keycode == event.xkey.keycode);
+        released = !isRepeat;
+      }
+    }
+  }
+
+  XFlush(display);
+  return keys;
+}
+
 void touche_ungrab() {
   XUngrabPointer(display, CurrentTime);
   XUngrabKeyboard(display, CurrentTime);
