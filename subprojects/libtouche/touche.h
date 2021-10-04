@@ -27,7 +27,7 @@ G_BEGIN_DECLS
 GString *touche_get_window_under_cursor_class_name();
 
 gboolean touche_grab_pointer(unsigned long xid);
-void touche_ungrab_pointer();
+void touche_ungrab();
 
 G_END_DECLS
 

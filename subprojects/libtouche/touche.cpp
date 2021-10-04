@@ -199,7 +199,7 @@ gboolean touche_grab_pointer(unsigned long xid) {
   return true;
 }
 
-void touche_ungrab_pointer() {
+void touche_ungrab() {
   XUngrabPointer(display, CurrentTime);
   XUngrabKeyboard(display, CurrentTime);
   XFlush(display);

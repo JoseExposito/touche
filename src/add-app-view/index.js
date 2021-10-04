@@ -76,7 +76,7 @@ class AddAppView extends Gtk.Box {
         this.emit('done', appName || ALL_ID);
       }
 
-      Touche.ungrab_pointer();
+      Touche.ungrab();
       return false;
     });
   }
