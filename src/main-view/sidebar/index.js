@@ -41,12 +41,14 @@ class Sidebar extends Gtk.Box {
 
     const removeAppButton = Gtk.Button.new_from_icon_name('list-remove-symbolic');
     removeAppButton.tooltip_text = _('Remove the selected application');
-    removeAppButton.margin_start = 8;
-    removeAppButton.margin_end = 8;
+
+    const buttonContainer = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL });
+    buttonContainer.get_style_context().add_class('linked');
+    buttonContainer.append(addAppButton);
+    buttonContainer.append(removeAppButton);
 
     const footer = new Gtk.ActionBar();
-    footer.pack_start(addAppButton);
-    footer.pack_start(removeAppButton);
+    footer.pack_start(buttonContainer);
 
     this.append(scrolled);
     this.append(footer);
