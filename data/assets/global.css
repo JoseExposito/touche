@@ -24,9 +24,3 @@
 .download-button {
   padding: 10px 20px;
 }
-
-/* MainView */
-
-.gestures-stack-switcher label {
-  min-width: 50px;
-}

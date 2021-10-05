@@ -45,7 +45,6 @@ class Content extends Gtk.Box {
     this.stackSwitcher.stack = this.stack;
     this.stackSwitcher.halign = Gtk.Align.CENTER;
     this.stackSwitcher.homogeneous = true;
-    this.stackSwitcher.get_style_context().add_class('gestures-stack-switcher');
     this.stackSwitcher.margin_top = 12;
     this.stackSwitcher.margin_bottom = 12;
 
