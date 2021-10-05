@@ -16,7 +16,13 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-const { GObject, Gtk, Gdk } = imports.gi;
+const {
+  GLib,
+  GObject,
+  Gtk,
+  Gdk,
+  Touche,
+} = imports.gi;
 
 class ShortcutButton extends Gtk.Button {
   static MODIFIERS = [
@@ -34,63 +40,14 @@ class ShortcutButton extends Gtk.Button {
   _init(modifiers, keys) {
     super._init({ label: '' });
 
-    // bind functions
     this.getModifiers = this.getModifiers.bind(this);
     this.getKeys = this.getKeys.bind(this);
 
-    // modifiers/keys lists
     this.modifiers = modifiers ?? [];
     this.keys = keys ?? [];
 
     this.buildShortcutLabelContent();
-
-    this.connect('clicked', () => {
-      this.grabKeyboard();
-      this.saveShortcut();
-      this.clearShortcut();
-    });
-
-    this.connect('focus-out-event', () => this.ungrabKeyboard());
-
-    this.connect('key-press-event', (widget, event) => {
-      const keyval = event.get_keyval()[1];
-      const key = Gdk.keyval_name(keyval);
-
-      // if no grab, no key/modifier registering
-      if (!widget.has_grab()) {
-        return;
-      }
-
-      if (this.modifiers.includes(key) || this.keys.includes(key)) {
-        return;
-      }
-
-      // If backspace, clear
-      if (keyval === Gdk.KEY_BackSpace) {
-        this.ungrabKeyboard();
-        this.clearShortcut();
-        widget.emit('changed');
-        return;
-      }
-
-      // If escape, cancel
-      if (keyval === Gdk.KEY_Escape) {
-        this.ungrabKeyboard();
-        this.restoreShortcut();
-        this.buildShortcutLabelContent();
-        widget.emit('changed');
-        return;
-      }
-
-      this.addKey(key);
-      widget.emit('changed');
-      this.buildShortcutLabelContent();
-    });
-
-    this.connect('key-release-event', () => {
-      this.ungrabKeyboard();
-      this.buildShortcutLabelContent();
-    });
+    this.connect('clicked', () => this.grabKeyboard());
   }
 
   getModifiers() {
@@ -102,18 +59,46 @@ class ShortcutButton extends Gtk.Button {
   }
 
   grabKeyboard() {
-    const window = this.get_toplevel().get_window();
-    const display = Gdk.Display.get_default();
-    const seat = display.get_default_seat();
+    this.label = '-';
+    this.saveShortcut();
+    this.clearShortcut();
 
-    const status = seat.grab(window, Gdk.SeatCapabilities.KEYBOARD, false, null, null, null);
+    const window = this.get_root();
+    const native = window.get_native();
+    const surface = native.get_surface();
+    const xid = surface.get_xid();
 
-    if (status !== Gdk.GrabStatus.SUCCESS) {
-      log('Error grabbing keyboard');
-      return;
-    }
+    GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
+      const keyList = Touche.grab_keyboard(xid);
+      if (!keyList) {
+        log('Error grabbing keyboard');
+      } else {
+        const keys = [];
+        keyList.forEach((keyGString) => {
+          const key = keyGString.free(false);
+          if (!keys.includes(key)) {
+            keys.push(key);
+          }
+        });
 
-    this.grab_add();
+        const cancel = keys.includes('Escape');
+        const clear = keys.includes('BackSpace');
+
+        if (clear) {
+          this.clearShortcut();
+        } else if (cancel) {
+          this.restoreShortcut();
+        } else {
+          keys.forEach((key) => this.addKey(key));
+        }
+
+        this.emit('changed');
+        this.buildShortcutLabelContent();
+      }
+
+      Touche.ungrab();
+      return false;
+    });
   }
 
   ungrabKeyboard() {
@@ -150,13 +135,10 @@ class ShortcutButton extends Gtk.Button {
   clearShortcut() {
     this.keys = [];
     this.modifiers = [];
-    this.buildShortcutLabelContent();
   }
 
   buildShortcutLabelContent() {
-    if (this.has_grab() && [...this.modifiers, ...this.keys].length === 0) {
-      this.label = '-';
-    } else if (!(this.keys.length > 0 || this.modifiers.length > 0)) {
+    if (this.keys.length === 0 && this.modifiers.length === 0) {
       this.label = _('Click here to add shortcut');
     } else {
       this.label = [...this.modifiers, ...this.keys].toString().replace(/,/g, '+');
