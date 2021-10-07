@@ -15,8 +15,8 @@ modules:
       - '*'
     sources:
       - type: archive
-        url: https://nodejs.org/dist/v14.17.6/node-v14.17.6.tar.xz
-        sha256: f458cd0b1cb1540611cb08709d833c0c59c74da79310ae1984cc8bad1404ad5e
+        url: https://nodejs.org/dist/v14.18.0/node-v14.18.0.tar.gz
+        sha256: 2272312d7eb48a28e982af395142d916385b0572380d07c89f9abd9c97810189
 
   - name: touche
     buildsystem: meson
