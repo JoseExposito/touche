@@ -1,6 +1,6 @@
 app-id: com.github.joseexposito.touche
 runtime: org.gnome.Platform
-runtime-version: '40'
+runtime-version: '41'
 sdk: org.gnome.Sdk
 command: com.github.joseexposito.touche
 finish-args:
@@ -54,6 +54,12 @@ modules:
       - -Dflatpak=true
       - -Dsystem-config-file-path=/var/run/host/usr/share/touchegg/touchegg.conf
     sources:
-      - type: archive
-        url: file:///home/jose/Devel/archive.tar.gz
-        sha256: 5d37b391f79a6b3b62fb18f30d64c755241914f7e0aa2b3d0d27d63bf18c3ead
+      - type: dir
+        path: .
+        skip:
+          - .git
+          - .flatpak-builder
+          - build
+          - debian
+          - rpm
+          - com.github.joseexposito.touche.yml
