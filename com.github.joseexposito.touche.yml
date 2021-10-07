@@ -18,6 +18,36 @@ modules:
         url: https://nodejs.org/dist/v14.18.0/node-v14.18.0.tar.gz
         sha256: 2272312d7eb48a28e982af395142d916385b0572380d07c89f9abd9c97810189
 
+  - name: libadwaita
+    buildsystem: meson
+    config-opts:
+      - -Dgtk_doc=false
+      - -Dtests=false
+      - -Dexamples=false
+    sources:
+      - type: archive
+        url: https://download.gnome.org/sources/libadwaita/1.0/libadwaita-1.0.0.alpha.3.tar.xz
+        sha256: 89f05fa742cabc5ea6a2c0295c34996af5ac953e9d020ace27b8e8b15cf9e050
+    modules:
+      - name: libsass
+        sources:
+          - type: archive
+            url: https://github.com/sass/libsass/archive/refs/tags/3.6.5.tar.gz
+            sha256: 89d8f2c46ae2b1b826b58ce7dde966a176bac41975b82e84ad46b01a55080582
+          - type: script
+            dest-filename: autogen.sh
+            commands:
+              - autoreconf -si
+      - name: sassc
+        sources:
+          - type: archive
+            url: https://github.com/sass/sassc/archive/refs/tags/3.6.2.tar.gz
+            sha256: 608dc9002b45a91d11ed59e352469ecc05e4f58fc1259fc9a9f5b8f0f8348a03
+          - type: script
+            dest-filename: autogen.sh
+            commands:
+              - autoreconf -si
+
   - name: touche
     buildsystem: meson
     config-opts:
