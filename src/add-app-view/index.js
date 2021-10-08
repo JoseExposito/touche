@@ -63,7 +63,7 @@ class AddAppView extends Gtk.Box {
     const surface = native.get_surface();
     const xid = surface.get_xid();
 
-    GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
+    GLib.timeout_add(GLib.PRIORITY_DEFAULT, 100, () => {
       if (!Touche.grab_pointer(xid)) {
         log('Error grabbing mouse and keyboard');
         this.emit('done', ALL_ID);

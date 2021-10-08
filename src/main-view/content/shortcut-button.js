@@ -68,7 +68,7 @@ class ShortcutButton extends Gtk.Button {
     const surface = native.get_surface();
     const xid = surface.get_xid();
 
-    GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
+    GLib.timeout_add(GLib.PRIORITY_DEFAULT, 100, () => {
       const keyList = Touche.grab_keyboard(xid);
       if (!keyList) {
         log('Error grabbing keyboard');
