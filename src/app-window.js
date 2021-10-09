@@ -23,12 +23,12 @@ import model from '~/config/model';
 import { ALL_ID } from '~/config/all-apps';
 import { fileExists, getSystemConfigFilePath } from '~/config/paths';
 
-const { GObject, Gtk } = imports.gi;
+const { Adw, GObject } = imports.gi;
 
 /**
  * Application main window.
  */
-class AppWindow extends Gtk.ApplicationWindow {
+class AppWindow extends Adw.ApplicationWindow {
   _init(application) {
     super._init({
       application,
@@ -37,14 +37,12 @@ class AppWindow extends Gtk.ApplicationWindow {
 
     this.showMainView = this.showMainView.bind(this);
     this.showAddAppView = this.showAddAppView.bind(this);
-    this.showingAddAppView = false;
 
     this.mainView = new MainView();
     this.mainView.connect('addApp', this.showAddAppView);
 
     this.addAppView = new AddAppView();
     this.addAppView.connect('done', (self, appName) => {
-      this.showingAddAppView = false;
       this.showMainView(appName);
       this.show();
     });
@@ -66,7 +64,7 @@ class AppWindow extends Gtk.ApplicationWindow {
     this.set_size_request(300, 180);
 
     this.notInstalledView = new NotInstalledView();
-    this.set_child(this.notInstalledView);
+    this.set_content(this.notInstalledView);
 
     this.notInstalledView.connect('installed', () => {
       if (AppWindow.isToucheggInstalled()) {
@@ -79,14 +77,13 @@ class AppWindow extends Gtk.ApplicationWindow {
   showMainView(selectedAppName) {
     model.loadFromFile();
     this.set_size_request(900, 650);
-    this.set_child(this.mainView);
+    this.set_content(this.mainView);
     this.mainView.showAppGestures(selectedAppName);
   }
 
   showAddAppView() {
-    this.showingAddAppView = true;
     this.set_size_request(300, 180);
-    this.set_child(this.addAppView);
+    this.set_content(this.addAppView);
     this.addAppView.grabPointer();
   }
 }
