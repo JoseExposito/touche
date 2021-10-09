@@ -20,7 +20,12 @@ import './pkg-init';
 // The pkg-init ^ import must be the first import
 import AppWindow from '~/app-window';
 
-const { Gio, Gtk, Gdk } = imports.gi;
+const {
+  Adw,
+  Gio,
+  Gtk,
+  Gdk,
+} = imports.gi;
 
 /**
  * Application  entry point.
@@ -29,10 +34,10 @@ const { Gio, Gtk, Gdk } = imports.gi;
  * @returns {number} Status code.
  */
 function main(argv) {
-  const application = new Gtk.Application({
-    application_id: process.env.PROJECT_NAME,
-    flags: Gio.ApplicationFlags.FLAGS_NONE,
-  });
+  const application = Adw.Application.new(
+    process.env.PROJECT_NAME,
+    Gio.ApplicationFlags.FLAGS_NONE,
+  );
 
   application.connect('activate', (app) => {
     // Load global CSS
