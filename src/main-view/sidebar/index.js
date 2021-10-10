@@ -20,7 +20,7 @@ import model from '~/config/model';
 import { isAll } from '~/config/all-apps';
 import SidebarRow from './sidebar-row';
 
-const { GObject, Gtk } = imports.gi;
+const { Adw, GObject, Gtk } = imports.gi;
 
 class Sidebar extends Gtk.Box {
   _init() {
@@ -50,6 +50,13 @@ class Sidebar extends Gtk.Box {
     const footer = new Gtk.ActionBar();
     footer.pack_start(buttonContainer);
 
+    // Header
+    const header = new Adw.HeaderBar();
+    header.set_decoration_layout('menu');
+    header.set_title_widget(new Gtk.Label({ label: _('Applications') }));
+
+    // Layout
+    this.append(header);
     this.append(scrolled);
     this.append(footer);
     this.set_size_request(200, -1);

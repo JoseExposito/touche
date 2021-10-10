@@ -21,7 +21,7 @@ import SwipeView from './swipe-view';
 import PinchView from './pinch-view';
 import TapView from './tap-view';
 
-const { GObject, Gtk } = imports.gi;
+const { Adw, GObject, Gtk } = imports.gi;
 
 class Content extends Gtk.Box {
   _init() {
@@ -45,11 +45,13 @@ class Content extends Gtk.Box {
     this.stackSwitcher.stack = this.stack;
     this.stackSwitcher.halign = Gtk.Align.CENTER;
     this.stackSwitcher.homogeneous = true;
-    this.stackSwitcher.margin_top = 12;
-    this.stackSwitcher.margin_bottom = 12;
+
+    // Header
+    const header = new Adw.HeaderBar();
+    header.set_title_widget(this.stackSwitcher);
 
     // Layout
-    this.append(this.stackSwitcher);
+    this.append(header);
     this.append(this.stack);
     this.set_size_request(200, -1);
   }
