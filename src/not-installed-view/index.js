@@ -16,7 +16,12 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-const { GObject, Gtk, Gdk } = imports.gi;
+const {
+  Adw,
+  GObject,
+  Gtk,
+  Gdk,
+} = imports.gi;
 
 /**
  * When Touchégg is not installed, this view is displayed to allow to download it.
@@ -27,9 +32,17 @@ class NotInstalledView extends Gtk.Box {
       orientation: Gtk.Orientation.VERTICAL,
       spacing: 12,
     });
-    this.add_css_class('not-installed-view');
 
-    const title = new Gtk.Label({ label: _('Touchégg is not installed'), hexpand: true });
+    const header = new Adw.HeaderBar();
+    header.set_decoration_layout(':close');
+    header.set_title_widget(new Gtk.Label({ label: '' }));
+    header.add_css_class('flat');
+
+    const title = new Gtk.Label({
+      label: _('Touchégg is not installed'),
+      hexpand: true,
+      vexpand: true,
+    });
     title.add_css_class('text-h2');
 
     const description = new Gtk.Label({
@@ -59,12 +72,14 @@ class NotInstalledView extends Gtk.Box {
       label: _('I just installed it'),
       halign: Gtk.Align.CENTER,
       valign: Gtk.Align.CENTER,
+      vexpand: true,
     });
     installed.connect('activate-link', () => {
       this.emit('installed');
       return true;
     });
 
+    this.append(header);
     this.append(title);
     this.append(description);
     this.append(download);
