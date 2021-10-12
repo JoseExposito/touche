@@ -48,6 +48,7 @@ class Content extends Gtk.Box {
 
     // Header
     const header = new Adw.HeaderBar();
+    header.set_decoration_layout(':close');
     header.set_title_widget(this.stackSwitcher);
 
     // Layout
