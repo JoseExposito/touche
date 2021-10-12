@@ -53,7 +53,7 @@ class Sidebar extends Gtk.Box {
     // Header
     const header = new Adw.HeaderBar();
     header.set_decoration_layout('menu');
-    header.set_title_widget(new Gtk.Label({ label: _('Applications') }));
+    header.set_title_widget(new Adw.WindowTitle({ title: _('Applications') }));
 
     // Layout
     this.append(header);
