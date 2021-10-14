@@ -16,15 +16,13 @@ Easily configure your touchpad and touchscreen multi-touch gestures using
 
 <div align="center">
 
-  ![Touché on elementary OS](.github/images/elementary.png)
+  ![Touché on GNOME using Adwaita](.github/images/adwaita.png)
 
 </div>
 
 <details align="center">
   <summary>More screenshots</summary>
 
-  ![Touché on elementary OS, dark theme](.github/images/elementary-dark.png)
-  ![Touché on GNOME using Adwaita](.github/images/adwaita.png)
   ![Touché on GNOME using Adwaita dark theme](.github/images/adwaita-dark.png)
 </details>
 
@@ -35,7 +33,7 @@ Easily configure your touchpad and touchscreen multi-touch gestures using
     <img width='240' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.png'/>
   </a>
 
-  Or download a package for [Ubuntu](https://github.com/JoseExposito/touche/releases) or [Arch Linux](https://aur.archlinux.org/packages/touche)
+  Or download a package for [Arch Linux](https://aur.archlinux.org/packages/touche)
 
 </div>
 
