@@ -210,3 +210,12 @@ msgstr "Sin animación"
 
 msgid "Animation:"
 msgstr "Animación:"
+
+msgid "Click here to add shortcut"
+msgstr "Pulsa para añadir un atajo de teclado"
+
+msgid "Shortcut:"
+msgstr "Atajo de teclado:"
+
+msgid "Applications"
+msgstr "Aplicaciones"
