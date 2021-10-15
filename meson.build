@@ -1,6 +1,6 @@
 project(
   'com.github.joseexposito.touche',
-  version: '1.0.7',
+  version: '2.0.0',
   license: 'GPL-3.0-or-later',
   meson_version: '>= 0.49.0',
   default_options: [ 'warning_level=2' ],

@@ -39,107 +39,108 @@ jobs:
           name: "ARCHIVE-SHA256SUM"
           path: "${{ github.workspace }}/ARCHIVE-SHA256SUM"
 
-  deb-package:
-    runs-on: ubuntu-20.04
-    needs: [ build-archive ]
-    env:
-      target_docker_image: debian:buster-backports
-      target_distribution: buster
-    strategy:
-      matrix:
-        target_arch: ["amd64", "armhf", "arm64"]
-    steps:
-      - name: GitHub Environment Variables Action
-        uses: FranzDiebold/github-env-vars-action@v1.2.1
+  # deb-package:
+  #   runs-on: ubuntu-20.04
+  #   needs: [ build-archive ]
+  #   env:
+  #     target_docker_image: debian:buster-backports
+  #     target_distribution: buster
+  #   strategy:
+  #     matrix:
+  #       target_arch: ["amd64", "armhf", "arm64"]
+  #   steps:
+  #     - name: GitHub Environment Variables Action
+  #       uses: FranzDiebold/github-env-vars-action@v1.2.1
 
-      - name: Download archive
-        uses: "actions/download-artifact@v2"
-        with:
-          name: archive.tar.gz
+  #     - name: Download archive
+  #       uses: "actions/download-artifact@v2"
+  #       with:
+  #         name: archive.tar.gz
 
-      - name: Extract archive
-        run: |
-          tar -xf archive.tar.gz
+  #     - name: Extract archive
+  #       run: |
+  #         tar -xf archive.tar.gz
 
-      - name: Patch target distribution in Debian changelog
-        # touche (x.y.z) DISTRO; urgency=medium
-        # -z to replace only the first occurrence
-        # -i to update the file
-        # ([)] ) - Group 0, find the first ") "
-        # (\w+)  - Group 1, find a word (DISTRO)
-        # \1${{ env.target_distribution }} - Replace group 1 with the target distribution name
-        run: |
-          sed -zri "s/([)] )(\w+)/\1${{ env.target_distribution }}/" ${{ github.workspace }}/debian/changelog
+  #     - name: Patch target distribution in Debian changelog
+  #       # touche (x.y.z) DISTRO; urgency=medium
+  #       # -z to replace only the first occurrence
+  #       # -i to update the file
+  #       # ([)] ) - Group 0, find the first ") "
+  #       # (\w+)  - Group 1, find a word (DISTRO)
+  #       # \1${{ env.target_distribution }} - Replace group 1 with the target distribution name
+  #       run: |
+  #         sed -zri "s/([)] )(\w+)/\1${{ env.target_distribution }}/" ${{ github.workspace }}/debian/changelog
 
-      - name: Build Debian package
-        uses: pi-top/action-debian-package@v0.2.2
-        with:
-          source_directory: "${{ github.workspace }}"
-          artifacts_directory: "${{ github.workspace }}/artifacts"
+  #     - name: Build Debian package
+  #       uses: pi-top/action-debian-package@v0.2.2
+  #       with:
+  #         source_directory: "${{ github.workspace }}"
+  #         artifacts_directory: "${{ github.workspace }}/artifacts"
 
-          docker_image: ${{ env.target_docker_image }}
-          distribution: ${{ env.target_distribution }}
-          target_architecture: ${{ matrix.target_arch }}
+  #         docker_image: ${{ env.target_docker_image }}
+  #         distribution: ${{ env.target_distribution }}
+  #         target_architecture: ${{ matrix.target_arch }}
 
-          lintian_opts: "--dont-check-part nmu --no-tag-display-limit --display-info --show-overrides"
-          # Package uses latest packaging syntax and Lintian opts/tags
-          dpkg_buildpackage_opts: "--no-sign --no-check-builddeps --post-clean"
+  #         lintian_opts: "--dont-check-part nmu --no-tag-display-limit --display-info --show-overrides"
+  #         # Package uses latest packaging syntax and Lintian opts/tags
+  #         dpkg_buildpackage_opts: "--no-sign --no-check-builddeps --post-clean"
 
-      - name: Upload Debian package artifacts
-        uses: "actions/upload-artifact@v2"
-        with:
-          name: "${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_${{matrix.target_arch}}.deb"
-          path: "${{ github.workspace }}/artifacts/${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_${{matrix.target_arch}}.deb"
+  #     - name: Upload Debian package artifacts
+  #       uses: "actions/upload-artifact@v2"
+  #       with:
+  #         name: "${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_${{matrix.target_arch}}.deb"
+  #         path: "${{ github.workspace }}/artifacts/${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_${{matrix.target_arch}}.deb"
 
-  rpm-package:
-    runs-on: ubuntu-20.04
-    container:
-      image: almalinux/almalinux:8
-    steps:
-      - name: Install dependencies
-        run: |
-          su
-          dnf upgrade -y
-          dnf install -y dnf-plugins-core
-          dnf config-manager --set-enabled powertools
-          dnf install -y epel-release
-          dnf groupinstall -y "Development Tools"
-          dnf install -y tar rpm-build meson nodejs npm gjs gettext libappstream-glib gobject-introspection gobject-introspection-devel gtk3-devel glib2-devel libX11-devel
+  # rpm-package:
+  #   runs-on: ubuntu-20.04
+  #   container:
+  #     image: almalinux/almalinux:8
+  #   steps:
+  #     - name: Install dependencies
+  #       run: |
+  #         su
+  #         dnf upgrade -y
+  #         dnf install -y dnf-plugins-core
+  #         dnf config-manager --set-enabled powertools
+  #         dnf install -y epel-release
+  #         dnf groupinstall -y "Development Tools"
+  #         dnf install -y tar rpm-build meson nodejs npm gjs gettext libappstream-glib gobject-introspection gobject-introspection-devel gtk3-devel glib2-devel libX11-devel
 
-      - name: GitHub Environment Variables Action
-        uses: FranzDiebold/github-env-vars-action@v1.2.1
+  #     - name: GitHub Environment Variables Action
+  #       uses: FranzDiebold/github-env-vars-action@v1.2.1
 
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          path: ${{ env.GITHUB_REPOSITORY_NAME }}
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
+  #       with:
+  #         path: ${{ env.GITHUB_REPOSITORY_NAME }}
 
-      - name: Create rpmbuild directories
-        run: |
-          mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
+  #     - name: Create rpmbuild directories
+  #       run: |
+  #         mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 
-      - name: Install npm packages
-        run: |
-          cd ${{ env.GITHUB_REPOSITORY_NAME }}
-          npm install
+  #     - name: Install npm packages
+  #       run: |
+  #         cd ${{ env.GITHUB_REPOSITORY_NAME }}
+  #         npm install
 
-      - name: Generate tarball
-        run: |
-          tar --exclude='.flatpak-builder' --exclude='.git' --exclude='build' --exclude='com.github.joseexposito.touche.yml' -czvf ~/rpmbuild/SOURCES/${{ env.GITHUB_REPOSITORY_NAME }}.tar.gz ${{ env.GITHUB_REPOSITORY_NAME }}
+  #     - name: Generate tarball
+  #       run: |
+  #         tar --exclude='.flatpak-builder' --exclude='.git' --exclude='build' --exclude='com.github.joseexposito.touche.yml' -czvf ~/rpmbuild/SOURCES/${{ env.GITHUB_REPOSITORY_NAME }}.tar.gz ${{ env.GITHUB_REPOSITORY_NAME }}
 
-      - name: Build RPM package
-        run: |
-          rpmbuild -ba ${{ env.GITHUB_REPOSITORY_NAME }}/rpm/${{ env.GITHUB_REPOSITORY_NAME }}.spec
+  #     - name: Build RPM package
+  #       run: |
+  #         rpmbuild -ba ${{ env.GITHUB_REPOSITORY_NAME }}/rpm/${{ env.GITHUB_REPOSITORY_NAME }}.spec
 
-      - name: Upload RPM package
-        uses: "actions/upload-artifact@v2"
-        with:
-          name: "${{ env.GITHUB_REPOSITORY_NAME }}-${{ env.GITHUB_REF_NAME }}-1.x86_64.rpm"
-          path: "~/rpmbuild/RPMS/x86_64/${{ env.GITHUB_REPOSITORY_NAME }}-${{ env.GITHUB_REF_NAME }}-1.x86_64.rpm"
+  #     - name: Upload RPM package
+  #       uses: "actions/upload-artifact@v2"
+  #       with:
+  #         name: "${{ env.GITHUB_REPOSITORY_NAME }}-${{ env.GITHUB_REF_NAME }}-1.x86_64.rpm"
+  #         path: "~/rpmbuild/RPMS/x86_64/${{ env.GITHUB_REPOSITORY_NAME }}-${{ env.GITHUB_REF_NAME }}-1.x86_64.rpm"
 
   create-release:
     runs-on: ubuntu-20.04
-    needs: [ build-archive, deb-package, rpm-package ]
+    # needs: [ build-archive, deb-package, rpm-package ]
+    needs: [ build-archive ]
     steps:
       - name: GitHub Environment Variables Action
         uses: FranzDiebold/github-env-vars-action@v1.2.1
@@ -160,45 +161,45 @@ jobs:
           draft: true
           prerelease: false
 
-      - name: Upload Debian package (amd64)
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: "${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_amd64.deb/${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_amd64.deb"
-          asset_name: "${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_amd64.deb"
-          asset_content_type: application/vnd.debian.binary-package
+      # - name: Upload Debian package (amd64)
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #     asset_path: "${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_amd64.deb/${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_amd64.deb"
+      #     asset_name: "${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_amd64.deb"
+      #     asset_content_type: application/vnd.debian.binary-package
 
-      - name: Upload Debian package (armhf)
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: "${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_armhf.deb/${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_armhf.deb"
-          asset_name: "${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_armhf.deb"
-          asset_content_type: application/vnd.debian.binary-package
+      # - name: Upload Debian package (armhf)
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #     asset_path: "${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_armhf.deb/${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_armhf.deb"
+      #     asset_name: "${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_armhf.deb"
+      #     asset_content_type: application/vnd.debian.binary-package
 
-      - name: Upload Debian package (arm64)
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: "${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_arm64.deb/${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_arm64.deb"
-          asset_name: "${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_arm64.deb"
-          asset_content_type: application/vnd.debian.binary-package
+      # - name: Upload Debian package (arm64)
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #     asset_path: "${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_arm64.deb/${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_arm64.deb"
+      #     asset_name: "${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_arm64.deb"
+      #     asset_content_type: application/vnd.debian.binary-package
 
-      - name: Upload RPM package
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: "${{ env.GITHUB_REPOSITORY_NAME }}-${{ env.GITHUB_REF_NAME }}-1.x86_64.rpm/${{ env.GITHUB_REPOSITORY_NAME }}-${{ env.GITHUB_REF_NAME }}-1.x86_64.rpm"
-          asset_name: "${{ env.GITHUB_REPOSITORY_NAME }}-${{ env.GITHUB_REF_NAME }}-1.x86_64.rpm"
-          asset_content_type: application/octet-stream
+      # - name: Upload RPM package
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #     asset_path: "${{ env.GITHUB_REPOSITORY_NAME }}-${{ env.GITHUB_REF_NAME }}-1.x86_64.rpm/${{ env.GITHUB_REPOSITORY_NAME }}-${{ env.GITHUB_REF_NAME }}-1.x86_64.rpm"
+      #     asset_name: "${{ env.GITHUB_REPOSITORY_NAME }}-${{ env.GITHUB_REF_NAME }}-1.x86_64.rpm"
+      #     asset_content_type: application/octet-stream
 
       - name: Upload archive
         uses: actions/upload-release-asset@v1
