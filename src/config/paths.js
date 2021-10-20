@@ -19,6 +19,15 @@
 const { GLib, Gio } = imports.gi;
 
 /**
+ * @param {string} path File path.
+ * @returns {boolean} If the file exists.
+ */
+export const fileExists = (path) => {
+  const file = Gio.File.new_for_path(path);
+  return file.query_exists(null);
+};
+
+/**
  * @returns {string} User's home directory path (~/.config/touchegg).
  */
 export const getUserConfigDirPath = () => (
@@ -35,13 +44,23 @@ export const getUserConfigFilePath = () => (
 /**
  * @returns {string} System config file path (/usr/share/touchegg/touchegg.conf).
  */
-export const getSystemConfigFilePath = () => process.env.SYSTEM_CONFIG_FILE_PATH;
+export const getSystemConfigFilePath = () => {
+  // If $XDG_CONFIG_DIRS is set, check if the config is present in one of those
+  // directories. Otherwise, fallback to /etc/xdg, as in the spec:
+  // https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
+  // Finally, fallback to SYSTEM_CONFIG_FILE_PATH for backwards compatibility.
+  let configFilePath = process.env.SYSTEM_CONFIG_FILE_PATH;
 
-/**
- * @param {string} path File path.
- * @returns {boolean} If the file exists.
- */
-export const fileExists = (path) => {
-  const file = Gio.File.new_for_path(path);
-  return file.query_exists(null);
+  const xdgConfigDirsEnvVar = GLib.getenv('XDG_CONFIG_DIRS');
+  const xdgPaths = xdgConfigDirsEnvVar ? xdgConfigDirsEnvVar.split(':') : [];
+  xdgPaths.push('/etc/xdg');
+
+  xdgPaths.forEach((path) => {
+    const confPath = GLib.build_filenamev([path, 'touchegg', 'touchegg.conf']);
+    if (fileExists(confPath)) {
+      configFilePath = confPath;
+    }
+  });
+
+  return configFilePath;
 };
