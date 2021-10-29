@@ -9,6 +9,7 @@ finish-args:
   - '--socket=wayland'
   - '--filesystem=~/.config'
   - '--filesystem=host:ro'
+  - '-device=dri'
 modules:
   - name: nodejs
     cleanup:
