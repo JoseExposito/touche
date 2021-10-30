@@ -30,6 +30,12 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.0.1" date="2021-10-30" urgency="medium">
+      <description>
+        <p>Add Flatpak GPU acceleration permision</p>
+        <p>Honor the XDG basedir specification</p>
+      </description>
+    </release>
     <release version="2.0.0" date="2021-10-15" urgency="medium">
       <description>
         <p>Migrate to GTK 4 and libadwaita</p>
