@@ -30,6 +30,7 @@ libtouche = shared_library(
   include_directories : inc,
   sources: sources,
   dependencies: dependencies,
+  soversion: '0',
   install: true
 )
 
