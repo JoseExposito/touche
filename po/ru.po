@@ -1,0 +1,219 @@
+# Copyright 2020 - 2021 José Expósito <jose.exposito89@gmail.com>
+# This file is distributed under the same license as the com.github.joseexposito.touche package.
+# Evgeniy Kukhtinov <neurofreak@altlinux.org>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/JoseExposito/touche/issues\n"
+"POT-Creation-Date: 2020-10-14 19:00+0200\n"
+"PO-Revision-Date: 2021-11-17 11:18+0700\n"
+"Last-Translator: Evgeniy Kukhtinov <neurofreak@altlinux.org>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Swipe"
+msgstr "Смахивание"
+
+msgid "Pinch"
+msgstr "Щипок"
+
+msgid "Tap"
+msgstr "Касание"
+
+#, javascript-format
+msgid "Swipe with %d fingers"
+msgstr "Смахивание %d пальцами"
+
+#, javascript-format
+msgid "Pinch with %d fingers"
+msgstr "Щипок  %d пальцами"
+
+#, javascript-format
+msgid "Tap with %d fingers"
+msgstr "Касание %d пальцами"
+
+msgid "Up"
+msgstr "Вверх"
+
+msgid "Down"
+msgstr "Вниз"
+
+msgid "Left"
+msgstr "Влево"
+
+msgid "Right"
+msgstr "Вправо"
+
+msgid "In"
+msgstr "Внутрь"
+
+msgid "Out"
+msgstr "Наружу"
+
+msgid "Unknown"
+msgstr "Неизвестное действие"
+
+msgid "Maximize or restore a window"
+msgstr "Распахнуть или восстановить окно"
+
+msgid "Minimize a window"
+msgstr "Свернуть окно"
+
+msgid "Tile a window"
+msgstr "Пристыковать окно к границам экрана"
+
+msgid "Toggle fullscreen mode"
+msgstr "Переключить в полноэкранный режим"
+
+msgid "Close a window"
+msgstr "Закрыть окно"
+
+msgid "Switch desktop"
+msgstr "Переключить рабочий стол"
+
+msgid "Show desktop"
+msgstr "Показать рабочий стол"
+
+msgid "Keyboard shortcut"
+msgstr "Комбинация клавиш"
+
+msgid "Execute a command"
+msgstr "Выполнить команду"
+
+msgid "Mouse click"
+msgstr "Клик мыши"
+
+msgid "Unknown action"
+msgstr "Неизвестное действие"
+
+msgid "Touchégg is not installed"
+msgstr "Touchegg не установлен"
+
+msgid "It looks like Touchégg is not installed, let's start by downloading it"
+msgstr "Похоже Touchegg не установлен, давайте начнём с его загрузки"
+
+msgid "Download Touchégg"
+msgstr "Скачать Touchegg"
+
+msgid "I just installed it"
+msgstr "Я только что установил это"
+
+msgid "Global gestures"
+msgstr "Глобальные жесты"
+
+msgid "Add new application"
+msgstr "Добавить новое приложение"
+
+msgid "Remove the selected application"
+msgstr "Удалить выбранное приложение"
+
+msgid "Only available on touchscreens"
+msgstr "Доступно только для сенсорных экранов"
+
+msgid ""
+"Tap gestures are only available on touchscreens. Tapping on a touchpad is "
+"not available"
+msgstr ""
+"Жесты касания доступны только на сенсорных экранах. Нажатие на тачпад "
+"недоступно"
+
+msgid "Direction:"
+msgstr "Направление:"
+
+msgid "Tile window to the left half of the screen"
+msgstr "Распахнуть окно на левую половину экрана"
+
+msgid "Tile window to the right half of the screen"
+msgstr "Распахнуть окно на правую половину экрана"
+
+msgid "Command:"
+msgstr "Команда:"
+
+msgid "Repeat command:"
+msgstr "Повтор команды:"
+
+msgid "Execute on:"
+msgstr "Выполнить в:"
+
+msgid "Gesture begin"
+msgstr "Начале жеста"
+
+msgid "Gesture end"
+msgstr "Конце жеста"
+
+msgid "Opposite command:"
+msgstr "Команда при смене направления жеста:"
+
+msgid "Run this command when the gesture goes in the opposite direction"
+msgstr ""
+"Запустить эту команду, когда жест делается в противоположном направлении"
+
+msgid "Modifiers:"
+msgstr "Модификаторы:"
+
+msgid "Keys:"
+msgstr "Клавиши:"
+
+msgid "Opposite keys:"
+msgstr "Клавиши при смене направления жеста:"
+
+msgid "Use this keys when the gesture goes in the opposite direction"
+msgstr ""
+"Использовать эти клавиши, когда жест делается в противоположном направлении"
+
+msgid "Mouse button:"
+msgstr "Кнопка мыши:"
+
+msgid "Left click"
+msgstr "Клик левой кнопкой"
+
+msgid "Right click"
+msgstr "Клик правой кнопкой"
+
+msgid "Middle click"
+msgstr "Клик средней кнопкой"
+
+msgid "Add application"
+msgstr "Добавить приложение"
+
+msgid "Add gestures for an application. Click on it's window"
+msgstr "Нажмите на окно приложения для добавления его в список"
+
+msgid "Used by GNOME"
+msgstr "Используется окружением рабочего стола GNOME"
+
+msgid "Animation:"
+msgstr "Анимация:"
+
+msgid "Arrow up"
+msgstr "Стрелка вверх"
+
+msgid "Arrow down"
+msgstr "Стрелка вниз"
+
+msgid "Arrow left"
+msgstr "Стрелка влево"
+
+msgid "Arrow right"
+msgstr "Стрелка вправо"
+
+msgid "Maximize a window"
+msgstr "Максимизировать окно"
+
+msgid "Restore a window"
+msgstr "Восстановить окно"
+
+msgid "Hide desktop"
+msgstr "Скрыть рабочий стол"
+
+msgid "Without animation"
+msgstr "Без анимации"
+
+msgid "Shortcut:"
+msgstr "Комбинация клавиш:"
+
+msgid "Click here to add shortcut"
+msgstr "Клик сюда, чтобы добавить комбинацию клавиш"
