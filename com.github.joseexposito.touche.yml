@@ -26,9 +26,9 @@ modules:
       - -Dtests=false
       - -Dexamples=false
     sources:
-      - type: archive
-        url: https://download.gnome.org/sources/libadwaita/1.0/libadwaita-1.0.0.alpha.3.tar.xz
-        sha256: 89f05fa742cabc5ea6a2c0295c34996af5ac953e9d020ace27b8e8b15cf9e050
+      - type: git
+        url: https://gitlab.gnome.org/GNOME/libadwaita.git
+        commit: 12a10b320300ec32d480c29f26ae55c1d4b2a8b7
     modules:
       - name: libsass
         sources:
