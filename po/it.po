@@ -1,13 +1,13 @@
 # Copyright 2020 - 2022 José Expósito <jose.exposito89@gmail.com>
 # This file is distributed under the same license as the com.github.joseexposito.touche package.
-# Albano Battistella <albano_battistella@hotmail.com>, 2021.
+# Albano Battistella <albano_battistella@hotmail.com>, 2021,2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/JoseExposito/touche/issues\n"
 "POT-Creation-Date: 2020-10-14 19:00+0200\n"
-"PO-Revision-Date: 2021-08-22 12:40+0200\n"
+"PO-Revision-Date: 2022-03-05 15:40+0100\n"
 "Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgid "Swipe"
 msgstr "Scorri"
 
 msgid "Pinch"
-msgstr "Pinch"
+msgstr "Pizzica"
 
 msgid "Tap"
 msgstr "Tocco"
