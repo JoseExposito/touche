@@ -1,0 +1,210 @@
+
+# Copyright 2020 - 2022 José Expósito <jose.exposito89@gmail.com>
+# This file is distributed under the same license as the com.github.joseexposito.touche package.
+# Frank Kuo <frankkuo@protonmail.com>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/JoseExposito/touche/issues\n"
+"POT-Creation-Date: 2022-03-11 17:41+0800\n"
+"PO-Revision-Date: 2022-03-11 17:41+0800\n"
+"Last-Translator: Frank Kuo <frankkuo@protonmail.com>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Add application"
+msgstr "新增應用程式"
+
+msgid "Add gestures for an application. Click on it's window"
+msgstr "為應用程式增加手勢。請點擊它的視窗"
+
+msgid "Arrow up"
+msgstr "向上箭頭"
+
+msgid "Arrow down"
+msgstr "向下箭頭"
+
+msgid "Arrow left"
+msgstr "向左箭頭"
+
+msgid "Arrow right"
+msgstr "向右箭頭"
+
+msgid "Close a window"
+msgstr "關閉視窗"
+
+msgid "Maximize a window"
+msgstr "最大化視窗"
+
+msgid "Restore a window"
+msgstr "還原視窗"
+
+msgid "Minimize a window"
+msgstr "最小化視窗"
+
+msgid "Show desktop"
+msgstr "顯示桌面"
+
+msgid "Hide desktop"
+msgstr "隱藏桌面"
+
+msgid "Tile window to the left half of the screen"
+msgstr "平鋪視窗至螢幕的左半邊"
+
+msgid "Tile window to the right half of the screen"
+msgstr "平鋪視窗至螢幕的右半邊"
+
+msgid "Without animation"
+msgstr "無動畫"
+
+msgid "Up"
+msgstr "向上"
+
+msgid "Down"
+msgstr "向下"
+
+msgid "Left"
+msgstr "向左"
+
+msgid "Right"
+msgstr "向右"
+
+msgid "In"
+msgstr "向內"
+
+msgid "Out"
+msgstr "向外"
+
+msgid "Unknown"
+msgstr "未知"
+
+msgid "Maximize or restore a window"
+msgstr "最大化或還原視窗"
+
+msgid "Tile a window"
+msgstr "平鋪視窗"
+
+msgid "Toggle fullscreen mode"
+msgstr "切換全螢幕模式"
+
+msgid "Switch desktop"
+msgstr "切換桌面"
+
+msgid "Keyboard shortcut"
+msgstr "鍵盤快捷鍵"
+
+msgid "Execute a command"
+msgstr "執行一個指令"
+
+msgid "Mouse click"
+msgstr "滑鼠點擊"
+
+msgid "Used by GNOME"
+msgstr "被 GNOME 使用"
+
+msgid "Unknown action"
+msgstr "未知的動作"
+
+msgid "Global gestures"
+msgstr "全域手勢"
+
+msgid "Add new application"
+msgstr "新增應用程式"
+
+msgid "Remove the selected application"
+msgstr "刪除選擇的應用程式"
+
+msgid "Applications"
+msgstr "應用程式"
+
+#, javascript-format
+msgid "Swipe with %d fingers"
+msgstr "滑動 %d 個手指"
+
+#, javascript-format
+msgid "Tap with %d fingers"
+msgstr "輕點 %d 個手指"
+
+msgid "Only available on touchscreens"
+msgstr "只能在觸控螢幕上使用"
+
+msgid ""
+"Tap gestures are only available on touchscreens. Tapping on a touchpad is "
+"not available"
+msgstr "輕點手勢只能在觸控螢幕上使用，不支援觸控板"
+
+msgid "Click here to add shortcut"
+msgstr "點擊此處增加快捷鍵"
+
+msgid "Shortcut:"
+msgstr "快捷鍵："
+
+msgid "Repeat command:"
+msgstr "重複指令："
+
+msgid "Execute on:"
+msgstr "執行時機："
+
+msgid "Gesture begin"
+msgstr "手勢開始"
+
+msgid "Gesture end"
+msgstr "手勢結束"
+
+msgid "Opposite keys:"
+msgstr "反向的鍵："
+
+msgid "Animation:"
+msgstr "動畫："
+
+msgid "Mouse button:"
+msgstr "滑鼠按鍵："
+
+msgid "Left click"
+msgstr "左鍵點擊"
+
+msgid "Right click"
+msgstr "右鍵點擊"
+
+msgid "Middle click"
+msgstr "中鍵點擊"
+
+msgid "Command:"
+msgstr "指令："
+
+msgid "Opposite command:"
+msgstr "反向的指令:"
+
+msgid "Run this command when the gesture goes in the opposite direction"
+msgstr "當手勢往反方向時執行此指令"
+
+msgid "Direction:"
+msgstr "方向："
+
+msgid "Swipe"
+msgstr "滑動"
+
+msgid "Pinch"
+msgstr "捏合"
+
+msgid "Tap"
+msgstr "輕點"
+
+#, javascript-format
+msgid "Pinch with %d fingers"
+msgstr "使用 %d 個手指進行捏合"
+
+msgid "Touchégg is not installed"
+msgstr "未安裝 Touchégg"
+
+msgid "It looks like Touchégg is not installed, let's start by downloading it"
+msgstr "看起來您還沒有安裝 Touchégg，請先下載它"
+
+msgid "Download Touchégg"
+msgstr "下載 Touchégg"
+
+msgid "I just installed it"
+msgstr "我剛剛安裝了它"
