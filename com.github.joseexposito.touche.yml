@@ -1,6 +1,6 @@
 app-id: com.github.joseexposito.touche
 runtime: org.gnome.Platform
-runtime-version: '41'
+runtime-version: '42'
 sdk: org.gnome.Sdk
 command: com.github.joseexposito.touche
 finish-args:
@@ -18,36 +18,6 @@ modules:
       - type: archive
         url: https://nodejs.org/dist/v14.18.0/node-v14.18.0.tar.gz
         sha256: 2272312d7eb48a28e982af395142d916385b0572380d07c89f9abd9c97810189
-
-  - name: libadwaita
-    buildsystem: meson
-    config-opts:
-      - -Dgtk_doc=false
-      - -Dtests=false
-      - -Dexamples=false
-    sources:
-      - type: git
-        url: https://gitlab.gnome.org/GNOME/libadwaita.git
-        commit: 12a10b320300ec32d480c29f26ae55c1d4b2a8b7
-    modules:
-      - name: libsass
-        sources:
-          - type: archive
-            url: https://github.com/sass/libsass/archive/refs/tags/3.6.5.tar.gz
-            sha256: 89d8f2c46ae2b1b826b58ce7dde966a176bac41975b82e84ad46b01a55080582
-          - type: script
-            dest-filename: autogen.sh
-            commands:
-              - autoreconf -si
-      - name: sassc
-        sources:
-          - type: archive
-            url: https://github.com/sass/sassc/archive/refs/tags/3.6.2.tar.gz
-            sha256: 608dc9002b45a91d11ed59e352469ecc05e4f58fc1259fc9a9f5b8f0f8348a03
-          - type: script
-            dest-filename: autogen.sh
-            commands:
-              - autoreconf -si
 
   - name: touche
     buildsystem: meson
