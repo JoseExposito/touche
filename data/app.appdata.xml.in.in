@@ -30,6 +30,11 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.0.5" date="2022-03-27" urgency="medium">
+      <description>
+        <p>Add support for GNOME 42, including dark mode</p>
+      </description>
+    </release>
     <release version="2.0.4" date="2022-03-12" urgency="medium">
       <description>
         <p>Added Chinese (traditional) translation</p>
