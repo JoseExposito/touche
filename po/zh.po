@@ -17,7 +17,7 @@ msgstr ""
 msgid "Add application"
 msgstr "添加应用程序"
 
-msgid "Add gestures for an application. Click on it's window"
+msgid "Add gestures for an application. Click on its window"
 msgstr "为应用程序添加手势. 请点击它的窗口"
 
 msgid "Arrow up"
