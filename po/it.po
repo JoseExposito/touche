@@ -177,7 +177,7 @@ msgstr "Clic centrale"
 msgid "Add application"
 msgstr "Aggiungi app"
 
-msgid "Add gestures for an application. Click on it's window"
+msgid "Add gestures for an application. Click on its window"
 msgstr "Aggiungi gesti per un'app. Fare clic sulla sua finestra"
 
 msgid "Used by GNOME"

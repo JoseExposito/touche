@@ -46,7 +46,7 @@ class AddAppView extends Gtk.Box {
     title.get_style_context().add_class('text-h2');
 
     const description = new Gtk.Label({
-      label: _('Add gestures for an application. Click on it\'s window'),
+      label: _('Add gestures for an application. Click on its window'),
       hexpand: true,
       vexpand: true,
       valign: Gtk.Align.START,

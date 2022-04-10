@@ -179,7 +179,7 @@ msgstr "Клик средней кнопкой"
 msgid "Add application"
 msgstr "Добавить приложение"
 
-msgid "Add gestures for an application. Click on it's window"
+msgid "Add gestures for an application. Click on its window"
 msgstr "Нажмите на окно приложения для добавления его в список"
 
 msgid "Used by GNOME"
