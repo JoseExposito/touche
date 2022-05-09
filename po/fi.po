@@ -1,0 +1,218 @@
+# Copyright 2020 - 2022 José Expósito <jose.exposito89@gmail.com>
+# This file is distributed under the same license as the com.github.joseexposito.touche package.
+# Heidi Wenger <heidi.wenger@protonmail.com>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/JoseExposito/touche/issues\n"
+"POT-Creation-Date: 2020-10-14 19:00+0200\n"
+"PO-Revision-Date: 2022-05-10 00:05+0100\n"
+"Last-Translator: Heidi Wenger <heidi.wenger@protonmail.com>\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Swipe"
+msgstr "Pyyhkäise"
+
+msgid "Pinch"
+msgstr "Nipistä"
+
+msgid "Tap"
+msgstr "Täppää"
+
+#, javascript-format
+msgid "Swipe with %d fingers"
+msgstr "Pyyhkäise kera %d sormen"
+
+#, javascript-format
+msgid "Pinch with %d fingers"
+msgstr "Nipistä kera %d sormen"
+
+#, javascript-format
+msgid "Tap with %d fingers"
+msgstr "Täppää kera %d sormen"
+
+msgid "Up"
+msgstr "Ylös"
+
+msgid "Down"
+msgstr "Alas"
+
+msgid "Left"
+msgstr "Vasen"
+
+msgid "Right"
+msgstr "Oikea"
+
+msgid "In"
+msgstr "Sisään"
+
+msgid "Out"
+msgstr "Ulos"
+
+msgid "Unknown"
+msgstr "Tuntematon"
+
+msgid "Maximize or restore a window"
+msgstr "Enimmäistä tai palauta ikkuna"
+
+msgid "Minimize a window"
+msgstr "Pienennä ikkuna"
+
+msgid "Tile a window"
+msgstr "Tee ikkuna laataksi"
+
+msgid "Toggle fullscreen mode"
+msgstr "Kytke kokoruututila"
+
+msgid "Close a window"
+msgstr "Sulje ikkuna"
+
+msgid "Switch desktop"
+msgstr "Vaihda työpöytä"
+
+msgid "Show desktop"
+msgstr "Näytä työpöytä"
+
+msgid "Keyboard shortcut"
+msgstr "Näppäimistöoikopolku"
+
+msgid "Execute a command"
+msgstr "Suorita käsky"
+
+msgid "Mouse click"
+msgstr "Hiirennapsautus"
+
+msgid "Unknown action"
+msgstr "Tuntematon toiminto"
+
+msgid "Touchégg is not installed"
+msgstr "Touchégg ei ole asennettu"
+
+msgid "It looks like Touchégg is not installed, let's start by downloading it"
+msgstr ""
+"Vaikuttaa siltä että Touchégg ei ole asennettuna, aloitetaanpa lataamalla se"
+
+msgid "Download Touchégg"
+msgstr "Lataa Touchegg"
+
+msgid "I just installed it"
+msgstr "Asensin sen juuri"
+
+msgid "Global gestures"
+msgstr "Yleiset eleet"
+
+msgid "Add new application"
+msgstr "Lisää uusi sovellus"
+
+msgid "Remove the selected application"
+msgstr "Poista valittu sovellus"
+
+msgid "Only available on touchscreens"
+msgstr "Tarjolla vain kosketusnäytöille"
+
+msgid ""
+"Tap gestures are only available on touchscreens. Tapping on a touchpad is "
+"not available"
+msgstr ""
+"Täppäyseleet ovat käytettävissä ainoastaan kosketusnäytöissä. Kosketuslevyn täppäämistä "
+"ei ole tarjolla"
+
+msgid "Direction:"
+msgstr "Suunta:"
+
+msgid "Tile window to the left half of the screen"
+msgstr "Laatoita ikkuna ruudun vasemmalle puoliskolle"
+
+msgid "Tile window to the right half of the screen"
+msgstr "Laatoita ikkuna ruudun oikealle puoliskolle"
+
+msgid "Command:"
+msgstr "Käsky:"
+
+msgid "Repeat command:"
+msgstr "Toista käsky:"
+
+msgid "Execute on:"
+msgstr "Suorita tässä:"
+
+msgid "Gesture begin"
+msgstr "Eleen alku"
+
+msgid "Gesture end"
+msgstr "Eleen loppu"
+
+msgid "Opposite command:"
+msgstr "Vastakkainen käsky:"
+
+msgid "Run this command when the gesture goes in the opposite direction"
+msgstr "Aja tämä komento kun ele menee vastakkaiseen suuntaan"
+
+msgid "Modifiers:"
+msgstr "Muovaajat:"
+
+msgid "Keys:"
+msgstr "Avaimet:"
+
+msgid "Opposite keys:"
+msgstr "Vastakkaisavaimet:"
+
+msgid "Use this keys when the gesture goes in the opposite direction"
+msgstr "Käytä näitä avaimia kun ele menee vastakkaiseen suuntaan"
+
+msgid "Mouse button:"
+msgstr "Hiirennappi:"
+
+msgid "Left click"
+msgstr "Napsautus vasemmalla napilla"
+
+msgid "Right click"
+msgstr "Napsautus oikealla napilla"
+
+msgid "Middle click"
+msgstr "Keskinapsautus"
+
+msgid "Add application"
+msgstr "Lisää sovellus"
+
+msgid "Add gestures for an application. Click on its window"
+msgstr "Lisää sovellukselle ele. Napsauta sen ikkunassa"
+
+msgid "Used by GNOME"
+msgstr "GNOME:n käyttämä"
+
+msgid "Animation:"
+msgstr "Animaatio:"
+
+msgid "Arrow up"
+msgstr "Nuoli ylös"
+
+msgid "Arrow down"
+msgstr "Nuoli alas"
+
+msgid "Arrow left"
+msgstr "Nuoli vasemmalle"
+
+msgid "Arrow right"
+msgstr "Nuoli oikealle"
+
+msgid "Maximize a window"
+msgstr "Enimmäistä ikkuna"
+
+msgid "Restore a window"
+msgstr "Palauta ikkuna"
+
+msgid "Hide desktop"
+msgstr "Piilota työpöytä"
+
+msgid "Without animation"
+msgstr "Ilman animaatiota"
+
+msgid "Shortcut:"
+msgstr "Oikopolku:"
+
+msgid "Click here to add shortcut"
+msgstr "Napsauta tässä lisätäksesi oikopolun"
