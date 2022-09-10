@@ -16,6 +16,14 @@
   font-weight: 700;
 }
 
+.expander-block {
+  margin: 20px 0 30px 10px;
+}
+
+.expander-block title {
+  font-weight: 700;
+}
+
 /* Touchégg not installed view */
 .download-button {
   padding: 10px 20px;
