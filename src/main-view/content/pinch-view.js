@@ -32,11 +32,22 @@ class PinchView extends Gtk.ScrolledWindow {
     this.list2 = new GestureList(title.format(2));
     this.list3 = new GestureList(title.format(3));
     this.list4 = new GestureList(title.format(4));
+    this.list5 = new GestureList(title.format(5));
 
     this.box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL });
     this.box.append(this.list2);
     this.box.append(this.list3);
     this.box.append(this.list4);
+
+    this.expander = new Gtk.Expander({ label: _('Only available on touchscreens') });
+    this.expander.set_expanded(true);
+    this.expander.add_css_class('expander-block');
+
+    this.box2 = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL });
+    this.box2.append(this.list5);
+
+    this.expander.set_child(this.box2);
+    this.box.append(this.expander);
 
     this.set_child(this.box);
   }
@@ -57,6 +68,11 @@ class PinchView extends Gtk.ScrolledWindow {
       model.getGesture(GestureType.PINCH, GestureDirection.OUT, 4, appName),
     ];
 
+    const gestures5 = [
+      model.getGesture(GestureType.PINCH, GestureDirection.IN, 5, appName),
+      model.getGesture(GestureType.PINCH, GestureDirection.OUT, 5, appName),
+    ];
+
     log('PinchView: Loading 3 fingers pinch');
     this.list2.showGestures(gestures2);
 
@@ -65,6 +81,9 @@ class PinchView extends Gtk.ScrolledWindow {
 
     log('PinchView: Loading 4 fingers pinch');
     this.list4.showGestures(gestures4);
+
+    log('PinchView: Loading 5 fingers pinch');
+    this.list5.showGestures(gestures5);
   }
 }
 
