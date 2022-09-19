@@ -40,7 +40,6 @@ class PinchView extends Gtk.ScrolledWindow {
     this.box.append(this.list4);
 
     this.expander = new Gtk.Expander({ label: _('Only available on touchscreens') });
-    this.expander.set_expanded(true);
     this.expander.add_css_class('expander-block');
 
     this.box2 = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL });
