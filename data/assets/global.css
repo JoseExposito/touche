@@ -16,11 +16,8 @@
   font-weight: 700;
 }
 
-.expander-block {
-  margin: 20px 0 30px 10px;
-}
-
 .expander-block title {
+  margin: 20px 0 20px 10px;
   font-weight: 700;
 }
 
