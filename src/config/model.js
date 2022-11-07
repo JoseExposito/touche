@@ -88,12 +88,26 @@ class Model {
       enabled,
     } = gesture;
 
-    this.addGestureFromProps(gestureType, gestureDirection, numberOfFingers, actionType,
-      actionSettings, appName, enabled);
+    this.addGestureFromProps(
+      gestureType,
+      gestureDirection,
+      numberOfFingers,
+      actionType,
+      actionSettings,
+      appName,
+      enabled,
+    );
   }
 
-  addGestureFromProps(gestureType, gestureDirection, numberOfFingers, actionType, actionSettings,
-    appNameUnsafe, enabled) {
+  addGestureFromProps(
+    gestureType,
+    gestureDirection,
+    numberOfFingers,
+    actionType,
+    actionSettings,
+    appNameUnsafe,
+    enabled,
+  ) {
     const appName = appNameUnsafe.toLowerCase();
 
     const gesture = new Gesture({

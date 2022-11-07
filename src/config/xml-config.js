@@ -206,8 +206,13 @@ class XmlConfig {
    */
   static writeFile(path, contents) {
     const file = Gio.File.new_for_path(path);
-    const [success, etag] = file.replace_contents(contents, null, false, Gio.FileCreateFlags.NONE,
-      null);
+    const [success, etag] = file.replace_contents(
+      contents,
+      null,
+      false,
+      Gio.FileCreateFlags.NONE,
+      null,
+    );
     GLib.free(etag);
 
     if (!success) {

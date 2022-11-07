@@ -16,10 +16,10 @@
  * You should have received a copy of the  GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-import GestureList from './gesture-list';
 import model from '~/config/model';
 import GestureDirection from '~/config/gesture-direction';
 import GestureType from '~/config/gesture-type';
+import GestureList from './gesture-list';
 
 const { GObject, Gtk } = imports.gi;
 
