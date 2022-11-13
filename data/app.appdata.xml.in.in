@@ -30,6 +30,12 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.0.7" date="2022-11-13" urgency="medium">
+      <description>
+        <p>Allow to configure touchscreen gestures: 2 and 5 fingers swipe and pinch</p>
+        <p>Update Flatpak runtime to GNOME 43</p>
+      </description>
+    </release>
     <release version="2.0.6" date="2022-05-18" urgency="medium">
       <description>
         <p>Added Finnish translation</p>
