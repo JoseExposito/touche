@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the Touché package.
 # gregorni <gregorniehl@web.de>, 2022.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.0\n"
