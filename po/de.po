@@ -1,0 +1,213 @@
+# German translation for the Touché's package.
+# Copyright (C) 2022 THE Touché'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Touché package.
+# gregorni <gregorniehl@web.de>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/JoseExposito/touche/issues\n"
+"POT-Creation-Date: 2022-12-25 12:39+0100\n"
+"PO-Revision-Date: 2022-12-25 12:56+0100\n"
+"Last-Translator: gregorni <gregorniehl@web.de>\n"
+"Language-Team: German <gnome-de@gnome.org>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Maximize or restore a window"
+msgstr "Fenster maximieren oder wiederherstellen"
+
+msgid "Minimize a window"
+msgstr "Fenster minimieren"
+
+msgid "Tile a window"
+msgstr "Fenster kacheln"
+
+msgid "Toggle fullscreen mode"
+msgstr "Vollbildmodus "
+
+msgid "Close a window"
+msgstr "Fenster schließen"
+
+msgid "Switch desktop"
+msgstr "Desktop wechseln"
+
+msgid "Show desktop"
+msgstr "Desktop anzeigen"
+
+msgid "Keyboard shortcut"
+msgstr "Tastenkürzel"
+
+msgid "Execute a command"
+msgstr "Einen Befehl ausführen"
+
+msgid "Mouse click"
+msgstr "Mausklick"
+
+msgid "Used by GNOME"
+msgstr "Wird von GNOME benutzt"
+
+msgid "Unknown action"
+msgstr "Unbekannte Aktion"
+
+msgid "Up"
+msgstr "Hoch"
+
+msgid "Down"
+msgstr "Runter"
+
+msgid "Left"
+msgstr "Links"
+
+msgid "Right"
+msgstr "Rechts"
+
+msgid "In"
+msgstr "Rein"
+
+msgid "Out"
+msgstr "Raus"
+
+msgid "Unknown"
+msgstr "Unbekannt"
+
+msgid "Arrow up"
+msgstr "Pfeil nach oben"
+
+msgid "Arrow down"
+msgstr "Pfeil nach unten"
+
+msgid "Arrow left"
+msgstr "Pfeil nach links"
+
+msgid "Arrow right"
+msgstr "Pfeil nach rechts"
+
+msgid "Maximize a window"
+msgstr "Fenster maximieren"
+
+msgid "Restore a window"
+msgstr "Fenster wiederherstellen"
+
+msgid "Hide desktop"
+msgstr "Desktop ausblenden"
+
+msgid "Tile window to the left half of the screen"
+msgstr "Fenster an die linke Hälfte des Bildschirms kacheln"
+
+msgid "Tile window to the right half of the screen"
+msgstr "Fenster an die rechte Hälfte des Bildschirms kacheln"
+
+msgid "Without animation"
+msgstr "Ohne Animation"
+
+msgid "Global gestures"
+msgstr "Globale Gesten"
+
+msgid "Add new application"
+msgstr "Neue Anwendung hinzufügen"
+
+msgid "Remove the selected application"
+msgstr "Ausgewählte Anwendung entfernen"
+
+msgid "Applications"
+msgstr "Anwendungen"
+
+msgid "Direction:"
+msgstr "Richtung:"
+
+msgid "Mouse button:"
+msgstr "Maustaste:"
+
+msgid "Left click"
+msgstr "Linksklick"
+
+msgid "Right click"
+msgstr "Rechtsklick"
+
+msgid "Middle click"
+msgstr "Mittelklick"
+
+msgid "Execute on:"
+msgstr "Ausführen bei"
+
+msgid "Gesture begin"
+msgstr "Begin der Geste"
+
+msgid "Gesture end"
+msgstr "Ende der Geste"
+
+msgid "Shortcut:"
+msgstr "Tastenkürzel:"
+
+msgid "Repeat command:"
+msgstr "Befehl wiederholen:"
+
+msgid "Opposite keys:"
+msgstr "Gegensätzliches Tastenkürzel:"
+
+msgid "Animation:"
+msgstr "Animation:"
+
+msgid "Command:"
+msgstr "Befehl:"
+
+msgid "Opposite command:"
+msgstr "Gegensätzlicher Befehl:"
+
+msgid "Run this command when the gesture goes in the opposite direction"
+msgstr "Diesen Befehl ausführen, wenn die Geste in die entgegengesetzte Richtung ausgeführt wird"
+
+msgid "Click here to add shortcut"
+msgstr "Tastenkürzel hinzufügen"
+
+#, javascript-format
+msgid "Swipe with %d fingers"
+msgstr "Mit %d Fingern wischen"
+
+msgid "Only available on touchscreens"
+msgstr "Nur auf Touchscreens verfügbar"
+
+#, javascript-format
+msgid "Pinch with %d fingers"
+msgstr "Mit %d Fingern Kneifen"
+
+#, javascript-format
+msgid "Tap with %d fingers"
+msgstr "Mit %d Finger tippen"
+
+msgid ""
+"Tap gestures are only available on touchscreens. Tapping on a touchpad is "
+"not available"
+msgstr ""
+"Tippgesten sind nur auf Touchscreens verfügbar. Tippgesten auf Touchpads "
+"sind nicht verfügbar."
+
+msgid "Swipe"
+msgstr "Wischen"
+
+msgid "Pinch"
+msgstr "Kneifen"
+
+msgid "Tap"
+msgstr "Tippen"
+
+msgid "Touchégg is not installed"
+msgstr "Touchégg ist nicht installiert"
+
+msgid "It looks like Touchégg is not installed, let's start by downloading it"
+msgstr "Es sieht aus, als wäre Touchégg nicht installiert."
+
+msgid "Download Touchégg"
+msgstr "Touchégg herunterladen"
+
+msgid "I just installed it"
+msgstr "Touchégg ist bereits installiert"
+
+msgid "Add application"
+msgstr "Anwendung hinzufügen"
+
+msgid "Add gestures for an application. Click on its window"
+msgstr "Gesten für eine Anwendung hinzufügen. Klicken Sie auf ihr Fenster."
