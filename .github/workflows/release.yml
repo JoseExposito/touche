@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: ${{ github.workspace }}/touche
 
@@ -28,13 +28,13 @@ jobs:
           sha256sum archive.tar.gz > ARCHIVE-SHA256SUM
 
       - name: Upload archive artifact
-        uses: "actions/upload-artifact@v2"
+        uses: "actions/upload-artifact@v3"
         with:
           name: "archive.tar.gz"
           path: "${{ github.workspace }}/archive.tar.gz"
 
       - name: Upload archive checksum artifact
-        uses: "actions/upload-artifact@v2"
+        uses: "actions/upload-artifact@v3"
         with:
           name: "ARCHIVE-SHA256SUM"
           path: "${{ github.workspace }}/ARCHIVE-SHA256SUM"
@@ -86,7 +86,7 @@ jobs:
   #         dpkg_buildpackage_opts: "--no-sign --no-check-builddeps --post-clean"
 
   #     - name: Upload Debian package artifacts
-  #       uses: "actions/upload-artifact@v2"
+  #       uses: "actions/upload-artifact@v3"
   #       with:
   #         name: "${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_${{matrix.target_arch}}.deb"
   #         path: "${{ github.workspace }}/artifacts/${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_${{matrix.target_arch}}.deb"
@@ -110,7 +110,7 @@ jobs:
   #       uses: FranzDiebold/github-env-vars-action@v1.2.1
 
   #     - name: Checkout code
-  #       uses: actions/checkout@v2
+  #       uses: actions/checkout@v3
   #       with:
   #         path: ${{ env.GITHUB_REPOSITORY_NAME }}
 
@@ -132,7 +132,7 @@ jobs:
   #         rpmbuild -ba ${{ env.GITHUB_REPOSITORY_NAME }}/rpm/${{ env.GITHUB_REPOSITORY_NAME }}.spec
 
   #     - name: Upload RPM package
-  #       uses: "actions/upload-artifact@v2"
+  #       uses: "actions/upload-artifact@v3"
   #       with:
   #         name: "${{ env.GITHUB_REPOSITORY_NAME }}-${{ env.GITHUB_REF_NAME }}-1.x86_64.rpm"
   #         path: "~/rpmbuild/RPMS/x86_64/${{ env.GITHUB_REPOSITORY_NAME }}-${{ env.GITHUB_REF_NAME }}-1.x86_64.rpm"
