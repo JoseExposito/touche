@@ -1,0 +1,215 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-07 14:19+0300\n"
+"PO-Revision-Date: 2023-02-07 14:54+0300\n"
+"Last-Translator: Osman Karagöz <osmank3@gmail.com>\n"
+"Language-Team: \n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.2.2\n"
+
+msgid "Add new application"
+msgstr "Yeni uygulama ekle"
+
+msgid "Remove the selected application"
+msgstr "Seçilen uygulamayı sil"
+
+msgid "Applications"
+msgstr "Uygulamalar"
+
+msgid "Global gestures"
+msgstr "Genel Hareketler"
+
+msgid "Swipe"
+msgstr "Kaydırma"
+
+msgid "Pinch"
+msgstr "Çimdik"
+
+msgid "Tap"
+msgstr "Dokunma"
+
+#, javascript-format
+msgid "Swipe with %d fingers"
+msgstr "%d parmakla kaydırma"
+
+msgid "Only available on touchscreens"
+msgstr "Sacede dokunmatik ekranlarda çalışır"
+
+#, javascript-format
+msgid "Tap with %d fingers"
+msgstr "%d parmakla dokunma"
+
+msgid ""
+"Tap gestures are only available on touchscreens. Tapping on a touchpad is "
+"not available"
+msgstr ""
+"Dokunma hareketleri sadece dokunmatik ekranlarda çalışır. Dokunmatik "
+"yüzeyleri desteklemez"
+
+msgid "Direction:"
+msgstr "Yön:"
+
+msgid "Tile window to the left half of the screen"
+msgstr "Pencereyi ekranın sol yarısına kapla"
+
+msgid "Tile window to the right half of the screen"
+msgstr "Pencereyi ekranın sağ yarısına kapla"
+
+msgid "Mouse button:"
+msgstr "Fare düğmesi:"
+
+msgid "Left click"
+msgstr "Sol tık"
+
+msgid "Right click"
+msgstr "Sağ tık"
+
+msgid "Middle click"
+msgstr "Orta tıklama"
+
+msgid "Execute on:"
+msgstr "Çalıştır:"
+
+msgid "Gesture begin"
+msgstr "Hareket başlangıcı"
+
+msgid "Gesture end"
+msgstr "Hareket bitişi"
+
+msgid "Shortcut:"
+msgstr "Kısayol:"
+
+msgid "Repeat command:"
+msgstr "Komut yenileme:"
+
+msgid "Opposite keys:"
+msgstr "Zıt tuşlar:"
+
+msgid "Animation:"
+msgstr "Canlandırma:"
+
+msgid "Command:"
+msgstr "Komut:"
+
+msgid "Opposite command:"
+msgstr "Zıt komut:"
+
+msgid "Run this command when the gesture goes in the opposite direction"
+msgstr "Bu komut, hareket ters yönde gerçekleşince çalışır"
+
+msgid "Click here to add shortcut"
+msgstr "Kısayol eklemek için buraya tıklayın"
+
+#, javascript-format
+msgid "Pinch with %d fingers"
+msgstr "%d parmakla çimdikle"
+
+msgid "Up"
+msgstr "Yukarıya"
+
+msgid "Down"
+msgstr "Aşağıya"
+
+msgid "Left"
+msgstr "Sola"
+
+msgid "Right"
+msgstr "Sağa"
+
+msgid "In"
+msgstr "İçeriye"
+
+msgid "Out"
+msgstr "Dışarıya"
+
+msgid "Unknown"
+msgstr "Bilinmeyen"
+
+msgid "Maximize or restore a window"
+msgstr "Pencereyi büyüt veya göster"
+
+msgid "Minimize a window"
+msgstr "Pencereyi küçüt"
+
+msgid "Tile a window"
+msgstr "Pencereyi kapla"
+
+msgid "Toggle fullscreen mode"
+msgstr "Tam ekran kipini değiştir"
+
+msgid "Close a window"
+msgstr "Pencereyi kapat"
+
+msgid "Switch desktop"
+msgstr "Masaüstünü değiştir"
+
+msgid "Show desktop"
+msgstr "Masaüstünü göster"
+
+msgid "Keyboard shortcut"
+msgstr "Klavye Kısayolları"
+
+msgid "Execute a command"
+msgstr "Bir komut çalıştır"
+
+msgid "Mouse click"
+msgstr "Fare tıklaması"
+
+msgid "Used by GNOME"
+msgstr "GNOME tarafından kullanılır"
+
+msgid "Unknown action"
+msgstr "Bilinmeyen eylem"
+
+msgid "Arrow up"
+msgstr "Yukarıya ok"
+
+msgid "Arrow down"
+msgstr "Aşağıya ok"
+
+msgid "Arrow left"
+msgstr "Sola ok"
+
+msgid "Arrow right"
+msgstr "Sağa ok"
+
+msgid "Maximize a window"
+msgstr "Pencereyi büyüt"
+
+msgid "Restore a window"
+msgstr "Pencereyi göster"
+
+msgid "Hide desktop"
+msgstr "Masaüstünü gizle"
+
+msgid "Without animation"
+msgstr "Canlandırma yok"
+
+msgid "Add application"
+msgstr "Uygulama ekle"
+
+msgid "Add gestures for an application. Click on its window"
+msgstr "Uygulamaya hareketler eklemek için penceresine tıkla"
+
+msgid "Touchégg is not installed"
+msgstr "Touchégg kurulmamış"
+
+msgid "It looks like Touchégg is not installed, let's start by downloading it"
+msgstr ""
+"Görünüşe göre Touchégg uygulaması kurulmamış, hadi onu indirerek başlayalım"
+
+msgid "Download Touchégg"
+msgstr "Touchégg'i indir"
+
+msgid "I just installed it"
+msgstr "Şimdi indirdim"
