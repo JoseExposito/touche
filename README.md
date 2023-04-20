@@ -30,7 +30,7 @@ Easily configure your touchpad and touchscreen multi-touch gestures using
 
 <div align="center">
   <a href='https://flathub.org/apps/details/com.github.joseexposito.touche'>
-    <img width='240' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.png'/>
+    <img width='240' alt='Download on Flathub' src='https://dl.flathub.org/assets/badges/flathub-badge-en.png'/>
   </a>
 
   Or download a package for [Arch Linux](https://aur.archlinux.org/packages/touche)
