@@ -1,0 +1,211 @@
+# German translation for the Touché's package.
+# Copyright (C) 2022 THE Touché'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Touché package.
+# gregorni <gregorniehl@web.de>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/JoseExposito/touche/issues\n"
+"POT-Creation-Date: 2022-12-25 12:39+0100\n"
+"PO-Revision-Date: 2023-04-30 18:12+0200\n"
+"Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
+"Language-Team: Dutch <vistausss@fastmail.com>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.2.2\n"
+
+msgid "Maximize or restore a window"
+msgstr "Venster maximaliseren/herstellen"
+
+msgid "Minimize a window"
+msgstr "Venster minimaliseren"
+
+msgid "Tile a window"
+msgstr "Venster tegelen"
+
+msgid "Toggle fullscreen mode"
+msgstr "Schermvullende modus aan/uit"
+
+msgid "Close a window"
+msgstr "Venster sluiten"
+
+msgid "Switch desktop"
+msgstr "Naar ander bureaublad"
+
+msgid "Show desktop"
+msgstr "Bureaublad tonen"
+
+msgid "Keyboard shortcut"
+msgstr "Sneltoets"
+
+msgid "Execute a command"
+msgstr "Opdracht uitvoeren"
+
+msgid "Mouse click"
+msgstr "Muisklik"
+
+msgid "Used by GNOME"
+msgstr "In gebruik door GNOME"
+
+msgid "Unknown action"
+msgstr "Onbekende actie"
+
+msgid "Up"
+msgstr "Omhoog"
+
+msgid "Down"
+msgstr "Omlaag"
+
+msgid "Left"
+msgstr "Links"
+
+msgid "Right"
+msgstr "Rechts"
+
+msgid "In"
+msgstr "In"
+
+msgid "Out"
+msgstr "Uit"
+
+msgid "Unknown"
+msgstr "Onbekend"
+
+msgid "Arrow up"
+msgstr "Pijltje omhoog"
+
+msgid "Arrow down"
+msgstr "Pijltje omlaag"
+
+msgid "Arrow left"
+msgstr "Pijltje naar links"
+
+msgid "Arrow right"
+msgstr "Pijltje naar rechts"
+
+msgid "Maximize a window"
+msgstr "Venster maximaliseren"
+
+msgid "Restore a window"
+msgstr "Venster herstellen"
+
+msgid "Hide desktop"
+msgstr "Bureaublad verbergen"
+
+msgid "Tile window to the left half of the screen"
+msgstr "Venster op linkerkant van scherm tegelen"
+
+msgid "Tile window to the right half of the screen"
+msgstr "Venster op rechterkant van scherm tegelen"
+
+msgid "Without animation"
+msgstr "Zonder animatie"
+
+msgid "Global gestures"
+msgstr "Algemene gebaren"
+
+msgid "Add new application"
+msgstr "Toepassing toevoegen"
+
+msgid "Remove the selected application"
+msgstr "Gekozen toepassing verwijderen"
+
+msgid "Applications"
+msgstr "Toepassingen"
+
+msgid "Direction:"
+msgstr "Richting:"
+
+msgid "Mouse button:"
+msgstr "Muisknop:"
+
+msgid "Left click"
+msgstr "Linksklikken"
+
+msgid "Right click"
+msgstr "Rechtsklikken"
+
+msgid "Middle click"
+msgstr "Middelklikken"
+
+msgid "Execute on:"
+msgstr "Uitvoeren op:"
+
+msgid "Gesture begin"
+msgstr "Aan begin van gebaar"
+
+msgid "Gesture end"
+msgstr "Aan einde van gebaar"
+
+msgid "Shortcut:"
+msgstr "Sneltoets:"
+
+msgid "Repeat command:"
+msgstr "Opdracht herhalen:"
+
+msgid "Opposite keys:"
+msgstr "Tegenovergestelde toetsen:"
+
+msgid "Animation:"
+msgstr "Animatie:"
+
+msgid "Command:"
+msgstr "Opdracht:"
+
+msgid "Opposite command:"
+msgstr "Tegenovergestelde opdracht:"
+
+msgid "Run this command when the gesture goes in the opposite direction"
+msgstr "Voer deze opdracht uit als het gebaar in de tegenovergestelde richting wordt gemaakt"
+
+msgid "Click here to add shortcut"
+msgstr "Klik om sneltoets toe te voegen"
+
+#, javascript-format
+msgid "Swipe with %d fingers"
+msgstr "Vegen met %d vingers"
+
+msgid "Only available on touchscreens"
+msgstr "Alleen beschikbaar op touchscreens"
+
+#, javascript-format
+msgid "Pinch with %d fingers"
+msgstr "Knijpen met %d vingers"
+
+#, javascript-format
+msgid "Tap with %d fingers"
+msgstr "Tikken met %d vingers"
+
+msgid "Tap gestures are only available on touchscreens. Tapping on a touchpad is not available"
+msgstr "Tikgebaren zijn alleen beschikbaar op touchscreens, niet op touchpads."
+
+msgid "Swipe"
+msgstr "Vegen"
+
+msgid "Pinch"
+msgstr "Knijpen"
+
+msgid "Tap"
+msgstr "Tikken"
+
+msgid "Touchégg is not installed"
+msgstr "Touchégg is niet geïnstalleerd"
+
+msgid "It looks like Touchégg is not installed, let's start by downloading it"
+msgstr "Het lijkt er op dat Touchégg niet geïnstalleerd is. Download de toepassing."
+
+msgid "Download Touchégg"
+msgstr "Touchégg downloaden"
+
+msgid "I just installed it"
+msgstr "Ik heb Touchégg net geïnstalleerd"
+
+msgid "Add application"
+msgstr "Toepassing toevoegen"
+
+msgid "Add gestures for an application. Click on its window"
+msgstr "Stel gebaren binnen een toepassing in. Klik op het toepassingsvenster."
