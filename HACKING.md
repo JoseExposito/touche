@@ -49,7 +49,7 @@ First, install the required npm dependencies and the GNOME runtime and SDK:
 
 ```bash
 $ npm install
-$ flatpak install flathub org.gnome.Platform//43 org.gnome.Sdk//43
+$ flatpak install flathub org.gnome.Platform//44 org.gnome.Sdk//44
 ```
 
 Finally, install Touché using:
