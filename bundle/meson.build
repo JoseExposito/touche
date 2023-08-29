@@ -4,7 +4,7 @@ gnome = import('gnome')
 message('Building the application entry point: ' + join_paths(get_option('bindir'), meson.project_name()))
 
 bin_conf = configuration_data()
-bin_conf.set('GJS', gjs_bin.path())
+bin_conf.set('GJS', gjs_bin.full_path())
 bin_conf.set('PACKAGE_VERSION', meson.project_version())
 bin_conf.set('PROJECT_NAME', meson.project_name())
 bin_conf.set('prefix', get_option('prefix'))
@@ -29,9 +29,9 @@ app_bundle = custom_target(
   build_always_stale: true,
   command: [
     node_bin,
-    join_paths(meson.source_root(), 'bundle', 'scripts', 'build.js'),
-    meson.source_root(),
-    join_paths(meson.build_root(), '@OUTDIR@'),
+    join_paths(meson.project_source_root(), 'bundle', 'scripts', 'build.js'),
+    meson.project_source_root(),
+    join_paths(meson.project_build_root(), '@OUTDIR@'),
     get_option('buildtype'),
     meson.project_name(),
     get_option('flatpak'),
