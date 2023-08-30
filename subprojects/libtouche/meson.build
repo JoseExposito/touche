@@ -1,6 +1,6 @@
 project(
   'libtouche',
-  'cpp',
+  ['cpp', 'c'],
   version: '2.0.0', # Warning: If you increase this version remember to change src/pkg-init.js
   meson_version: '>= 0.56.0'
 )
