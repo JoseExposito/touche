@@ -30,6 +30,12 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.0.10" date="2023-09-02" urgency="medium">
+      <description>
+        <p>Update Flatpak runtime to GNOME 44</p>
+        <p>Workaround a meson error breaking AUR installation</p>
+      </description>
+    </release>
     <release version="2.0.9" date="2023-05-02" urgency="medium">
       <description>
         <p>Added Dutch translation</p>
