@@ -110,8 +110,9 @@ class SendKeysRowSettings extends Gtk.Grid {
     this.attach(repeatLabel, 0, 1, 1, 1);
     this.attach(this.repeatSwitch, 1, 1, 1, 1);
     this.repeatChanged(isRepeatActive);
-    this.attach(this.animationLabel, 0, 3, 1, 1);
-    this.attach(this.animationCombo, 1, 3, 1, 1);
+    // No need to add them here, added by `repeatChanged`:
+    // this.attach(this.animationLabel, 0, 3, 1, 1);
+    // this.attach(this.animationCombo, 1, 3, 1, 1);
   }
 
   repeatChanged(isRepeatActive) {
