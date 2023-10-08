@@ -132,11 +132,11 @@ class RunCommandRowSettings extends Gtk.Grid {
   getSettings() {
     const actionSettings = {
       command: this.commandEntry.text,
-      repeat: this.repeatSwitch.get_active(),
+      repeat: JSON.stringify(this.repeatSwitch.get_active()),
       animation: this.animationCombo.getAnimationType(),
     };
 
-    if (actionSettings.repeat) {
+    if (this.repeatSwitch.get_active()) {
       actionSettings.decreaseCommand = this.oppositeCommandEntry.text;
     } else {
       actionSettings.on = this.onBeginEndCombo.active_id;

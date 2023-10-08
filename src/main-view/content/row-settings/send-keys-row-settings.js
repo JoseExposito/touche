@@ -135,11 +135,11 @@ class SendKeysRowSettings extends Gtk.Grid {
     const actionSettings = {
       modifiers: SendKeysRowSettings.arrayToKeySettings(this.shortcutButton.getModifiers()),
       keys: SendKeysRowSettings.arrayToKeySettings(this.shortcutButton.getKeys()),
-      repeat: this.repeatSwitch.get_active(),
+      repeat: JSON.stringify(this.repeatSwitch.get_active()),
       animation: this.animationCombo.getAnimationType(),
     };
 
-    if (actionSettings.repeat) {
+    if (this.repeatSwitch.get_active()) {
       actionSettings.decreaseKeys = SendKeysRowSettings.arrayToKeySettings([
         ...this.oppositeShortcutButton.getModifiers(),
         ...this.oppositeShortcutButton.getKeys(),
