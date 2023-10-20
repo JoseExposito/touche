@@ -21,17 +21,24 @@ import { ALL_ID, isAll } from '~/config/all-apps';
 import Sidebar from './sidebar';
 import Content from './content';
 
-const { GObject, Gtk } = imports.gi;
+const { Adw, GObject } = imports.gi;
 
-class MainView extends Gtk.Paned {
+class MainView extends Adw.Bin {
   _init() {
-    super._init({ orientation: Gtk.Orientation.HORIZONTAL });
+    super._init();
 
     this.sidebar = new Sidebar();
     this.content = new Content();
 
-    this.set_start_child(this.sidebar);
-    this.set_end_child(this.content);
+    this.splitView = new Adw.NavigationSplitView({
+      hexpand: true,
+      vexpand: true,
+      min_sidebar_width: 250,
+      sidebar_width_fraction: 0.3,
+    });
+    this.splitView.set_sidebar(this.sidebar);
+    this.splitView.set_content(this.content);
+    this.child = this.splitView;
 
     this.sidebar.connect('appSelected', (self, appName) => this.content.appSelected(appName));
     this.sidebar.connect('addApp', () => this.emit('addApp'));

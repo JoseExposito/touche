@@ -22,14 +22,15 @@ import SidebarRow from './sidebar-row';
 
 const { Adw, GObject, Gtk } = imports.gi;
 
-class Sidebar extends Gtk.Box {
+class Sidebar extends Adw.NavigationPage {
   _init() {
-    super._init({ orientation: Gtk.Orientation.VERTICAL });
+    super._init();
 
     // Add the application list inside a scroll window
     this.list = new Gtk.ListBox();
     this.list.selection_mode = Gtk.SelectionMode.BROWSE;
     this.list.vexpand = true;
+    this.list.get_style_context().add_class('navigation-sidebar');
 
     const scrolled = new Gtk.ScrolledWindow();
     scrolled.vexpand = true;
@@ -56,11 +57,11 @@ class Sidebar extends Gtk.Box {
     header.set_title_widget(new Adw.WindowTitle({ title: _('Applications') }));
 
     // Layout
-    this.append(header);
-    this.append(scrolled);
-    this.append(footer);
-    this.set_size_request(200, -1);
-    this.baseline_position = Gtk.BaselinePosition.BOTTOM;
+    this.toolbar = new Adw.ToolbarView();
+    this.toolbar.add_top_bar(header);
+    this.toolbar.set_content(scrolled);
+    this.toolbar.add_bottom_bar(footer);
+    this.set_child(this.toolbar);
 
     this.list.connect('row_selected', (self, row) => {
       if (!row) {

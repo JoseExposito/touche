@@ -23,9 +23,9 @@ import TapView from './tap-view';
 
 const { Adw, GObject, Gtk } = imports.gi;
 
-class Content extends Gtk.Box {
+class Content extends Adw.NavigationPage {
   _init() {
-    super._init({ orientation: Gtk.Orientation.VERTICAL });
+    super._init();
     this.appSelected = this.appSelected.bind(this);
 
     // Stack
@@ -52,9 +52,10 @@ class Content extends Gtk.Box {
     header.set_title_widget(this.stackSwitcher);
 
     // Layout
-    this.append(header);
-    this.append(this.stack);
-    this.set_size_request(200, -1);
+    this.toolbar = new Adw.ToolbarView();
+    this.toolbar.add_top_bar(header);
+    this.toolbar.set_content(this.stack);
+    this.set_child(this.toolbar);
   }
 
   appSelected(appName) {
