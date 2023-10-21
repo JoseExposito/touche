@@ -21,7 +21,7 @@ import GestureDirection from '~/config/gesture-direction';
 import GestureType from '~/config/gesture-type';
 import GestureList from './gesture-list';
 
-const { GObject, Gtk } = imports.gi;
+const { Adw, GObject, Gtk } = imports.gi;
 
 class PinchView extends Gtk.ScrolledWindow {
   _init() {
@@ -48,7 +48,8 @@ class PinchView extends Gtk.ScrolledWindow {
     this.expander.set_child(this.box2);
     this.box.append(this.expander);
 
-    this.set_child(this.box);
+    const clamp = new Adw.Clamp({ child: this.box });
+    this.set_child(clamp);
   }
 
   showGestures(appName) {

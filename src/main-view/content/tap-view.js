@@ -21,7 +21,7 @@ import GestureDirection from '~/config/gesture-direction';
 import GestureType from '~/config/gesture-type';
 import GestureList from './gesture-list';
 
-const { GObject, Gtk } = imports.gi;
+const { Adw, GObject, Gtk } = imports.gi;
 
 class TapView extends Gtk.ScrolledWindow {
   _init() {
@@ -36,7 +36,8 @@ class TapView extends Gtk.ScrolledWindow {
     this.box.append(this.list);
     this.box.append(helpLabel);
 
-    this.set_child(this.box);
+    const clamp = new Adw.Clamp({ child: this.box });
+    this.set_child(clamp);
   }
 
   showGestures(appName) {
