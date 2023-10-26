@@ -94,7 +94,7 @@ class Sidebar extends Adw.NavigationPage {
     const appNames = model.getAppNames();
     appNames.forEach((appName) => {
       const icon = Gtk.Image.new_from_icon_name('input-touchpad');
-      icon.icon_size = Gtk.IconSize.LARGE;
+      icon.icon_size = Gtk.IconSize.MEDIUM;
       const row = new SidebarRow(appName, icon);
       this.list.append(row);
 

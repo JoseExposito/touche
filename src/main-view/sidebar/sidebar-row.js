@@ -26,14 +26,10 @@ class SidebarRow extends Gtk.ListBoxRow {
     this.appName = appName;
 
     const label = new Gtk.Label({ label: SidebarRow.displayName(appName) });
-    label.get_style_context().add_class('text-h3');
     label.set_margin_start(8);
 
     this.box = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL });
-    this.box.set_margin_top(8);
-    this.box.set_margin_bottom(8);
     this.box.set_margin_start(8);
-    this.box.set_margin_end(8);
     this.box.append(icon);
     this.box.append(label);
 
