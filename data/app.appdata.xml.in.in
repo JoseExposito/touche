@@ -22,11 +22,11 @@
   <screenshots>
     <screenshot type="default">
       <caption>Touché main window</caption>
-      <image type="source" width="1022" height="794">https://raw.githubusercontent.com/JoseExposito/touche/master/.github/images/adwaita.png</image>
+      <image type="source" width="1022" height="813">https://raw.githubusercontent.com/JoseExposito/touche/master/.github/images/adwaita.png</image>
     </screenshot>
     <screenshot>
       <caption>Touché main window in dark mode</caption>
-      <image type="source" width="1022" height="794">https://raw.githubusercontent.com/JoseExposito/touche/master/.github/images/adwaita-dark.png</image>
+      <image type="source" width="1022" height="813">https://raw.githubusercontent.com/JoseExposito/touche/master/.github/images/adwaita-dark.png</image>
     </screenshot>
   </screenshots>
   <releases>
