@@ -219,3 +219,9 @@ msgstr "Atajo de teclado:"
 
 msgid "Applications"
 msgstr "Aplicaciones"
+
+msgid "Back"
+msgstr "Atrás"
+
+msgid "Forward"
+msgstr "Adelante"
