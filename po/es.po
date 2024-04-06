@@ -225,3 +225,13 @@ msgstr "Atrás"
 
 msgid "Forward"
 msgstr "Adelante"
+
+msgid "Using Wayland"
+msgstr "Se está utilizando Wayland"
+
+msgid ""
+"Touché and Touchégg are designed to work on X11. Some actions might or might "
+"not work on Wayland."
+msgstr ""
+"Touché y Touchégg fueron diseñados para funcionar en X11. Algunas "
+"configuraciones podrían no funcionar en Wayland."

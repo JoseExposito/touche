@@ -21,7 +21,7 @@ import { ALL_ID, isAll } from '~/config/all-apps';
 import Sidebar from './sidebar';
 import Content from './content';
 
-const { Adw, GObject } = imports.gi;
+const { Adw, GLib, GObject } = imports.gi;
 
 class MainView extends Adw.Bin {
   _init() {
@@ -43,6 +43,8 @@ class MainView extends Adw.Bin {
     this.sidebar.connect('appSelected', (self, appName) => this.content.appSelected(appName));
     this.sidebar.connect('addApp', () => this.emit('addApp'));
     this.sidebar.connect('removeApp', (self, appName) => this.removeApp(appName));
+
+    this.warnAboutWayland();
   }
 
   showAppGestures(appName) {
@@ -59,6 +61,19 @@ class MainView extends Adw.Bin {
     model.removeApplication(appName);
     model.saveToFile();
     this.showAppGestures(ALL_ID);
+  }
+
+  warnAboutWayland() {
+    if (GLib.getenv('XDG_SESSION_TYPE').toLowerCase() !== 'wayland') {
+      return;
+    }
+
+    const dialog = new Adw.AlertDialog({
+      heading: _('Using Wayland'),
+      body: _('Touché and Touchégg are designed to work on X11. Some actions might or might not work on Wayland.'),
+    });
+    dialog.add_response('ok', 'OK');
+    dialog.present(this);
   }
 }
 
