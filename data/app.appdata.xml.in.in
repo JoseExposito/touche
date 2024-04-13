@@ -10,6 +10,7 @@
   <project_license>@PROJECT_LICENSE@</project_license>
   <content_rating type="oars-1.0"/>
   <developer_name>José Expósito</developer_name>
+  <launchable type="desktop-id">com.github.joseexposito.touche.desktop</launchable>
   <name>Touché</name>
   <summary>Multi-touch Gestures</summary>
   <description>
