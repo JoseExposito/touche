@@ -30,6 +30,12 @@
     </screenshot>
   </screenshots>
   <releases>
+  <release version="2.0.12" date="2024-04-13" urgency="medium">
+      <description>
+        <p>Warn about Wayland usage. Touché and Touchégg are X11-only tools</p>
+        <p>Update Flatpak runtime to GNOME 46</p>
+      </description>
+    </release>
     <release version="2.0.11" date="2023-10-28" urgency="medium">
       <description>
         <p>The user interface has been redesigned for GNOME 45</p>

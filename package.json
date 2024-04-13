@@ -1,6 +1,6 @@
 {
   "name": "com.github.joseexposito.touche",
-  "version": "2.0.11",
+  "version": "2.0.12",
   "description": "Easily configure your touchpad and touchscreen multi-touch gestures using Touchégg with this GTK graphical user interface",
   "author": "José Expósito",
   "license": "GPL-3.0-or-later",
