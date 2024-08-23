@@ -64,7 +64,9 @@ class MainView extends Adw.Bin {
   }
 
   warnAboutWayland() {
-    if (GLib.getenv('XDG_SESSION_TYPE').toLowerCase() !== 'wayland') {
+    const sessionType = GLib.getenv('XDG_SESSION_TYPE');
+
+    if (!sessionType || sessionType.toLowerCase() !== 'wayland') {
       return;
     }
 
