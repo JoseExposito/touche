@@ -35,6 +35,11 @@
     <color type="primary" scheme_preference="dark">#427381</color>
   </branding>
   <releases>
+    <release version="2.0.14" date="2024-08-23" urgency="medium">
+      <description>
+        <p>Install the SVG icon in the scalable folder and PNG icons otherwise</p>
+      </description>
+    </release>
     <release version="2.0.13" date="2024-08-23" urgency="medium">
       <description>
         <p>Add missing metada to validate to app on Flathub</p>
