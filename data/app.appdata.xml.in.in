@@ -35,7 +35,13 @@
     <color type="primary" scheme_preference="dark">#427381</color>
   </branding>
   <releases>
-  <release version="2.0.12" date="2024-04-13" urgency="medium">
+    <release version="2.0.13" date="2024-08-23" urgency="medium">
+      <description>
+        <p>Add missing metada to validate to app on Flathub</p>
+        <p>Fix crash when XDG_SESSION_TYPE is not set</p>
+      </description>
+    </release>
+    <release version="2.0.12" date="2024-04-13" urgency="medium">
       <description>
         <p>Warn about Wayland usage. Touché and Touchégg are X11-only tools</p>
         <p>Update Flatpak runtime to GNOME 46</p>
