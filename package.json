@@ -32,7 +32,7 @@
     "meson:release": "meson setup build --prefix=/usr --buildtype=release",
     "ninja:build": "ninja -C build",
     "ninja:install": "ninja -C build install",
-    "gjs:run": "gjs ./build/install/bin/com.github.joseexposito.touche",
+    "gjs:run": "LD_LIBRARY_PATH=$(pwd)/build/install/lib64 GI_TYPELIB_PATH=$(pwd)/build/install/lib64/girepository-1.0 gjs ./build/install/bin/com.github.joseexposito.touche",
     "translate": "node bundle/scripts/translate.js",
     "lint": "eslint --ext .js,.mjs src",
     "test": "echo \"Error: no test specified\" && exit 1"
