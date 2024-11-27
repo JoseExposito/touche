@@ -68,6 +68,7 @@ class SendKeysRowSettings extends Gtk.Grid {
     });
     this.onBeginEndCombo.append('begin', _('Gesture begin'));
     this.onBeginEndCombo.append('end', _('Gesture end'));
+    this.onBeginEndCombo.append('begin-and-end', _('Gesture begin and end'));
     this.onBeginEndCombo.active_id = gesture?.actionSettings?.on ?? 'begin';
 
     // When repeat is true, display the opposite direction keys
