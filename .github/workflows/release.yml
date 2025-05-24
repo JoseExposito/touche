@@ -11,7 +11,7 @@ on:
 jobs:
 
   build-archive:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -40,7 +40,7 @@ jobs:
           path: "${{ github.workspace }}/ARCHIVE-SHA256SUM"
 
   # deb-package:
-  #   runs-on: ubuntu-20.04
+  #   runs-on: ubuntu-24.04
   #   needs: [ build-archive ]
   #   env:
   #     target_docker_image: debian:buster-backports
@@ -53,7 +53,7 @@ jobs:
   #       uses: FranzDiebold/github-env-vars-action@v1.2.1
 
   #     - name: Download archive
-  #       uses: "actions/download-artifact@v2"
+  #       uses: "actions/download-artifact@v4"
   #       with:
   #         name: archive.tar.gz
 
@@ -92,7 +92,7 @@ jobs:
   #         path: "${{ github.workspace }}/artifacts/${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_${{matrix.target_arch}}.deb"
 
   # rpm-package:
-  #   runs-on: ubuntu-20.04
+  #   runs-on: ubuntu-24.04
   #   container:
   #     image: almalinux/almalinux:8
   #   steps:
@@ -138,7 +138,7 @@ jobs:
   #         path: "~/rpmbuild/RPMS/x86_64/${{ env.GITHUB_REPOSITORY_NAME }}-${{ env.GITHUB_REF_NAME }}-1.x86_64.rpm"
 
   create-release:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     # needs: [ build-archive, deb-package, rpm-package ]
     needs: [ build-archive ]
     steps:
@@ -146,7 +146,7 @@ jobs:
         uses: FranzDiebold/github-env-vars-action@v1.2.1
 
       - name: Download packages
-        uses: "actions/download-artifact@v2"
+        uses: "actions/download-artifact@v4"
         with:
           path: ./
 
