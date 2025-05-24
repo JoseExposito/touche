@@ -38,7 +38,7 @@
     <release version="2.0.15" date="2025-05-24" urgency="medium">
       <description>
         <p>Add on "begin-and-end" option</p>
-        <p>Update Flatpak runtime to GNOME 45</p>
+        <p>Update Flatpak runtime to GNOME 48</p>
       </description>
     </release>
     <release version="2.0.14" date="2024-08-23" urgency="medium">
