@@ -7,6 +7,9 @@ on:
   push:
     tags:
       - '*'
+  release:
+    types: [published]
+  workflow_dispatch:
 
 jobs:
 
@@ -15,13 +18,22 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          path: ${{ github.workspace }}/touche
 
       - name: Build archive
         run: |
-          cd ${{ github.workspace }}/touche
+          # run archive from repository root
+          cd ${{ github.workspace }}
           npm run archive
+
+      - name: List workspace after archive
+        run: |
+          echo "Workspace content:"; ls -la ${{ github.workspace }}
+
+      - name: Fail if archive missing
+        run: |
+          if [ ! -f "${{ github.workspace }}/archive.tar.gz" ]; then
+            echo "archive.tar.gz not found in workspace"; ls -la ${{ github.workspace }}; exit 1
+          fi
 
       - name: Generate checksum
         run: |
@@ -39,57 +51,121 @@ jobs:
           name: "ARCHIVE-SHA256SUM"
           path: "${{ github.workspace }}/ARCHIVE-SHA256SUM"
 
-  # deb-package:
-  #   runs-on: ubuntu-24.04
-  #   needs: [ build-archive ]
-  #   env:
-  #     target_docker_image: debian:buster-backports
-  #     target_distribution: buster
-  #   strategy:
-  #     matrix:
-  #       target_arch: ["amd64", "armhf", "arm64"]
-  #   steps:
-  #     - name: GitHub Environment Variables Action
-  #       uses: FranzDiebold/github-env-vars-action@v1.2.1
+  deb-package:
+    name: Build Debian Package
+    runs-on: ubuntu-24.04
 
-  #     - name: Download archive
-  #       uses: "actions/download-artifact@v4"
-  #       with:
-  #         name: archive.tar.gz
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-  #     - name: Extract archive
-  #       run: |
-  #         tar -xf archive.tar.gz
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential debhelper meson python3-setuptools dh-make desktop-file-utils gtk-update-icon-cache
+          sudo apt-get install -y \
+            appstream \
+            appstream-util \
+            debhelper-compat \
+            desktop-file-utils \
+            gjs \
+            gobject-introspection \
+            hicolor-icon-theme \
+            libgirepository1.0-dev \
+            libglib2.0-dev-bin \
+            libgtk-3-dev \
+            libx11-dev \
+            meson \
+            node-babel-loader \
+            nodejs \
+            npm
 
-  #     - name: Patch target distribution in Debian changelog
-  #       # touche (x.y.z) DISTRO; urgency=medium
-  #       # -z to replace only the first occurrence
-  #       # -i to update the file
-  #       # ([)] ) - Group 0, find the first ") "
-  #       # (\w+)  - Group 1, find a word (DISTRO)
-  #       # \1${{ env.target_distribution }} - Replace group 1 with the target distribution name
-  #       run: |
-  #         sed -zri "s/([)] )(\w+)/\1${{ env.target_distribution }}/" ${{ github.workspace }}/debian/changelog
+      - name: Build .deb package
+        run: |
+          DPKG_DEB_COMPRESSOR_TYPE=gzip dpkg-buildpackage -us -uc -nc
+          mv ../*.deb .
 
-  #     - name: Build Debian package
-  #       uses: pi-top/action-debian-package@v0.2.2
-  #       with:
-  #         source_directory: "${{ github.workspace }}"
-  #         artifacts_directory: "${{ github.workspace }}/artifacts"
+      - name: Upload .deb as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: deb-package
+          path: "**/*.deb"
 
-  #         docker_image: ${{ env.target_docker_image }}
-  #         distribution: ${{ env.target_distribution }}
-  #         target_architecture: ${{ matrix.target_arch }}
+      - name: Upload .deb to GitHub Release (only for releases)
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: "*.deb"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  #         lintian_opts: "--dont-check-part nmu --no-tag-display-limit --display-info --show-overrides"
-  #         # Package uses latest packaging syntax and Lintian opts/tags
-  #         dpkg_buildpackage_opts: "--no-sign --no-check-builddeps --post-clean"
+  deb-package-arm64:
+    name: Build Debian Package (ARM64)
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-  #     - name: Upload Debian package artifacts
-  #       uses: "actions/upload-artifact@v4"
-  #       with:
-  #         name: "${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_${{matrix.target_arch}}.deb"
-  #         path: "${{ github.workspace }}/artifacts/${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_${{matrix.target_arch}}.deb"
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build .deb inside arm64 container
+        run: |
+          cat > /tmp/build-arm64.sh <<'SH'
+          #!/bin/bash
+          set -e
+          export DEBIAN_FRONTEND=noninteractive
+          apt-get update
+          # Install a minimal set of tools and certificates
+          apt-get install -y --no-install-recommends ca-certificates gnupg dirmngr
+          apt-get install -y --no-install-recommends \
+            build-essential debhelper meson python3-setuptools dh-make desktop-file-utils gtk-update-icon-cache \
+            appstream appstream-util debhelper-compat gjs gobject-introspection hicolor-icon-theme \
+            libgirepository1.0-dev libglib2.0-dev-bin libgtk-3-dev libx11-dev meson nodejs npm
+
+          # Build the package for arm64
+          DPKG_DEB_COMPRESSOR_TYPE=gzip dpkg-buildpackage -us -uc -nc -aarm64
+
+          # Move resulting .deb files into the mounted workspace so Actions can pick them up
+          mv ../*.deb /work/
+          SH
+
+          chmod +x /tmp/build-arm64.sh
+
+          docker run --rm --platform linux/arm64 \
+            -v "$GITHUB_WORKSPACE":/work \
+            -v /tmp/build-arm64.sh:/build-arm64.sh:ro \
+            -w /work \
+            debian:bookworm-slim /bin/bash /build-arm64.sh
+
+      - name: Upload .deb (ARM64) as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: deb-package-arm64
+          path: "**/*.deb"
+
+      - name: List workspace after ARM build
+        run: |
+          echo "Workspace content:"; ls -la ${{ github.workspace }}
+
+      - name: Fail if no deb found
+        run: |
+          set -e
+          if ! ls ${{ github.workspace }}/*.deb >/dev/null 2>&1 && ! ls ${{ github.workspace }}/**/*.deb >/dev/null 2>&1; then
+            echo "No .deb found in workspace:"; ls -la ${{ github.workspace }}; exit 1
+          fi
+
+      - name: Upload .deb (ARM64) to GitHub Release (only for releases)
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: "*.deb"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
   # rpm-package:
   #   runs-on: ubuntu-24.04
@@ -140,7 +216,7 @@ jobs:
   create-release:
     runs-on: ubuntu-24.04
     # needs: [ build-archive, deb-package, rpm-package ]
-    needs: [ build-archive ]
+    needs: [ build-archive, deb-package, deb-package-arm64 ]
     steps:
       - name: GitHub Environment Variables Action
         uses: FranzDiebold/github-env-vars-action@v1.2.1
@@ -160,6 +236,28 @@ jobs:
           release_name: ${{ env.GITHUB_REF_NAME }}
           draft: true
           prerelease: false
+
+      - name: Upload .deb artifacts to Release (deb-package)
+        if: always()
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: "deb-package/*.deb"
+          asset_name: "${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}.deb"
+          asset_content_type: application/vnd.debian.binary-package
+
+      - name: Upload .deb artifacts to Release (deb-package-arm64)
+        if: always()
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: "deb-package-arm64/*.deb"
+          asset_name: "${{ env.GITHUB_REPOSITORY_NAME }}_${{ env.GITHUB_REF_NAME }}_arm64.deb"
+          asset_content_type: application/vnd.debian.binary-package
 
       # - name: Upload Debian package (amd64)
       #   uses: actions/upload-release-asset@v1

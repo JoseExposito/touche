@@ -1,3 +1,9 @@
+touche (2.0.15) noble; urgency=medium
+
+  * Update version number
+
+ -- Archisman Panigrahi <apandada1@gmail.com>  Sun, 14 Sep 2025 12:00:00 +0100
+
 touche (1.0.7) focal; urgency=medium
 
   * Configure your keyboard shortcuts easily

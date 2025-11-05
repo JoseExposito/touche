@@ -2,3 +2,11 @@
 
 %:
 	dh $@
+
+override_dh_auto_build:
+	npm ci
+	dh_auto_build
+
+override_dh_clean:
+	rm -rf node_modules
+	dh_clean
