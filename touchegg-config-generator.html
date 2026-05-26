@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Touchégg Config Generator</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #1e1e2e;
+      color: #cdd6f4;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #181825;
+      border-bottom: 1px solid #313244;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    header h1 { font-size: 1.35rem; color: #cba6f7; }
+    header p  { font-size: 0.8rem; color: #585b70; margin-top: 3px; }
+
+    .header-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: opacity 0.15s;
+    }
+    .btn:hover { opacity: 0.8; }
+    .btn-primary  { background: #cba6f7; color: #1e1e2e; }
+    .btn-secondary{ background: #313244; color: #cdd6f4; }
+    .btn-danger   { background: #f38ba8; color: #1e1e2e; }
+    .btn-sm { padding: 4px 10px; font-size: 0.8rem; }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 20px;
+    }
+
+    .card {
+      background: #181825;
+      border: 1px solid #313244;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid #313244;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+    }
+    .card-header h2 { font-size: 0.95rem; color: #89b4fa; }
+    .card-header .chevron { color: #585b70; font-size: 0.8rem; transition: transform 0.2s; }
+    .card-header.collapsed .chevron { transform: rotate(-90deg); }
+
+    .card-body { padding: 20px; }
+    .card-body.hidden { display: none; }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 16px;
+    }
+
+    .form-group { display: flex; flex-direction: column; gap: 5px; }
+    label { font-size: 0.82rem; color: #a6adc8; }
+    .hint { font-size: 0.75rem; color: #585b70; }
+
+    input, select, textarea {
+      background: #313244;
+      border: 1px solid #45475a;
+      border-radius: 6px;
+      color: #cdd6f4;
+      padding: 7px 10px;
+      font-size: 0.875rem;
+      width: 100%;
+      font-family: inherit;
+    }
+    input:focus, select:focus { outline: none; border-color: #cba6f7; }
+
+    /* Gesture table */
+    .app-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      padding: 12px 20px;
+      border-bottom: 1px solid #313244;
+    }
+
+    .app-tab {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      background: #313244;
+      color: #a6adc8;
+      border: 1px solid transparent;
+    }
+    .app-tab.active {
+      background: #45475a;
+      color: #cba6f7;
+      border-color: #cba6f7;
+    }
+
+    .table-wrap { padding: 0 20px 20px; overflow-x: auto; }
+
+    table { width: 100%; border-collapse: collapse; }
+    th {
+      text-align: left;
+      padding: 10px 12px;
+      font-size: 0.75rem;
+      color: #585b70;
+      border-bottom: 1px solid #313244;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+    td {
+      padding: 9px 12px;
+      border-bottom: 1px solid #1e1e2e;
+      font-size: 0.875rem;
+      vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      font-family: monospace;
+      white-space: nowrap;
+    }
+    .badge-blue   { background: #1e3a5f; color: #89b4fa; }
+    .badge-purple { background: #2d1f4e; color: #cba6f7; }
+    .badge-gray   { background: #313244; color: #a6adc8; }
+
+    .empty-state {
+      text-align: center;
+      padding: 48px 20px;
+      color: #45475a;
+    }
+    .empty-state .icon { font-size: 2.5rem; margin-bottom: 10px; }
+
+    /* Modal */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 16px;
+    }
+
+    .modal {
+      background: #1e1e2e;
+      border: 1px solid #313244;
+      border-radius: 12px;
+      padding: 24px;
+      width: 520px;
+      max-width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal h3 { font-size: 1.05rem; color: #cba6f7; margin-bottom: 20px; }
+
+    .modal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .modal-grid .span-2 { grid-column: 1 / -1; }
+
+    .divider {
+      border: none;
+      border-top: 1px solid #313244;
+      margin: 16px 0;
+    }
+
+    .param-section h4 {
+      font-size: 0.82rem;
+      color: #a6adc8;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    /* XML preview */
+    .xml-pre {
+      background: #11111b;
+      border-radius: 6px;
+      padding: 16px;
+      font-family: 'Courier New', Consolas, monospace;
+      font-size: 0.78rem;
+      line-height: 1.65;
+      white-space: pre;
+      overflow: auto;
+      max-height: 420px;
+      color: #cdd6f4;
+      tab-size: 2;
+    }
+
+    .td-actions { white-space: nowrap; display: flex; gap: 6px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Touchégg Config Generator</h1>
+    <p>Build a touchegg.conf without needing the Touché GUI app</p>
+  </div>
+  <div class="header-actions">
+    <button class="btn btn-secondary" onclick="loadDefaults()">Load Defaults</button>
+    <button class="btn btn-primary" onclick="downloadConfig()">&#11015; Download touchegg.conf</button>
+  </div>
+</header>
+
+<main>
+
+  <!-- Settings -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <h2>&#9881; Global Settings</h2>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="card-body">
+      <div class="grid-4">
+        <div class="form-group">
+          <label>Animation Delay (ms)</label>
+          <input type="number" id="cfg_animation_delay" value="150" min="0" max="2000">
+          <span class="hint">Delay before animation shows</span>
+        </div>
+        <div class="form-group">
+          <label>Action Execute Threshold (%)</label>
+          <input type="number" id="cfg_action_execute_threshold" value="20" min="0" max="100">
+          <span class="hint">% of screen needed to trigger</span>
+        </div>
+        <div class="form-group">
+          <label>Animation Color</label>
+          <input type="text" id="cfg_color" value="auto" placeholder="auto or hex e.g. 415E9B">
+          <span class="hint">"auto" uses accent color</span>
+        </div>
+        <div class="form-group">
+          <label>Border Color</label>
+          <input type="text" id="cfg_borderColor" value="auto" placeholder="auto or hex e.g. 415E9B">
+          <span class="hint">"auto" uses accent color</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gestures -->
+  <div class="card">
+    <div class="card-header" style="cursor:default">
+      <h2>&#9995; Gestures</h2>
+      <button class="btn btn-primary btn-sm" onclick="openModal()">+ Add Gesture</button>
+    </div>
+
+    <div class="app-tabs" id="appTabs">
+      <div class="app-tab active" data-app="All" onclick="setAppFilter('All', this)">All Apps</div>
+    </div>
+
+    <div class="table-wrap">
+      <div id="emptyState" class="empty-state" style="display:none">
+        <div class="icon">&#9995;</div>
+        <div>No gestures yet — click <strong>+ Add Gesture</strong> or <strong>Load Defaults</strong> to start.</div>
+      </div>
+      <table id="gestureTable">
+        <thead>
+          <tr>
+            <th>App</th>
+            <th>Type</th>
+            <th>Fingers</th>
+            <th>Direction</th>
+            <th>Action</th>
+            <th>Parameters</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="gestureTbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- XML Preview -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <h2>&#128196; XML Preview</h2>
+      <span class="chevron">&#9660;</span>
+    </div>
+    <div class="card-body">
+      <pre class="xml-pre" id="xmlPreview"></pre>
+    </div>
+  </div>
+
+</main>
+
+<!-- Add / Edit Modal -->
+<div class="overlay" id="modalOverlay" style="display:none" onclick="overlayClick(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <h3 id="modalTitle">Add Gesture</h3>
+
+    <div class="modal-grid">
+      <div class="form-group span-2">
+        <label>Application</label>
+        <input type="text" id="f_app" value="All" placeholder="All  or  org.gnome.Nautilus  etc.">
+        <span class="hint">Use "All" for global gestures, or the WM_CLASS of a specific app (run <code>xprop WM_CLASS</code> then click the window)</span>
+      </div>
+
+      <div class="form-group">
+        <label>Gesture Type</label>
+        <select id="f_type" onchange="syncDirections()">
+          <option value="SWIPE">SWIPE</option>
+          <option value="PINCH">PINCH</option>
+          <option value="TAP">TAP</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Fingers</label>
+        <select id="f_fingers">
+          <option value="2">2</option>
+          <option value="3" selected>3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Direction</label>
+        <select id="f_direction"></select>
+      </div>
+
+      <div class="form-group">
+        <label>Action</label>
+        <select id="f_action" onchange="syncParams()">
+          <option value="MAXIMIZE_RESTORE_WINDOW">Maximize / Restore Window</option>
+          <option value="MINIMIZE_WINDOW">Minimize Window</option>
+          <option value="TILE_WINDOW">Tile Window (snap left/right)</option>
+          <option value="FULLSCREEN_WINDOW">Fullscreen Window</option>
+          <option value="CLOSE_WINDOW">Close Window</option>
+          <option value="CHANGE_DESKTOP">Change Desktop / Workspace</option>
+          <option value="SHOW_DESKTOP">Show Desktop</option>
+          <option value="RUN_COMMAND">Run Command</option>
+          <option value="SEND_KEYS">Send Keys (keyboard shortcut)</option>
+          <option value="MOVE_WINDOW">Move Window</option>
+          <option value="RESIZE_WINDOW">Resize Window</option>
+          <option value="MOUSE_CLICK">Mouse Click</option>
+          <option value="SCROLL">Scroll</option>
+          <option value="BROWSER_HISTORY">Browser History (Back/Forward)</option>
+          <option value="SWITCH_WINDOWS">Switch Windows (Alt+Tab)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Animation Color <span style="color:#585b70">(optional)</span></label>
+        <input type="text" id="f_color" placeholder="auto or hex e.g. 415E9B">
+      </div>
+    </div>
+
+    <div id="paramSection" style="display:none">
+      <hr class="divider">
+      <div class="param-section">
+        <h4>Action Parameters</h4>
+        <div id="paramFields" class="modal-grid"></div>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveGesture()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Data ────────────────────────────────────────────────────────────────────
+
+let gestures = [];   // array of gesture objects
+let editIdx  = -1;   // -1 = new gesture
+let appFilter = 'All';
+
+// ── Lookup tables ───────────────────────────────────────────────────────────
+
+const DIRECTIONS = {
+  SWIPE: ['UP','DOWN','LEFT','RIGHT','ANY'],
+  PINCH: ['IN','OUT','ANY'],
+  TAP:   ['ANY'],
+};
+
+// Each entry: array of { id, label, type ('select'|'text'|'number'), options?, placeholder?, hint? }
+const PARAMS = {
+  TILE_WINDOW: [
+    { id:'direction', label:'Tile Direction', type:'select',
+      options:['left','right'] }
+  ],
+  CHANGE_DESKTOP: [
+    { id:'direction', label:'Direction', type:'select',
+      options:['previous','next','above','below','left','right'] }
+  ],
+  RUN_COMMAND: [
+    { id:'command', label:'Command', type:'text',
+      placeholder:'e.g. xdotool key super+h', hint:'Shell command to execute' },
+    { id:'repeat', label:'Repeat while held', type:'select',
+      options:['false','true'] }
+  ],
+  SEND_KEYS: [
+    { id:'keys', label:'Keys (XDotool format)', type:'text',
+      placeholder:'e.g. super+Left  or  ctrl+alt+t', hint:'Key combo in xdotool syntax' },
+    { id:'repeat', label:'Repeat while held', type:'select',
+      options:['false','true'] }
+  ],
+  MOUSE_CLICK: [
+    { id:'button', label:'Mouse Button', type:'select',
+      options:['1','2','3'], hint:'1=left  2=middle  3=right' }
+  ],
+  SCROLL: [
+    { id:'direction', label:'Scroll Mode', type:'select',
+      options:['natural','inverted'] },
+    { id:'speed', label:'Speed', type:'number',
+      placeholder:'5', hint:'Multiplier (default 5)' }
+  ],
+  BROWSER_HISTORY: [
+    { id:'action', label:'History Direction', type:'select',
+      options:['BACK','FORWARD'] }
+  ],
+};
+
+// Human-readable action labels (same order as select options)
+const ACTION_LABELS = {
+  MAXIMIZE_RESTORE_WINDOW: 'Maximize / Restore',
+  MINIMIZE_WINDOW:         'Minimize',
+  TILE_WINDOW:             'Tile Window',
+  FULLSCREEN_WINDOW:       'Fullscreen',
+  CLOSE_WINDOW:            'Close Window',
+  CHANGE_DESKTOP:          'Change Desktop',
+  SHOW_DESKTOP:            'Show Desktop',
+  RUN_COMMAND:             'Run Command',
+  SEND_KEYS:               'Send Keys',
+  MOVE_WINDOW:             'Move Window',
+  RESIZE_WINDOW:           'Resize Window',
+  MOUSE_CLICK:             'Mouse Click',
+  SCROLL:                  'Scroll',
+  BROWSER_HISTORY:         'Browser History',
+  SWITCH_WINDOWS:          'Switch Windows',
+};
+
+// ── Modal helpers ───────────────────────────────────────────────────────────
+
+function syncDirections() {
+  const type = val('f_type');
+  const sel  = document.getElementById('f_direction');
+  const dirs = DIRECTIONS[type] || ['ANY'];
+  sel.innerHTML = dirs.map(d => `<option value="${d}">${d}</option>`).join('');
+}
+
+function syncParams() {
+  const action  = val('f_action');
+  const defs    = PARAMS[action];
+  const section = document.getElementById('paramSection');
+  const fields  = document.getElementById('paramFields');
+
+  if (!defs || defs.length === 0) {
+    section.style.display = 'none';
+    fields.innerHTML = '';
+    return;
+  }
+
+  section.style.display = '';
+  fields.innerHTML = defs.map(p => {
+    const inner = p.type === 'select'
+      ? `<select id="p_${p.id}">${p.options.map(o=>`<option>${o}</option>`).join('')}</select>`
+      : `<input type="${p.type}" id="p_${p.id}" placeholder="${p.placeholder||''}">`;
+    return `
+      <div class="form-group">
+        <label>${h(p.label)}</label>
+        ${inner}
+        ${p.hint ? `<span class="hint">${h(p.hint)}</span>` : ''}
+      </div>`;
+  }).join('');
+}
+
+function openModal(idx = -1) {
+  editIdx = idx;
+  document.getElementById('modalTitle').textContent = idx === -1 ? 'Add Gesture' : 'Edit Gesture';
+
+  if (idx === -1) {
+    set('f_app',      'All');
+    set('f_type',     'SWIPE');
+    set('f_fingers',  '3');
+    set('f_color',    '');
+    syncDirections();
+    set('f_direction','UP');
+    set('f_action',   'MAXIMIZE_RESTORE_WINDOW');
+    syncParams();
+  } else {
+    const g = gestures[idx];
+    set('f_app',      g.app);
+    set('f_type',     g.type);
+    syncDirections();
+    set('f_direction',g.direction);
+    set('f_fingers',  g.fingers);
+    set('f_action',   g.action);
+    set('f_color',    g.color || '');
+    syncParams();
+    // Re-fill param values
+    Object.entries(g.params || {}).forEach(([k,v]) => {
+      const el = document.getElementById('p_'+k);
+      if (el) el.value = v;
+    });
+  }
+
+  document.getElementById('modalOverlay').style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').style.display = 'none';
+}
+
+function overlayClick(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+function saveGesture() {
+  const action = val('f_action');
+  const params = {};
+  (PARAMS[action] || []).forEach(p => {
+    const el = document.getElementById('p_'+p.id);
+    if (el && el.value.trim()) params[p.id] = el.value.trim();
+  });
+
+  const g = {
+    app:       val('f_app').trim() || 'All',
+    type:      val('f_type'),
+    fingers:   val('f_fingers'),
+    direction: val('f_direction'),
+    action,
+    color:     val('f_color').trim(),
+    params,
+  };
+
+  if (editIdx === -1) gestures.push(g);
+  else                gestures[editIdx] = g;
+
+  closeModal();
+  render();
+}
+
+function deleteGesture(idx) {
+  if (!confirm('Delete this gesture?')) return;
+  gestures.splice(idx, 1);
+  render();
+}
+
+// ── App filter tabs ─────────────────────────────────────────────────────────
+
+function setAppFilter(app, el) {
+  appFilter = app;
+  document.querySelectorAll('.app-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderTable();
+}
+
+function rebuildAppTabs() {
+  const apps = [...new Set(gestures.map(g => g.app))].filter(a => a !== 'All');
+  const container = document.getElementById('appTabs');
+
+  // Keep "All Apps" tab, rebuild the rest
+  container.innerHTML = `<div class="app-tab${appFilter==='All'?' active':''}" data-app="All" onclick="setAppFilter('All',this)">All Apps</div>`;
+  apps.forEach(app => {
+    container.innerHTML += `<div class="app-tab${appFilter===app?' active':''}" data-app="${h(app)}" onclick="setAppFilter('${app.replace(/'/g,"\\'")}',this)">${h(app)}</div>`;
+  });
+
+  // If current filter app was removed, reset
+  if (appFilter !== 'All' && !apps.includes(appFilter)) {
+    appFilter = 'All';
+    container.querySelector('.app-tab').classList.add('active');
+  }
+}
+
+// ── Render ──────────────────────────────────────────────────────────────────
+
+function render() {
+  rebuildAppTabs();
+  renderTable();
+  renderXML();
+}
+
+function renderTable() {
+  const tbody   = document.getElementById('gestureTbody');
+  const table   = document.getElementById('gestureTable');
+  const empty   = document.getElementById('emptyState');
+  const visible = gestures.filter(g =>
+    appFilter === 'All' ? true : g.app === appFilter
+  );
+
+  if (visible.length === 0) {
+    table.style.display = 'none';
+    empty.style.display = '';
+  } else {
+    table.style.display = '';
+    empty.style.display = 'none';
+  }
+
+  tbody.innerHTML = visible.map(g => {
+    const idx = gestures.indexOf(g);
+    const paramStr = Object.entries(g.params || {})
+      .filter(([,v]) => v).map(([k,v]) => `${k}=${v}`).join('  ');
+    return `
+      <tr>
+        <td><span class="badge badge-blue">${h(g.app)}</span></td>
+        <td><span class="badge badge-purple">${h(g.type)}</span></td>
+        <td style="text-align:center">${h(g.fingers)}</td>
+        <td><span class="badge badge-gray">${h(g.direction)}</span></td>
+        <td>${h(ACTION_LABELS[g.action] || g.action)}</td>
+        <td style="color:#585b70;font-size:0.8rem;font-family:monospace">${h(paramStr)}</td>
+        <td>
+          <div class="td-actions">
+            <button class="btn btn-secondary btn-sm" onclick="openModal(${idx})">Edit</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteGesture(${idx})">Del</button>
+          </div>
+        </td>
+      </tr>`;
+  }).join('');
+}
+
+// ── XML generation ──────────────────────────────────────────────────────────
+
+function generateXML() {
+  const cfg = {
+    animation_delay:          document.getElementById('cfg_animation_delay').value,
+    action_execute_threshold: document.getElementById('cfg_action_execute_threshold').value,
+    color:                    document.getElementById('cfg_color').value,
+    borderColor:              document.getElementById('cfg_borderColor').value,
+  };
+
+  let x = `<?xml version="1.0" encoding="UTF-8"?>\n<touchégg>\n`;
+  x += `  <settings>\n`;
+  Object.entries(cfg).forEach(([k,v]) => {
+    x += `    <property name="${k}">${v}</property>\n`;
+  });
+  x += `  </settings>\n`;
+
+  // Group by app, "All" first
+  const byApp = {};
+  gestures.forEach(g => {
+    (byApp[g.app] = byApp[g.app] || []).push(g);
+  });
+  const appOrder = ['All', ...Object.keys(byApp).filter(a => a !== 'All')];
+
+  appOrder.filter(a => byApp[a]).forEach(app => {
+    x += `\n  <application name="${app}">\n`;
+    byApp[app].forEach(g => {
+      x += `    <gesture type="${g.type}" fingers="${g.fingers}" direction="${g.direction}">\n`;
+      x += `      <action type="${g.action}">\n`;
+      Object.entries(g.params || {}).forEach(([k,v]) => {
+        if (v) x += `        <${k}>${v}</${k}>\n`;
+      });
+      if (g.color && g.color !== 'auto' && g.color !== '') {
+        x += `        <color>${g.color}</color>\n`;
+        x += `        <animate>true</animate>\n`;
+      }
+      x += `      </action>\n`;
+      x += `    </gesture>\n`;
+    });
+    x += `  </application>\n`;
+  });
+
+  x += `</touchégg>\n`;
+  return x;
+}
+
+function renderXML() {
+  document.getElementById('xmlPreview').textContent = generateXML();
+}
+
+function downloadConfig() {
+  const xml  = generateXML();
+  const blob = new Blob([xml], { type: 'application/xml; charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const a    = Object.assign(document.createElement('a'), { href: url, download: 'touchegg.conf' });
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ── Defaults ─────────────────────────────────────────────────────────────────
+
+function loadDefaults() {
+  if (gestures.length > 0 && !confirm('Replace current gestures with the defaults?')) return;
+  gestures = [
+    { app:'All', type:'SWIPE', fingers:'3', direction:'UP',    action:'MAXIMIZE_RESTORE_WINDOW', color:'', params:{} },
+    { app:'All', type:'SWIPE', fingers:'3', direction:'DOWN',  action:'MINIMIZE_WINDOW',         color:'', params:{} },
+    { app:'All', type:'SWIPE', fingers:'3', direction:'LEFT',  action:'CHANGE_DESKTOP',          color:'', params:{ direction:'previous' } },
+    { app:'All', type:'SWIPE', fingers:'3', direction:'RIGHT', action:'CHANGE_DESKTOP',          color:'', params:{ direction:'next'     } },
+    { app:'All', type:'SWIPE', fingers:'4', direction:'UP',    action:'SHOW_DESKTOP',            color:'', params:{} },
+    { app:'All', type:'SWIPE', fingers:'4', direction:'DOWN',  action:'SHOW_DESKTOP',            color:'', params:{} },
+    { app:'All', type:'SWIPE', fingers:'4', direction:'LEFT',  action:'CHANGE_DESKTOP',          color:'', params:{ direction:'previous' } },
+    { app:'All', type:'SWIPE', fingers:'4', direction:'RIGHT', action:'CHANGE_DESKTOP',          color:'', params:{ direction:'next'     } },
+    { app:'All', type:'PINCH', fingers:'2', direction:'IN',    action:'CLOSE_WINDOW',            color:'', params:{} },
+    { app:'All', type:'PINCH', fingers:'2', direction:'OUT',   action:'FULLSCREEN_WINDOW',       color:'', params:{} },
+    { app:'All', type:'SWIPE', fingers:'3', direction:'ANY',   action:'MOVE_WINDOW',             color:'', params:{} },
+  ];
+  render();
+}
+
+// ── Collapsible cards ────────────────────────────────────────────────────────
+
+function toggleCard(header) {
+  const body = header.nextElementSibling;
+  header.classList.toggle('collapsed');
+  body.classList.toggle('hidden');
+}
+
+// ── Tiny utils ───────────────────────────────────────────────────────────────
+
+function val(id)    { return document.getElementById(id).value; }
+function set(id, v) { document.getElementById(id).value = v; }
+function h(s) {
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── Wire up settings → live XML update ──────────────────────────────────────
+
+['cfg_animation_delay','cfg_action_execute_threshold','cfg_color','cfg_borderColor']
+  .forEach(id => document.getElementById(id).addEventListener('input', renderXML));
+
+// ── Boot ─────────────────────────────────────────────────────────────────────
+
+syncDirections();
+syncParams();
+loadDefaults();
+</script>
+</body>
+</html>

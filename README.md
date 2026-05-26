@@ -41,3 +41,14 @@ Easily configure your touchpad and touchscreen multi-touch gestures using
 
 Don't forget to also the [X11 Gestures](https://github.com/JoseExposito/gnome-shell-extension-x11gestures)
 GNOME Shell extension.
+
+### Using HTML Generator
+
+If you are having issues or prefer to use an HTML style config generator, you can leverage `touche-config-generator.html` in this repo which will generate a config for you through a web GUI.
+
+Steps to install the configuration once downloaded from the web GUI
+
+# mv ~/.config/touchegg/touchegg.conf ~/.config/touchegg/touchegg.conf.bkp
+# mv ~/Downloads/touchegg.conf ~/.config/touchegg/touchegg.conf
+
+Once the last command is run, touchegg will validate the config and pick it up providing the service is running.
